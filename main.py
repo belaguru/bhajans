@@ -36,8 +36,13 @@ app = FastAPI(title="Belaguru Bhajan Portal")
 
 logger.info("FastAPI app initialized")
 
+# Get absolute path to static directory
+STATIC_DIR = os.path.abspath("static")
+logger.info(f"Static directory: {STATIC_DIR}")
+logger.info(f"Static directory exists: {os.path.exists(STATIC_DIR)}")
+
 # Mount static files
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 
 # Global exception handler
@@ -299,19 +304,23 @@ def health_check():
 @app.get("/")
 def serve_index():
     """Serve index.html"""
-    return FileResponse("static/index.html")
+    index_path = os.path.join(STATIC_DIR, "index.html")
+    logger.info(f"Serving index from: {index_path}, exists: {os.path.exists(index_path)}")
+    return FileResponse(index_path, media_type="text/html")
 
 
 @app.get("/{path:path}")
 def serve_static(path: str):
     """Serve static files"""
-    file_path = f"static/{path}"
+    file_path = os.path.join(STATIC_DIR, path)
     
-    if os.path.exists(file_path):
+    if os.path.exists(file_path) and os.path.isfile(file_path):
         return FileResponse(file_path)
     
     # Return index.html for SPA routing
-    return FileResponse("static/index.html")
+    logger.info(f"Path not found: {file_path}, serving index.html instead")
+    index_path = os.path.join(STATIC_DIR, "index.html")
+    return FileResponse(index_path, media_type="text/html")
 
 
 if __name__ == "__main__":
