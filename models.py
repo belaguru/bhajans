@@ -2,10 +2,14 @@
 Database models for Belaguru Bhajan Portal
 """
 import json
+import os
 from datetime import datetime
 from sqlalchemy import Column, Integer, String, Text, DateTime, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+
+# Ensure data directory exists
+os.makedirs("./data", exist_ok=True)
 
 Base = declarative_base()
 
@@ -48,7 +52,7 @@ class Bhajan(Base):
 
 
 # Database setup
-DATABASE_URL = "sqlite:////home/kreddy/.belaguru/portal.db"
+DATABASE_URL = "sqlite:///./data/portal.db"
 
 engine = create_engine(
     DATABASE_URL,

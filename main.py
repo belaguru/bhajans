@@ -14,7 +14,7 @@ from typing import List, Optional
 from models import Bhajan, init_db, get_db
 
 # Configure comprehensive logging
-LOG_DIR = "/home/kreddy/.belaguru"
+LOG_DIR = "./logs"
 os.makedirs(LOG_DIR, exist_ok=True)
 
 logging.basicConfig(
@@ -57,7 +57,7 @@ async def http_exception_handler(request, exc):
 logger.info("Exception handlers registered")
 
 # Ensure directories exist
-os.makedirs("/home/kreddy/.belaguru", exist_ok=True)
+os.makedirs("./data", exist_ok=True)
 os.makedirs("./static", exist_ok=True)
 
 logger.info("Directories verified")
