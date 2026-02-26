@@ -41,9 +41,6 @@ STATIC_DIR = os.path.abspath("static")
 logger.info(f"Static directory: {STATIC_DIR}")
 logger.info(f"Static directory exists: {os.path.exists(STATIC_DIR)}")
 
-# Mount static files
-app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
-
 
 # Global exception handler
 from fastapi.exceptions import RequestValidationError
