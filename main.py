@@ -298,12 +298,16 @@ def health_check():
 
 
 # Serve static files
-@app.get("/")
+@app.get("/", response_class=FileResponse)
 def serve_index():
     """Serve index.html"""
     index_path = os.path.join(STATIC_DIR, "index.html")
-    logger.info(f"Serving index from: {index_path}, exists: {os.path.exists(index_path)}")
-    return FileResponse(index_path, media_type="text/html")
+    logger.info(f"[ROOT REQUEST] Serving index from: {index_path}")
+    logger.info(f"[ROOT REQUEST] File exists: {os.path.exists(index_path)}")
+    if not os.path.exists(index_path):
+        logger.error(f"[ROOT REQUEST] FILE NOT FOUND: {index_path}")
+        return {"error": "index.html not found"}, 404
+    return index_path
 
 
 @app.get("/{path:path}")
@@ -339,14 +343,16 @@ if __name__ == "__main__":
     signal.signal(signal.SIGINT, signal_handler)
     
     try:
-        logger.info("Starting uvicorn server...")
+        port = int(os.environ.get("PORT", 8000))
+        logger.info(f"Starting uvicorn server on port {port}...")
         uvicorn.run(
             app,
             host="0.0.0.0",
-            port=int(os.environ.get("PORT", 8000)),
-            log_level="info",  # More verbose for debugging
+            port=port,
+            log_level="info",
             access_log=True,
             server_header=False,
+            lifespan="on",
         )
     except Exception as e:
         logger.error(f"Server crashed: {e}", exc_info=True)
