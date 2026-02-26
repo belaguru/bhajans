@@ -6,7 +6,10 @@ Trims leading whitespace from each line
 """
 
 import sys
-sys.path.insert(0, '/home/kreddy/Projects/belaguru-portal')
+import os
+
+# Add parent directory to path (relative)
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from models import Bhajan, SessionLocal
 

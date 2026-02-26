@@ -6,7 +6,9 @@ Usage: python migrate.py
 import sqlite3
 import os
 
-DB_PATH = "/home/kreddy/.belaguru/portal.db"
+# Ensure data directory exists
+os.makedirs("./data", exist_ok=True)
+DB_PATH = "./data/portal.db"
 
 def migrate():
     """Run all pending migrations"""
