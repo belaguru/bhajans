@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-# bhajans
-Bhajans Page of Belaguru
-=======
 # 🧡 Belaguru Bhajan Portal
 
 A community-driven Bhajan portal with a native responsive UI, built with Hanuman Tilak deep orange theme.
@@ -173,4 +169,3 @@ For issues or questions, check the code comments or reach out!
 ---
 
 **Built with ❤️ for Belaguru Bhajans**
->>>>>>> 4230827 (Initial commit: Belaguru Bhajan Portal)
