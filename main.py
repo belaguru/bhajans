@@ -36,6 +36,9 @@ app = FastAPI(title="Belaguru Bhajan Portal")
 
 logger.info("FastAPI app initialized")
 
+# Mount static files
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 
 # Global exception handler
 from fastapi.exceptions import RequestValidationError
