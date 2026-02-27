@@ -71,6 +71,46 @@ logger.info("Directories verified")
 try:
     init_db()
     logger.info("Database initialized successfully")
+    
+    # Run schema migration
+    import sqlite3
+    db_path = "./data/portal.db"
+    try:
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        
+        # Get current columns
+        cursor.execute("PRAGMA table_info(bhajans)")
+        columns = {row[1]: row[2] for row in cursor.fetchall()}
+        
+        # Add missing columns
+        migrations = {
+            "tags": "TEXT",
+            "uploader_name": "TEXT",
+            "created_at": "DATETIME",
+            "updated_at": "DATETIME",
+            "deleted_at": "DATETIME"
+        }
+        
+        for col_name, col_type in migrations.items():
+            if col_name not in columns:
+                cursor.execute(f"ALTER TABLE bhajans ADD COLUMN {col_name} {col_type}")
+                logger.info(f"Added column: {col_name}")
+        
+        # Migrate data
+        if "manual_tags" in columns and "tags" in columns:
+            cursor.execute("UPDATE bhajans SET tags = COALESCE(manual_tags, '') WHERE tags = '' OR tags IS NULL")
+        
+        cursor.execute("UPDATE bhajans SET uploader_name = 'Unknown' WHERE uploader_name = '' OR uploader_name IS NULL")
+        cursor.execute("UPDATE bhajans SET created_at = DATETIME('now') WHERE created_at IS NULL")
+        cursor.execute("UPDATE bhajans SET updated_at = DATETIME('now') WHERE updated_at IS NULL")
+        
+        conn.commit()
+        conn.close()
+        logger.info("Database schema migration completed")
+    except Exception as e:
+        logger.warning(f"Schema migration skipped (might already be migrated): {e}")
+        
 except Exception as e:
     logger.error(f"Database initialization failed: {e}", exc_info=True)
     raise
@@ -204,29 +244,39 @@ def update_bhajan(
     title: Optional[str] = Form(None),
     lyrics: Optional[str] = Form(None),
     tags: str = Form(""),
+    uploader_name: Optional[str] = Form(None),
     db: Session = Depends(get_db)
 ):
-    """Update bhajan (tags and title)"""
+    """Update bhajan (title, lyrics, tags, uploader_name)"""
     bhajan = db.query(Bhajan).filter(
         Bhajan.id == bhajan_id,
         Bhajan.deleted_at == None
     ).first()
-    
+
     if not bhajan:
         raise HTTPException(status_code=404, detail="Bhajan not found")
-    
+
     # Update title if provided
     if title and len(title) >= 3:
         bhajan.title = title
-    
+
+    # Update lyrics if provided
+    if lyrics and len(lyrics) >= 20:
+        cleaned_lyrics = "\n".join(line.lstrip() for line in lyrics.split("\n"))
+        bhajan.lyrics = cleaned_lyrics
+
     # Update tags
-    if tags:
-        tag_list = [t.strip() for t in tags.split(",") if t.strip()]
-        bhajan.set_tags(tag_list)
-    
+    tag_list = [t.strip() for t in tags.split(",") if t.strip()]
+    bhajan.set_tags(tag_list)
+
+    # Update uploader name if provided
+    if uploader_name:
+        bhajan.uploader_name = uploader_name
+
+    bhajan.updated_at = datetime.utcnow()
     db.commit()
     db.refresh(bhajan)
-    
+
     return bhajan.to_dict()
 
 

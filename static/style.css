@@ -163,3 +163,114 @@ input:focus, textarea:focus, select:focus {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--deep-orange);
 }
+
+/* ===== Navigation Buttons ===== */
+.nav-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.nav-back-btn:hover {
+    background: rgba(255, 255, 255, 0.35);
+    border-color: white;
+}
+
+.nav-home-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: white;
+    color: var(--hanuman-orange);
+    border: 2px solid white;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.nav-home-btn:hover {
+    background: var(--cream);
+    transform: translateY(-1px);
+}
+
+/* ===== Tag Autocomplete Dropdown ===== */
+.tag-input-wrapper {
+    position: relative;
+}
+
+.tag-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #E0D5C8;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.tag-dropdown.hidden {
+    display: none;
+}
+
+.tag-dropdown-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--dark-text);
+    transition: background 0.15s ease;
+}
+
+.tag-dropdown-item:hover {
+    background: #FFF3ED;
+    color: var(--hanuman-orange);
+}
+
+.tag-dropdown-new {
+    font-weight: 600;
+    color: var(--hanuman-orange);
+    border-top: 1px solid #f0e8e0;
+}
+
+/* ===== Copy Button ===== */
+.copy-btn {
+    background: var(--hanuman-orange);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    white-space: nowrap;
+}
+
+.copy-btn:hover {
+    background: var(--deep-orange);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
+}
+
+.copy-btn-success {
+    background: #16a34a !important;
+}
