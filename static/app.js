@@ -349,7 +349,7 @@ class BelaGuruApp {
                 <div class="bg-white border-b border-orange-100">
                     <div class="max-w-6xl mx-auto px-4 py-4">
                         <div class="flex items-center justify-center">
-                            <img src="/saints/three-gurus.jpg" alt="Shree Kshetra Belaguru - Bindumadhava, Maruti Gurugalu, Veerapratapa" class="w-full max-w-4xl h-auto rounded-lg shadow-md">
+                            <img src="/saints/three-gurus.jpg" alt="Shree Kshetra Belaguru - Bindumadhava, Maruti Gurugalu, Veerapratapa" class="w-full max-w-2xl h-auto rounded-lg shadow-md">
                         </div>
                     </div>
                 </div>
