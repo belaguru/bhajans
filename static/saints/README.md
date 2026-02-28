@@ -1,10 +1,7 @@
 Place the following saint images in this directory:
 
-1. bindumadhava.jpg - Picture of Bindumadhava
-2. maruti-gurugalu.jpg - Picture of Maruti Gurugalu
-3. veerapratapa.jpg - Picture of Veerapratapa
+1. three-gurus.jpg - Composite image of Bindumadhava, Maruti Gurugalu, and Veerapratapa
 
-Recommended: square images, at least 200x200 pixels.
-Once added, uncomment the <img> tags in app.js renderHome() method (search for "PICTURE: Replace").
+This image is displayed in the home page banner showing all three revered gurus of Shree Kshetra Belaguru.
 
-Also replace /static/logo.png with the new Belaguru logo (search for "LOGO: Replace" in app.js).
+Recommended: High quality composite image, at least 1200x600 pixels.

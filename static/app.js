@@ -348,31 +348,8 @@ class BelaGuruApp {
                 <!-- Saints Banner -->
                 <div class="bg-white border-b border-orange-100">
                     <div class="max-w-6xl mx-auto px-4 py-4">
-                        <div class="flex items-center justify-center gap-6 sm:gap-10 flex-wrap">
-                            <div class="text-center">
-                                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-orange-100 flex items-center justify-center mx-auto border-2 border-orange-300 overflow-hidden">
-                                    <!-- PICTURE: Replace with Bindumadhava image -->
-                                    <!-- <img src="/saints/bindumadhava.jpg" alt="Bindumadhava" class="w-full h-full object-cover"> -->
-                                    <span class="text-2xl sm:text-3xl">🙏</span>
-                                </div>
-                                <p class="text-xs sm:text-sm font-semibold hanuman-text mt-1">Bindumadhava</p>
-                            </div>
-                            <div class="text-center">
-                                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-orange-100 flex items-center justify-center mx-auto border-2 border-orange-300 overflow-hidden">
-                                    <!-- PICTURE: Replace with Maruti Gurugalu image -->
-                                    <!-- <img src="/saints/maruti-gurugalu.jpg" alt="Maruti Gurugalu" class="w-full h-full object-cover"> -->
-                                    <span class="text-2xl sm:text-3xl">🙏</span>
-                                </div>
-                                <p class="text-xs sm:text-sm font-semibold hanuman-text mt-1">Maruti Gurugalu</p>
-                            </div>
-                            <div class="text-center">
-                                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-orange-100 flex items-center justify-center mx-auto border-2 border-orange-300 overflow-hidden">
-                                    <!-- PICTURE: Replace with Veerapratapa image -->
-                                    <!-- <img src="/saints/veerapratapa.jpg" alt="Veerapratapa" class="w-full h-full object-cover"> -->
-                                    <span class="text-2xl sm:text-3xl">🙏</span>
-                                </div>
-                                <p class="text-xs sm:text-sm font-semibold hanuman-text mt-1">Veerapratapa</p>
-                            </div>
+                        <div class="flex items-center justify-center">
+                            <img src="/saints/three-gurus.jpg" alt="Shree Kshetra Belaguru - Bindumadhava, Maruti Gurugalu, Veerapratapa" class="w-full max-w-4xl h-auto rounded-lg shadow-md">
                         </div>
                     </div>
                 </div>
