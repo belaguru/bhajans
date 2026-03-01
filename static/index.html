@@ -16,19 +16,36 @@
     <link rel="apple-touch-icon" href="/logo-hanuman.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="/style.css?v=33">
+    <link rel="stylesheet" href="/style.css?v=34">
 </head>
 <body class="bg-orange-50">
     <div id="app"></div>
     
-    <script src="/app.js?v=33"></script>
+    <script src="/app.js?v=34"></script>
     <script>
-        // Service Worker disabled to prevent caching issues
-        // if ('serviceWorker' in navigator) {
-        //     navigator.serviceWorker.register('/service-worker.js')
-        //         .then(reg => console.log('✅ Service Worker registered'))
-        //         .catch(err => console.log('Service Worker registration failed:', err));
-        // }
+        // Register Service Worker for PWA support
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(reg => console.log('✅ Service Worker registered'))
+                .catch(err => console.log('❌ Service Worker registration failed:', err));
+        }
+
+        // PWA Install Prompt
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            console.log('✅ Install prompt is ready');
+            // Show install button in app if needed
+            if (window.app) {
+                window.app.showInstallPrompt = true;
+            }
+        });
+
+        window.addEventListener('appinstalled', () => {
+            console.log('✅ App was installed');
+            deferredPrompt = null;
+        });
     </script>
 </body>
 </html>
