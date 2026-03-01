@@ -497,9 +497,9 @@ body.font-size-large {
     text-align: center;
 }
 
-/* Add bottom padding to app container to prevent content overlap */
+/* App padding - no fixed bottom bar anymore */
 #app {
-    padding-bottom: 80px;
+    padding-bottom: 0;
 }
 
 /* Share buttons styling */
@@ -618,7 +618,7 @@ body.font-size-large {
 
 @media (max-width: 768px) {
     #app {
-        padding-bottom: 85px;
+        padding-bottom: 0;
     }
     
     .share-button {

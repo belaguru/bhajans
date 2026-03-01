@@ -536,7 +536,7 @@ class BelaGuruApp {
             </div>
         `;
 
-        this.appContainer.innerHTML = html + this.renderFloatingMenu() + this.renderBottomTabBar("home");
+        this.appContainer.innerHTML = html + this.renderFloatingMenu();
         this.renderSearchStatus(); // Initialize search status on load
     }
 
@@ -694,7 +694,7 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
             </div>
         `;
 
-        this.appContainer.innerHTML = html + this.renderShareButtons(bhajan) + this.renderFloatingMenu() + this.renderBottomTabBar("bhajan");
+        this.appContainer.innerHTML = html + this.renderShareButtons(bhajan) + this.renderFloatingMenu();
     }
 
     copyLyrics() {
@@ -800,7 +800,7 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
             </div>
         `;
 
-        this.appContainer.innerHTML = html + this.renderShareButtons(bhajan) + this.renderFloatingMenu() + this.renderBottomTabBar("bhajan");
+        this.appContainer.innerHTML = html + this.renderShareButtons(bhajan) + this.renderFloatingMenu();
     }
 
     handleEditSubmit(event, bhajanId) {
@@ -911,19 +911,38 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
                 ⚙️
             </button>
             <div id="floating-menu" class="floating-menu">
+                <!-- Navigation -->
+                <div class="floating-menu-item" onclick="app.setPage('home'); app.closeFloatingMenu();">
+                    <span class="floating-menu-item-icon">🏠</span>
+                    <span>Home</span>
+                </div>
+                <div class="floating-menu-item" onclick="app.openSearch(); app.closeFloatingMenu();">
+                    <span class="floating-menu-item-icon">🔍</span>
+                    <span>Search</span>
+                </div>
+                <div class="floating-menu-item" onclick="app.setPage('upload'); app.closeFloatingMenu();">
+                    <span class="floating-menu-item-icon">📝</span>
+                    <span>Upload</span>
+                </div>
+                <div class="floating-menu-item" onclick="app.setPage('favorites'); app.closeFloatingMenu();">
+                    <span class="floating-menu-item-icon">❤️</span>
+                    <span>Favorites</span>
+                </div>
+                
+                <div class="floating-menu-divider"></div>
+                
+                <!-- Daily Bhajan -->
                 ${this.bhajans.length > 0 ? `
                     <div class="floating-menu-item" onclick="app.showDailyBhajan()">
                         <span class="floating-menu-item-icon">🎵</span>
                         <span>Daily Bhajan</span>
                     </div>
                 ` : ''}
-                <div class="floating-menu-item" onclick="app.setPage('upload'); app.closeFloatingMenu();">
-                    <span class="floating-menu-item-icon">📝</span>
-                    <span>Upload Bhajan</span>
-                </div>
+                
+                <!-- Font Size -->
                 <div class="floating-menu-divider"></div>
                 <div class="font-size-controls">
-                    <span style="font-size: 12px; font-weight: 600; color: #666;">Size:</span>
+                    <span style="font-size: 11px; font-weight: 700; color: #666; display: block; margin-bottom: 6px;">Font Size</span>
                     <button onclick="app.changeFontSize('small')" class="${savedFontSize === 'small' ? 'active' : ''}">A</button>
                     <button onclick="app.changeFontSize('normal')" class="${savedFontSize === 'normal' ? 'active' : ''}"><strong>A</strong></button>
                     <button onclick="app.changeFontSize('large')" class="${savedFontSize === 'large' ? 'active' : ''}"><strong style="font-size: 18px;">A</strong></button>
@@ -947,15 +966,6 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
     }
 
 
-    // ===== BOTTOM TAB BAR =====
-    renderBottomTabBar(page = 'home') {
-        const active = (p) => page === p ? 'active' : '';
-        return `<div class="bottom-tab-bar">
-            <button class="tab-button ${active('home')}" onclick="app.setPage('home')"><span>🏠</span><span class="tab-label">Home</span></button>
-            <button class="tab-button ${active('search')}" onclick="app.openSearch()"><span>🔍</span><span class="tab-label">Search</span></button>
-            <button class="tab-button ${active('favorites')}" onclick="app.setPage('favorites')"><span>❤️</span><span class="tab-label">Favorites</span></button>
-        </div>`;
-    }
     
     openSearch() { 
         this.setPage('home'); 
