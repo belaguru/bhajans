@@ -130,6 +130,7 @@ class BhajanResponse(BaseModel):
     lyrics: str
     tags: List[str]
     uploader_name: str
+    youtube_url: str = None
     created_at: str
     updated_at: str
 
@@ -191,6 +192,7 @@ def create_bhajan(
     lyrics: str = Form(...),
     tags: str = Form(""),
     uploader_name: str = Form("Anonymous"),
+    youtube_url: str = Form(None),
     db: Session = Depends(get_db)
 ):
     """Create new bhajan"""
