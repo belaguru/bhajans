@@ -6,7 +6,7 @@ import logging
 from datetime import datetime
 from fastapi import FastAPI, HTTPException, File, UploadFile, Form, Depends
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse
 from sqlalchemy.orm import Session
 from sqlalchemy import or_, desc
 from pydantic import BaseModel
@@ -50,13 +50,13 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 @app.exception_handler(Exception)
 async def general_exception_handler(request, exc):
     logger.error(f"Unhandled exception: {exc}", exc_info=True)
-    return {"error": str(exc)}, 500
+    raise HTTPException(status_code=500, detail=str(exc))
 
 
 @app.exception_handler(StarletteHTTPException)
 async def http_exception_handler(request, exc):
     logger.warning(f"HTTP Exception {exc.status_code}: {exc.detail}")
-    return {"error": exc.detail}, exc.status_code
+    return JSONResponse({"error": exc.detail}, status_code=exc.status_code)
 
 
 logger.info("Exception handlers registered")
@@ -344,7 +344,7 @@ def health_check():
         }
     except Exception as e:
         logger.error(f"Health check failed: {e}", exc_info=True)
-        return {"status": "unhealthy", "error": str(e)}, 500
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 # Serve static files
@@ -356,8 +356,8 @@ def serve_index():
     logger.info(f"[ROOT REQUEST] File exists: {os.path.exists(index_path)}")
     if not os.path.exists(index_path):
         logger.error(f"[ROOT REQUEST] FILE NOT FOUND: {index_path}")
-        return {"error": "index.html not found"}, 404
-    return index_path
+        raise HTTPException(status_code=404, detail="index.html not found")
+    return FileResponse(index_path)
 
 
 @app.get("/{path:path}")
