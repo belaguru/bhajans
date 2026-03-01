@@ -464,9 +464,36 @@ class BelaGuruApp {
                     <!-- Search Status (NEW) -->
                     <div id="search-status" class="mb-6"></div>
 
+                    <!-- Mobile Tag Toggle Button -->
+                    <div class="lg:hidden mb-4">
+                        <button onclick="document.getElementById('mobile-tags-section').classList.toggle('hidden')" 
+                                class="w-full px-4 py-3 bg-white border-2 border-orange-200 rounded-lg font-semibold hanuman-accent hover:bg-orange-50 transition">
+                            ▼ Filter by Tags
+                        </button>
+                    </div>
+                    
+                    <!-- Mobile Tags (Hidden by default) -->
+                    <div id="mobile-tags-section" class="hidden lg:hidden mb-4 card">
+                        <h3 class="font-bold text-lg mb-4 hanuman-accent">📑 Tags</h3>
+                        <div class="space-y-2">
+                            ${this.allTags.map(tag => `
+                                <button
+                                    onclick="app.filterByTag('${tag}'); document.getElementById('mobile-tags-section').classList.add('hidden');"
+                                    class="w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${
+                                        this.selectedTag === tag
+                                            ? 'bg-orange-100 hanuman-accent font-semibold'
+                                            : 'hover:bg-orange-50 text-gray-700'
+                                    }"
+                                >
+                                    ${tag}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+
                     <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-                        <!-- Sidebar (Tags) -->
-                        <div class="lg:col-span-1">
+                        <!-- Sidebar (Tags) - Desktop Only -->
+                        <div class="hidden lg:block lg:col-span-1">
                             <div class="card sticky top-32">
                                 <h3 class="font-bold text-lg mb-4 hanuman-accent">📑 Tags</h3>
                                 <div class="space-y-2">
