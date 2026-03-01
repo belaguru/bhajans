@@ -16,12 +16,12 @@
     <link rel="apple-touch-icon" href="/logo-hanuman.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="/style.css?v=40">
+    <link rel="stylesheet" href="/style.css?v=41">
 </head>
 <body class="bg-orange-50">
     <div id="app"></div>
     
-    <script src="/app.js?v=40"></script>
+    <script src="/app.js?v=41"></script>
     <script>
         // PWA Install State
         let deferredPrompt = null;
@@ -69,21 +69,36 @@
 
         // Global function to trigger install
         window.triggerInstall = async function() {
-            if (!deferredPrompt) {
-                console.warn('beforeinstallprompt event never fired');
-                alert('Use browser menu to install:\n\nChrome/Edge: ⋮ → "Install app"\nSafari: Share → "Add to Home Screen"\nFirefox: ⋯ → "Install"');
-                return;
-            }
-            try {
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                console.log('User response:', outcome);
-                if (outcome === 'accepted') {
-                    console.log('✅ App installation accepted');
+            // Check if beforeinstallprompt event fired
+            if (deferredPrompt) {
+                try {
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    console.log('User response:', outcome);
+                    if (outcome === 'accepted') {
+                        console.log('✅ App installation accepted');
+                    }
+                    deferredPrompt = null;
+                } catch (err) {
+                    console.error('Install error:', err);
                 }
-                deferredPrompt = null;
-            } catch (err) {
-                console.error('Install error:', err);
+            } else {
+                // Event never fired - show manual instructions based on browser
+                const userAgent = navigator.userAgent.toLowerCase();
+                let message = '';
+                
+                if (userAgent.includes('safari') && !userAgent.includes('chrome')) {
+                    message = '📱 Safari:\n1. Tap the Share button (box with arrow)\n2. Scroll down\n3. Tap "Add to Home Screen"\n4. Tap "Add"';
+                } else if (userAgent.includes('firefox')) {
+                    message = '📱 Firefox:\n1. Tap ⋯ (menu)\n2. Tap "Install"';
+                } else if (userAgent.includes('edg')) {
+                    message = '📱 Edge:\n1. Tap ⋯ (menu)\n2. Tap "Install app"';
+                } else {
+                    message = '📱 Your Browser:\n1. Open browser menu (⋮ or ≡)\n2. Look for "Install app" or "Add to Home Screen"\n3. Follow the prompts';
+                }
+                
+                console.log('⚠️ beforeinstallprompt never fired, showing manual instructions');
+                alert(message);
             }
         };
 
