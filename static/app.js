@@ -26,7 +26,8 @@ class BelaGuruApp {
         await this.loadBhajans();
         await this.loadTags();
         this.loadFontSizePreference();
-        this.renderHome();
+        this.initURLListener();
+        this.loadFromURL();
     }
 
     async loadBhajans() {
@@ -243,11 +244,13 @@ class BelaGuruApp {
         this.currentPage = page;
 
         if (page === "home") {
+            this.updateURL('home');
             this.renderHome();
         } else if (page === "upload") {
             this._selectedTags = [];
             this.renderUpload();
         } else if (page === "bhajan" && arguments[1]) {
+            this.updateURL('bhajan', arguments[1]);
             this.renderBhajanDetail(arguments[1]);
         } else if (page === "settings") {
             this.renderSettings();
@@ -1003,7 +1006,7 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
     }
 
     copyLink(id) {
-        const link = 'https://bhajans.s365.in';
+        const link = `https://bhajans.s365.in?bhajan=${id}`;
         navigator.clipboard.writeText(link).then(() => {
             const feedback = document.createElement('div');
             feedback.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#FF6B35;color:white;padding:12px 20px;border-radius:8px;z-index:1000;font-weight:bold;';
@@ -1041,6 +1044,39 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
             </div>
         </div>`; 
         this.appContainer.innerHTML = html + this.renderFloatingMenu() + this.renderBottomTabBar('favorites'); 
+    }
+
+
+    // ===== URL ROUTING =====
+    updateURL(page, id) {
+        let url = window.location.pathname;
+        if (page === 'bhajan' && id) {
+            url += `?bhajan=${id}`;
+        }
+        window.history.pushState({ page, id }, '', url);
+    }
+
+    loadFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        const bhajanId = parseInt(params.get('bhajan'));
+        if (bhajanId) {
+            const bhajan = this.bhajans.find(b => b.id === bhajanId);
+            if (bhajan) {
+                this.setPage('bhajan', bhajanId);
+                return;
+            }
+        }
+        this.renderHome();
+    }
+
+    initURLListener() {
+        window.addEventListener('popstate', (event) => {
+            if (event.state && event.state.page === 'bhajan') {
+                this.setPage('bhajan', event.state.id);
+            } else {
+                this.setPage('home');
+            }
+        });
     }
 
 }
