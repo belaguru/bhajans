@@ -976,14 +976,18 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
     }
 
     renderShareButtons(bhajan) { 
+        const isFav = this.isFavorited(bhajan.id);
+        const heartIcon = isFav ? '❤️' : '🤍';
+        const heartTitle = isFav ? 'Remove from favorites' : 'Add to favorites';
         return `<div class="share-button-group">
             <button class="icon-btn" onclick="app.downloadBhajan('${bhajan.title.replace(/'/g, "\"'")}', '${bhajan.lyrics.replace(/'/g, "\"'").substring(0,100)}...')">📥</button>
             <button class="icon-btn" onclick="app.shareWhatsApp('${bhajan.title.replace(/'/g, "\"'")}', '${bhajan.id}')"><img src="/whatsapp-logo.svg" alt=""></button>
             <button class="icon-btn" onclick="app.shareTelegram('${bhajan.title.replace(/'/g, "\"'")}', '${bhajan.id}')"><img src="/telegram-logo.svg" alt=""></button>
             <button class="icon-btn" onclick="app.copyLink('${bhajan.id}')">🔗</button>
-            <button class="icon-btn" onclick="app.toggleFavorite('${bhajan.id}', '${bhajan.title.replace(/'/g, "\'")}')">❤️</button>
+            <button class="icon-btn" onclick="app.toggleFavorite('${bhajan.id}', '${bhajan.title.replace(/'/g, "\'")}' )" title="${heartTitle}">${heartIcon}</button>
         </div>`; 
     }
+
 
     downloadBhajan(title, preview) {
         const text = title + '\n\n' + preview;
