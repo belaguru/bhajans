@@ -186,23 +186,6 @@ input:focus, textarea:focus, select:focus {
     border-color: white;
 }
 
-.nav-home-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    background: white;
-    color: var(--hanuman-orange);
-    border: 2px solid white;
-    padding: 6px 14px;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-family: inherit;
-}
-
-.nav-home-btn:hover {
     background: var(--cream);
     transform: translateY(-1px);
 }

@@ -391,9 +391,6 @@ class BelaGuruApp {
                         <button onclick="${backAction}" class="nav-back-btn">
                             <span class="text-lg">&#8592;</span> ${backLabel}
                         </button>
-                        <button onclick="app.setPage('home')" class="nav-home-btn" title="Home">
-                            <span class="text-lg">&#8962;</span> Home
-                        </button>
                     </div>
                     <div class="flex items-start justify-between gap-4">
                         <div class="flex-1">
