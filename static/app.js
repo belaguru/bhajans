@@ -693,7 +693,7 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
             </div>
         `;
 
-        this.appContainer.innerHTML = html + this.renderFloatingMenu();
+        this.appContainer.innerHTML = html + this.renderShareButtons(bhajan) + this.renderFloatingMenu() + this.renderBottomTabBar("bhajan");
     }
 
     copyLyrics() {
@@ -799,7 +799,7 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
             </div>
         `;
 
-        this.appContainer.innerHTML = html + this.renderFloatingMenu();
+        this.appContainer.innerHTML = html + this.renderShareButtons(bhajan) + this.renderFloatingMenu() + this.renderBottomTabBar("bhajan");
     }
 
     handleEditSubmit(event, bhajanId) {
@@ -943,6 +943,65 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
                 <p>${daily.title}</p>
             </div>
         `;
+    }
+
+
+    // ===== BOTTOM TAB BAR =====
+    renderBottomTabBar(page = 'home') {
+        const active = (p) => page === p ? 'active' : '';
+        return `<div class="bottom-tab-bar">
+            <button class="tab-button ${active('home')}" onclick="app.setPage('home')"><span>🏠</span><span class="tab-label">Home</span></button>
+            <button class="tab-button ${active('search')}" onclick="app.openSearch()"><span>🔍</span><span class="tab-label">Search</span></button>
+            <button class="tab-button ${active('favorites')}" onclick="app.setPage('favorites')"><span>❤️</span><span class="tab-label">Favorites</span></button>
+            <button class="tab-button ${active('settings')}" onclick="app.setPage('settings')"><span>⚙️</span><span class="tab-label">Settings</span></button>
+        </div>`;
+    }
+    
+    openSearch() { 
+        this.setPage('home'); 
+        setTimeout(() => { 
+            const input = document.querySelector('input[placeholder*="Search"]'); 
+            if(input) input.focus(); 
+        }, 100); 
+    }
+
+    renderShareButtons(bhajan) { 
+        return `<div class="share-button-group">
+            <button class="share-button secondary" onclick="alert('Download feature coming soon!')">📥 Download</button>
+            <button class="share-button" onclick="alert('Share to WhatsApp!')">📤 WhatsApp</button>
+            <button class="share-button" onclick="alert('Share to Telegram!')">📤 Telegram</button>
+            <button class="share-button secondary" onclick="alert('Link copied!')">🔗 Copy</button>
+        </div>`; 
+    }
+
+    renderSettings() { 
+        const html = `<div class="min-h-screen bg-orange-50">
+            ${this.renderNavHeader({backLabel:'Back', backAction:"app.setPage('home')", title:'Settings', subtitle:'Customize your experience'})}
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <div class="card">
+                    <h3 class="font-semibold hanuman-text mb-4">Font Size</h3>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button onclick="app.changeFontSize('small')" class="py-2 px-4 bg-white border-2 border-orange-200 rounded hover:bg-orange-50">Small</button>
+                        <button onclick="app.changeFontSize('normal')" class="py-2 px-4 bg-white border-2 border-orange-200 rounded hover:bg-orange-50">Normal</button>
+                        <button onclick="app.changeFontSize('large')" class="py-2 px-4 bg-white border-2 border-orange-200 rounded hover:bg-orange-50">Large</button>
+                    </div>
+                </div>
+            </div>
+        </div>`; 
+        this.appContainer.innerHTML = html + this.renderFloatingMenu() + this.renderBottomTabBar('settings'); 
+    }
+    
+    renderFavorites() { 
+        const html = `<div class="min-h-screen bg-orange-50">
+            ${this.renderNavHeader({backLabel:'Back', backAction:"app.setPage('home')", title:'Favorites', subtitle:'Your saved bhajans'})}
+            <div class="max-w-6xl mx-auto px-4 py-8">
+                <div class="card text-center py-12">
+                    <p class="text-gray-500">No favorites yet</p>
+                    <p class="text-gray-400 text-sm mt-2">Click ❤️ on any bhajan to save it!</p>
+                </div>
+            </div>
+        </div>`; 
+        this.appContainer.innerHTML = html + this.renderFloatingMenu() + this.renderBottomTabBar('favorites'); 
     }
 
 }
