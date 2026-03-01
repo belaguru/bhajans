@@ -428,7 +428,7 @@ class BelaGuruApp {
                             <button onclick="app.setPage('upload')" style="background-color: white; color: #FF6B35; padding: 8px 16px; border: 2px solid white; border-radius: 6px; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0;">
                                 + Upload
                             </button>
-                            <button onclick="window.triggerInstall && window.triggerInstall()" id="install-btn-header" style="background-color: #FF6B35; color: white; padding: 8px 16px; border: 2px solid #FF6B35; border-radius: 6px; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0; display: none;">
+                            <button onclick="window.triggerInstall && window.triggerInstall()" id="install-btn-header" style="background-color: #FF6B35; color: white; padding: 8px 16px; border: 2px solid #FF6B35; border-radius: 6px; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0;">
                                 📱 Install
                             </button>
                         </div>
