@@ -16,12 +16,12 @@
     <link rel="apple-touch-icon" href="/logo-hanuman.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="/style.css?v=38">
+    <link rel="stylesheet" href="/style.css?v=39">
 </head>
 <body class="bg-orange-50">
     <div id="app"></div>
     
-    <script src="/app.js?v=38"></script>
+    <script src="/app.js?v=39"></script>
     <script>
         // PWA Install State
         let deferredPrompt = null;
@@ -40,29 +40,39 @@
 
         // PWA Install Prompt Handler
         window.addEventListener('beforeinstallprompt', (e) => {
-            console.log('✅ Install prompt triggered');
+            console.log('✅ Install prompt ready - enabling button');
             e.preventDefault();
             deferredPrompt = e;
             installPromptShown = false;
             
-            // Show install button
+            // Enable install button
             const btn = document.getElementById('install-btn-header');
             if (btn) {
-                btn.style.display = 'block';
-                console.log('✅ Install button displayed');
+                btn.disabled = false;
+                btn.style.opacity = '1';
+                btn.style.cursor = 'pointer';
+                console.log('✅ Install button enabled and ready to click');
             }
         });
 
         // Global function to trigger install
         window.triggerInstall = async function() {
             if (!deferredPrompt) {
-                console.warn('Install prompt not available');
+                console.warn('Install not ready yet');
+                alert('Install is not ready yet. Please refresh the page and wait a few seconds.');
                 return;
             }
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            console.log('User response:', outcome);
-            deferredPrompt = null;
+            try {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log('User response:', outcome);
+                if (outcome === 'accepted') {
+                    console.log('✅ App installation accepted');
+                }
+                deferredPrompt = null;
+            } catch (err) {
+                console.error('Install error:', err);
+            }
         };
 
         // App Installed Event
