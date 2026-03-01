@@ -6,6 +6,7 @@
 
 class BelaGuruApp {
     constructor() {
+        console.log("🦁 BelaGuruApp constructor starting...");
         this.currentPage = "home";
         this.bhajans = [];
         this.filteredBhajans = [];
@@ -1008,5 +1009,18 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
 
 // Initialize app when DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
-    window.app = new BelaGuruApp();
+    try {
+        console.log("🦁 Simba: Starting app initialization...");
+        window.app = new BelaGuruApp();
+        console.log("🦁 Simba: App initialized successfully!");
+    } catch (error) {
+        console.error("🦁 SIMBA ERROR:", error);
+        document.getElementById("app").innerHTML = `
+            <div style="padding: 20px; color: red; font-family: Arial;">
+                <h2>⚠️ App Error</h2>
+                <p>${error.message}</p>
+                <p>${error.stack}</p>
+            </div>
+        `;
+    }
 });
