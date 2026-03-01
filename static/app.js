@@ -24,6 +24,7 @@ class BelaGuruApp {
     async init() {
         await this.loadBhajans();
         await this.loadTags();
+        this.loadFontSizePreference();
         this.renderHome();
     }
 
@@ -84,6 +85,7 @@ class BelaGuruApp {
         this.searchTimeout = setTimeout(() => {
             this.applyFilters();
             this.renderResults();
+            this.renderSearchStatus(); // NEW: Show search results feedback
         }, 300);
     }
 
@@ -91,6 +93,7 @@ class BelaGuruApp {
         this.selectedTag = this.selectedTag === tag ? null : tag;
         this.applyFilters();
         this.renderResults();
+        this.renderSearchStatus(); // NEW: Update status when filtering
     }
 
     applyFilters() {
@@ -104,6 +107,87 @@ class BelaGuruApp {
 
             return matchesSearch && matchesTag;
         });
+    }
+
+    // NEW: Render search results status/feedback
+    renderSearchStatus() {
+        const statusContainer = document.getElementById('search-status');
+        if (!statusContainer) return;
+
+        let statusHTML = '';
+
+        if (this.searchQuery || this.selectedTag) {
+            // Show filters info
+            let filterInfo = [];
+            
+            if (this.searchQuery) {
+                filterInfo.push(`📝 Search: "<strong>${this.searchQuery}</strong>"`);
+            }
+            
+            if (this.selectedTag) {
+                filterInfo.push(`🏷️ Tag: <strong>${this.selectedTag}</strong>`);
+            }
+
+            const count = this.filteredBhajans.length;
+            const resultText = count === 1 ? 'bhajan' : 'bhajans';
+
+            if (count > 0) {
+                statusHTML = `
+                    <div class="card bg-green-50 border-l-4 border-green-500">
+                        <div class="flex items-center justify-between gap-3">
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-700">
+                                    ${filterInfo.join(' + ')}
+                                </p>
+                                <p class="font-semibold text-green-700 mt-1">
+                                    ✅ Found <strong>${count}</strong> ${resultText}
+                                </p>
+                            </div>
+                            <button onclick="app.clearFilters()" class="text-sm px-3 py-1 rounded bg-green-200 hover:bg-green-300 text-green-800 font-semibold transition-colors">
+                                Clear Filters ✕
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                statusHTML = `
+                    <div class="card bg-red-50 border-l-4 border-red-500">
+                        <div class="flex items-center justify-between gap-3">
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-700">
+                                    ${filterInfo.join(' + ')}
+                                </p>
+                                <p class="font-semibold text-red-700 mt-1">
+                                    ❌ No bhajans found
+                                </p>
+                                <p class="text-xs text-red-600 mt-1">
+                                    Try different search terms or filters
+                                </p>
+                            </div>
+                            <button onclick="app.clearFilters()" class="text-sm px-3 py-1 rounded bg-red-200 hover:bg-red-300 text-red-800 font-semibold transition-colors flex-shrink-0">
+                                Clear All ✕
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        statusContainer.innerHTML = statusHTML;
+    }
+
+    // NEW: Clear all filters
+    clearFilters() {
+        this.searchQuery = "";
+        this.selectedTag = null;
+        
+        // Update search input
+        const searchInput = document.querySelector('input[placeholder*="Search bhajans"]');
+        if (searchInput) searchInput.value = "";
+        
+        this.applyFilters();
+        this.renderResults();
+        this.renderSearchStatus();
     }
 
     renderResults() {
@@ -367,8 +451,16 @@ class BelaGuruApp {
                     </div>
                 </div>
 
+                <!-- Daily Bhajan Banner -->
+                <div class="max-w-6xl mx-auto px-4 py-4">
+                    ${this.renderDailyBhajanBanner()}
+                </div>
+
                 <!-- Main Content -->
                 <div class="max-w-6xl mx-auto px-4 py-6">
+                    <!-- Search Status (NEW) -->
+                    <div id="search-status" class="mb-6"></div>
+
                     <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
                         <!-- Sidebar (Tags) -->
                         <div class="lg:col-span-1">
@@ -439,7 +531,8 @@ class BelaGuruApp {
             </div>
         `;
 
-        this.appContainer.innerHTML = html;
+        this.appContainer.innerHTML = html + this.renderFloatingMenu();
+        this.renderSearchStatus(); // Initialize search status on load
     }
 
     renderUpload() {
@@ -512,7 +605,7 @@ class BelaGuruApp {
             </div>
         `;
 
-        this.appContainer.innerHTML = html;
+        this.appContainer.innerHTML = html + this.renderFloatingMenu();
     }
 
     handleUploadSubmit(event) {
@@ -596,7 +689,7 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
             </div>
         `;
 
-        this.appContainer.innerHTML = html;
+        this.appContainer.innerHTML = html + this.renderFloatingMenu();
     }
 
     copyLyrics() {
@@ -702,7 +795,7 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
             </div>
         `;
 
-        this.appContainer.innerHTML = html;
+        this.appContainer.innerHTML = html + this.renderFloatingMenu();
     }
 
     handleEditSubmit(event, bhajanId) {
@@ -754,6 +847,100 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
         })
         .catch(error => alert(`Error: ${error.message}`));
     }
+
+    // ===== FLOATING MENU & DAILY BHAJAN =====
+    
+    toggleFloatingMenu() {
+        const menu = document.getElementById('floating-menu');
+        if (menu) menu.classList.toggle('visible');
+        const btn = document.getElementById('floating-menu-button');
+        if (btn) btn.classList.toggle('open');
+    }
+
+    closeFloatingMenu() {
+        const menu = document.getElementById('floating-menu');
+        const btn = document.getElementById('floating-menu-button');
+        if (menu) menu.classList.remove('visible');
+        if (btn) btn.classList.remove('open');
+    }
+
+    getDailyBhajan() {
+        if (this.bhajans.length === 0) return null;
+        const today = new Date();
+        const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
+        const index = dayOfYear % this.bhajans.length;
+        return this.bhajans[index];
+    }
+
+    showDailyBhajan() {
+        const daily = this.getDailyBhajan();
+        if (!daily) {
+            alert("No bhajans available yet!");
+            return;
+        }
+        this.closeFloatingMenu();
+        this.setPage('bhajan', daily.id);
+    }
+
+    changeFontSize(size) {
+        const body = document.body;
+        body.classList.remove('font-size-small', 'font-size-normal', 'font-size-large');
+        body.classList.add(`font-size-${size}`);
+        localStorage.setItem('bhajan-font-size', size);
+        const buttons = document.querySelectorAll('.font-size-controls button');
+        buttons.forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+        this.closeFloatingMenu();
+    }
+
+    loadFontSizePreference() {
+        const saved = localStorage.getItem('bhajan-font-size') || 'normal';
+        document.body.classList.add(`font-size-${saved}`);
+    }
+
+    renderFloatingMenu() {
+        const daily = this.getDailyBhajan();
+        const savedFontSize = localStorage.getItem('bhajan-font-size') || 'normal';
+        return `
+            <button id="floating-menu-button" class="floating-menu-button" onclick="app.toggleFloatingMenu()" title="Menu">
+                ⚙️
+            </button>
+            <div id="floating-menu" class="floating-menu">
+                ${this.bhajans.length > 0 ? `
+                    <div class="floating-menu-item" onclick="app.showDailyBhajan()">
+                        <span class="floating-menu-item-icon">🎵</span>
+                        <span>Daily Bhajan</span>
+                    </div>
+                ` : ''}
+                <div class="floating-menu-item" onclick="app.setPage('upload'); app.closeFloatingMenu();">
+                    <span class="floating-menu-item-icon">📝</span>
+                    <span>Upload Bhajan</span>
+                </div>
+                <div class="floating-menu-divider"></div>
+                <div class="font-size-controls">
+                    <span style="font-size: 12px; font-weight: 600; color: #666;">Size:</span>
+                    <button onclick="app.changeFontSize('small')" class="${savedFontSize === 'small' ? 'active' : ''}">A</button>
+                    <button onclick="app.changeFontSize('normal')" class="${savedFontSize === 'normal' ? 'active' : ''}"><strong>A</strong></button>
+                    <button onclick="app.changeFontSize('large')" class="${savedFontSize === 'large' ? 'active' : ''}"><strong style="font-size: 18px;">A</strong></button>
+                </div>
+            </div>
+        `;
+    }
+
+    renderDailyBhajanBanner() {
+        const daily = this.getDailyBhajan();
+        if (!daily) return '';
+        const today = new Date();
+        const options = { weekday: 'long', month: 'short', day: 'numeric' };
+        const dateStr = today.toLocaleDateString('en-US', options);
+        return `
+            <div class="daily-bhajan-banner" onclick="app.setPage('bhajan', ${daily.id})">
+                <h3>🎵 TODAY'S BHAJAN - ${dateStr}</h3>
+                <p>${daily.title}</p>
+            </div>
+        `;
+    }
+
 }
 
 // Initialize app when DOM is ready
