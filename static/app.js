@@ -417,15 +417,18 @@ class BelaGuruApp {
                     <div class="max-w-6xl mx-auto px-4 py-4 sm:py-6">
                         <div class="flex items-center justify-between gap-2 sm:gap-4 flex-wrap">
                             <div class="flex items-center gap-3 flex-1 min-w-0">
-                                <img src="/logo.png" alt="Belaguru Logo" class="w-12 h-12 sm:w-16 sm:h-16">
-                                <!-- LOGO: Replace /logo.png with new Belaguru logo file -->
+                                <img src="/logo-hanuman.png" alt="Belaguru Logo" class="w-12 h-12 sm:w-16 sm:h-16">
+                                <!-- LOGO: Using Hanuman logo -->
                                 <div class="flex-1 min-w-0">
                                     <h1 class="text-lg sm:text-2xl font-bold text-white leading-tight">
                                         Shree Kshetra Belaguru
                                     </h1>
-                                    <p class="text-orange-100 text-xs sm:text-sm mt-0.5 font-semibold">
-                                        Bhajana Maalika
-                                    </p>
+                                    <div class="flex items-center gap-2 mt-0.5">
+                                        <img src="/logo-hanuman.png" alt="Hanuman" class="w-5 h-5 sm:w-6 sm:h-6">
+                                        <p class="text-orange-100 text-sm sm:text-lg font-bold">
+                                            Bhajana Maalika
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                             <button onclick="app.setPage('upload')" style="background-color: white; color: #FF6B35; padding: 8px 16px; border: 2px solid white; border-radius: 6px; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0;">
