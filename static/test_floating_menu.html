@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.floating-menu-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+    background: linear-gradient(135deg, #FF6B35, #E67E22);
+    border: none;
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    cursor: pointer;
+    font-size: 28px;
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+// Simulate the renderFloatingMenu function
+function renderFloatingMenu() {
+    return `<button class="floating-menu-button" onclick="alert('Works!')">⚙️</button>`;
+}
+
+// Test
+document.getElementById('app').innerHTML = '<h1>Test</h1>' + renderFloatingMenu();
+console.log('Button rendered:', document.querySelector('.floating-menu-button') !== null);
+</script>
+</body>
+</html>
