@@ -421,7 +421,7 @@ class BelaGuruApp {
                                 <!-- LOGO: Using Hanuman logo -->
                                 <div class="flex-1 min-w-0">
                                     <h1 class="text-lg sm:text-2xl font-bold text-white leading-tight">
-                                        ಶ್ರೀ ಕ್ಷೇತ್ರ ಬೆಳಗೂರು - ಭಜನ ಮಾಲಿಕೆ
+                                        ಶ್ರೀ ಕ್ಷೇತ್ರ ಬೆಲಗೂರು - ಭಜನ ಮಾಲಿಕೆ
                                     </h1>
                                 </div>
                             </div>
