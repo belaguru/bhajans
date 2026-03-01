@@ -1069,11 +1069,14 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
     // ===== FAVORITES =====
     getFavorites() {
         const saved = localStorage.getItem('bhajan_favorites');
-        return saved ? JSON.parse(saved) : [];
+        if (!saved) return [];
+        const parsed = JSON.parse(saved);
+        return parsed.map(id => parseInt(id));
     }
 
     saveFavorites(favs) {
-        localStorage.setItem('bhajan_favorites', JSON.stringify(favs));
+        const numericFavs = favs.map(id => parseInt(id));
+        localStorage.setItem('bhajan_favorites', JSON.stringify(numericFavs));
     }
 
     isFavorited(bhajanId) {
@@ -1081,15 +1084,24 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
     }
 
     toggleFavorite(bhajanId, bhajanTitle) {
-        const favs = this.getFavorites();
-        const idx = favs.indexOf(bhajanId);
-        if (idx > -1) {
-            favs.splice(idx, 1);
-        } else {
-            favs.push(bhajanId);
+        try {
+            bhajanId = parseInt(bhajanId);
+            const favs = this.getFavorites();
+            const idx = favs.indexOf(bhajanId);
+            if (idx > -1) {
+                favs.splice(idx, 1);
+                console.log('Removed from favorites:', bhajanId);
+            } else {
+                favs.push(bhajanId);
+                console.log('Added to favorites:', bhajanId);
+            }
+            this.saveFavorites(favs);
+            console.log('Favorites saved:', favs);
+            setTimeout(() => location.reload(), 500);
+        } catch(err) {
+            console.error('Favorite error:', err);
+            alert('Error saving favorite: ' + err.message);
         }
-        this.saveFavorites(favs);
-        this.setPage('bhajan', bhajanId);
     }
 
     // ===== URL ROUTING =====
