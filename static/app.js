@@ -1000,9 +1000,10 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
         window.open('https://wa.me/?text=' + msg, '_blank');
     }
 
-    shareTelegram(title) {
+    shareTelegram(title, bhajanId) {
+        const url = bhajanId ? `https://bhajans.s365.in?bhajan=${bhajanId}` : 'https://bhajans.s365.in';
         const msg = encodeURIComponent('Check out: ' + title);
-        window.open('https://t.me/share/url?url=https://bhajans.s365.in&text=' + msg, '_blank');
+        window.open('https://t.me/share/url?url=' + encodeURIComponent(url) + '&text=' + msg, '_blank');
     }
 
     copyLink(id) {
