@@ -56,6 +56,7 @@ class BelaGuruApp {
             formData.append("lyrics", data.lyrics);
             formData.append("tags", data.tags.join(","));
             formData.append("uploader_name", data.uploader_name || "Anonymous");
+            if (data.youtube_url) formData.append("youtube_url", data.youtube_url);
 
             const response = await fetch("/api/bhajans", {
                 method: "POST",
@@ -596,6 +597,18 @@ class BelaGuruApp {
                             >
                         </div>
 
+                        <div class="card">
+                            <label class="block font-semibold hanuman-text mb-2">
+                                YouTube Video URL (optional)
+                            </label>
+                            <input
+                                type="url"
+                                id="youtube_url"
+                                placeholder="https://youtube.com/watch?v=..."
+                            >
+                            <small style="color:#666;margin-top:4px;display:block;">Paste full YouTube URL or video ID</small>
+                        </div>
+
                         <div class="card bg-orange-50 border-l-4 border-orange-400">
                             <p class="text-sm text-gray-700">
                                 ✨ <span class="font-semibold">Community Upload:</span> Your bhajan will be visible to everyone. Please ensure you have the rights to share it.
@@ -621,13 +634,14 @@ class BelaGuruApp {
         const tagsValue = document.getElementById("tags_value").value;
         const tags = tagsValue ? tagsValue.split(",").map(t => t.trim()).filter(t => t) : [];
         const uploader_name = document.getElementById("uploader_name").value.trim();
+        const youtube_url = document.getElementById("youtube_url").value.trim();
 
         if (!title || !lyrics) {
             alert("Please fill in title and lyrics");
             return;
         }
 
-        this.createBhajan({ title, lyrics, tags, uploader_name }).then(success => {
+        this.createBhajan({ title, lyrics, tags, uploader_name, youtube_url }).then(success => {
             if (success) {
                 alert("Bhajan uploaded successfully! 🎉");
                 this.setPage("home");
@@ -675,6 +689,21 @@ class BelaGuruApp {
                                 </span>
                             `).join('')}
                         </div>
+                    </div>
+                    ` : ''}
+
+                    <!-- YouTube Video Player -->
+                    ${bhajan.youtube_url ? `
+                    <div style="margin-bottom:24px;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+                        <iframe 
+                            width="100%" 
+                            height="400" 
+                            src="https://www.youtube.com/embed/$(bhajan.youtube_url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\n?#]+)|^([a-zA-Z0-9_-]{11})$/)?.[1] || bhajan.youtube_url)"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen
+                            style="display:block;">
+                        </iframe>
                     </div>
                     ` : ''}
 
@@ -792,6 +821,19 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
                             >
                         </div>
 
+                        <div class="card">
+                            <label class="block font-semibold hanuman-text mb-2">
+                                YouTube Video URL
+                            </label>
+                            <input
+                                type="url"
+                                id="edit_youtube_url"
+                                value="${(bhajan.youtube_url || '').replace(/"/g, '&quot;')}"
+                                placeholder="https://youtube.com/watch?v=..."
+                            >
+                            <small style="color:#666;margin-top:4px;display:block;">Leave blank if no video</small>
+                        </div>
+
                         <button type="submit" class="btn-primary w-full py-3 text-lg font-bold">
                             Save Changes ✅
                         </button>
@@ -811,12 +853,14 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
         const tagsValue = document.getElementById("edit_tags_value").value;
         const tags = tagsValue ? tagsValue.split(",").map(t => t.trim()).filter(t => t) : [];
         const uploader_name = document.getElementById("edit_uploader_name").value.trim();
+        const youtube_url = document.getElementById("edit_youtube_url").value.trim();
 
         const formData = new FormData();
         if (title) formData.append("title", title);
         if (lyrics) formData.append("lyrics", lyrics);
         formData.append("tags", tags.join(","));
         if (uploader_name) formData.append("uploader_name", uploader_name);
+        if (youtube_url) formData.append("youtube_url", youtube_url);
 
         fetch(`/api/bhajans/${bhajanId}`, {
             method: "PUT",
