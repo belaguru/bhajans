@@ -981,8 +981,8 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
     renderShareButtons(bhajan) { 
         return `<div class="share-button-group">
             <button class="icon-btn" onclick="app.downloadBhajan('${bhajan.title.replace(/'/g, "\"'")}', '${bhajan.lyrics.replace(/'/g, "\"'").substring(0,100)}...')">📥</button>
-            <button class="icon-btn" onclick="app.shareWhatsApp('${bhajan.title.replace(/'/g, "\"'")}')"><img src="/whatsapp-logo.svg" alt=""></button>
-            <button class="icon-btn" onclick="app.shareTelegram('${bhajan.title.replace(/'/g, "\"'")}')"><img src="/telegram-logo.svg" alt=""></button>
+            <button class="icon-btn" onclick="app.shareWhatsApp('${bhajan.title.replace(/'/g, "\"'")}', '${bhajan.id}')"><img src="/whatsapp-logo.svg" alt=""></button>
+            <button class="icon-btn" onclick="app.shareTelegram('${bhajan.title.replace(/'/g, "\"'")}', '${bhajan.id}')"><img src="/telegram-logo.svg" alt=""></button>
             <button class="icon-btn" onclick="app.copyLink('${bhajan.id}')">🔗</button>
         </div>`; 
     }
@@ -995,8 +995,8 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
         a.click();
     }
 
-    shareWhatsApp(title) {
-        const msg = encodeURIComponent('Check out this bhajan: ' + title + '\nhttps://bhajans.s365.in');
+    shareWhatsApp(title, bhajanId) {
+        const url = bhajanId ? `https://bhajans.s365.in?bhajan=${bhajanId}` : 'https://bhajans.s365.in'; const msg = encodeURIComponent('Check out this bhajan: ' + title + '\n' + url);
         window.open('https://wa.me/?text=' + msg, '_blank');
     }
 
