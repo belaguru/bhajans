@@ -16,36 +16,83 @@
     <link rel="apple-touch-icon" href="/logo-hanuman.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="/style.css?v=35">
+    <link rel="stylesheet" href="/style.css?v=36">
 </head>
 <body class="bg-orange-50">
     <div id="app"></div>
     
-    <script src="/app.js?v=35"></script>
+    <script src="/app.js?v=36"></script>
     <script>
+        // PWA Install State
+        let deferredPrompt = null;
+        let installPromptShown = false;
+
         // Register Service Worker for PWA support
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/service-worker.js')
-                .then(reg => console.log('✅ Service Worker registered'))
+                .then(reg => {
+                    console.log('✅ Service Worker registered:', reg);
+                })
                 .catch(err => console.log('❌ Service Worker registration failed:', err));
+        } else {
+            console.warn('⚠️ Service Worker not supported');
         }
 
-        // PWA Install Prompt
-        let deferredPrompt;
+        // PWA Install Prompt Handler
         window.addEventListener('beforeinstallprompt', (e) => {
+            console.log('✅ Install prompt triggered');
             e.preventDefault();
             deferredPrompt = e;
-            console.log('✅ Install prompt is ready');
-            // Show install button in app if needed
-            if (window.app) {
-                window.app.showInstallPrompt = true;
+            installPromptShown = false;
+            
+            // Show install button
+            const btn = document.getElementById('install-btn-header');
+            if (btn) {
+                btn.style.display = 'block';
+                console.log('✅ Install button displayed');
             }
         });
 
-        window.addEventListener('appinstalled', () => {
-            console.log('✅ App was installed');
+        // Global function to trigger install
+        window.triggerInstall = async function() {
+            if (!deferredPrompt) {
+                console.warn('Install prompt not available');
+                return;
+            }
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log('User response:', outcome);
             deferredPrompt = null;
+        };
+
+        // App Installed Event
+        window.addEventListener('appinstalled', () => {
+            console.log('✅ App was installed successfully');
+            deferredPrompt = null;
+            installPromptShown = false;
         });
+
+        // Global function to manually trigger install
+        window.triggerInstall = async function() {
+            if (!deferredPrompt) {
+                console.warn('❌ Install prompt not ready yet');
+                alert('Install not available yet. Please refresh the page and wait a few seconds.');
+                return;
+            }
+            try {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log(`User response: ${outcome}`);
+                deferredPrompt = null;
+            } catch (err) {
+                console.error('Install error:', err);
+            }
+        };
+
+        // Check if already installed
+        if (window.navigator.standalone) {
+            console.log('✅ Already running as standalone app');
+        }
     </script>
 </body>
 </html>
