@@ -1088,20 +1088,42 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
             bhajanId = parseInt(bhajanId);
             const favs = this.getFavorites();
             const idx = favs.indexOf(bhajanId);
+            let message = '';
+            
             if (idx > -1) {
                 favs.splice(idx, 1);
-                console.log('Removed from favorites:', bhajanId);
+                message = '❌ Removed from favorites';
             } else {
                 favs.push(bhajanId);
-                console.log('Added to favorites:', bhajanId);
+                message = '❤️ Added to favorites!';
             }
+            
             this.saveFavorites(favs);
-            console.log('Favorites saved:', favs);
-            setTimeout(() => location.reload(), 500);
+            this.showFavoriteFeedback(message);
+            
+            // Refresh to update heart icon
+            setTimeout(() => {
+                this.setPage('bhajan', bhajanId);
+            }, 800);
         } catch(err) {
             console.error('Favorite error:', err);
             alert('Error saving favorite: ' + err.message);
         }
+    }
+
+    showFavoriteFeedback(message) {
+        const el = document.createElement('div');
+        el.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#FF6B35;color:white;padding:16px 32px;border-radius:12px;z-index:1001;font-weight:bold;font-size:18px;box-shadow:0 4px 12px rgba(0,0,0,0.2);';
+        el.textContent = message;
+        document.body.appendChild(el);
+        
+        // Animate in
+        el.style.animation = 'slideIn 0.4s ease';
+        
+        setTimeout(() => {
+            el.style.animation = 'slideOut 0.4s ease';
+            setTimeout(() => el.remove(), 400);
+        }, 1200);
     }
 
     // ===== URL ROUTING =====
