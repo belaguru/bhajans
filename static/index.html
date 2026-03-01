@@ -16,12 +16,12 @@
     <link rel="apple-touch-icon" href="/logo-hanuman.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="/style.css?v=42">
+    <link rel="stylesheet" href="/style.css?v=43">
 </head>
 <body class="bg-orange-50">
     <div id="app"></div>
     
-    <script src="/app.js?v=42"></script>
+    <script src="/app.js?v=43"></script>
     <script>
         // PWA Install State - Optimized for Android
         let deferredPrompt = null;
@@ -54,29 +54,28 @@
 
         // PWA Install Prompt Handler
         window.addEventListener('beforeinstallprompt', (e) => {
-            console.log('🎉🎉🎉 ANDROID: beforeinstallprompt FIRED! Ready to install!');
-            console.log('📱 Install button is now enabled');
-            e.preventDefault();
+            console.log('🎉🎉🎉 ANDROID: beforeinstallprompt FIRED!');
+            console.log('📱 Browser showing native install prompt - NO button needed!');
+            // DO NOT preventDefault - let browser show native UI automatically!
+            // User will see "Install" button in address bar or mini infobar
             deferredPrompt = e;
-            installPromptShown = false;
             
-            // Enable install button
+            // Hide our install button (not needed)
             const btn = document.getElementById('install-btn-header');
             if (btn) {
-                btn.disabled = false;
-                btn.style.opacity = '1';
-                btn.style.cursor = 'pointer';
-                console.log('✅ Install button enabled and ready to click');
+                btn.style.display = 'none';
+                console.log('✅ Native browser UI is handling installation');
             }
         });
 
-        // Global function to trigger install
+        // Global function to trigger install (MANUAL FALLBACK ONLY)
+        // Not used on modern Android - browser shows native UI automatically
         window.triggerInstall = async function() {
-            console.log('📱 Install button clicked. deferredPrompt = ' + (deferredPrompt ? 'YES ✅' : 'NO ❌'));
+            console.log('📱 Manual install button clicked (fallback mode)');
             
             // Check if beforeinstallprompt event fired
             if (deferredPrompt) {
-                console.log('✅ ANDROID: Showing browser install dialog');
+                console.log('✅ Showing browser install dialog via deferredPrompt');
                 try {
                     deferredPrompt.prompt();
                     const { outcome } = await deferredPrompt.userChoice;
