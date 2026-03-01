@@ -510,6 +510,54 @@ body.font-size-large {
     border: 1px solid #FFD4B8;
 }
 
+/* Share button variants with brand colors */
+.whatsapp-btn {
+    background: linear-gradient(135deg, #25D366, #128C7E) !important;
+    color: white;
+    border: none;
+}
+
+.whatsapp-btn:active {
+    background: linear-gradient(135deg, #20BA58, #0F7355) !important;
+}
+
+.telegram-btn {
+    background: linear-gradient(135deg, #0088cc, #005FA3) !important;
+    color: white;
+    border: none;
+}
+
+.telegram-btn:active {
+    background: linear-gradient(135deg, #0077B5, #004A7F) !important;
+}
+
+.download-btn {
+    background: linear-gradient(135deg, #FF6B35, #E67E22) !important;
+    color: white;
+    border: none;
+}
+
+.download-btn:active {
+    background: linear-gradient(135deg, #E55A24, #D26E0E) !important;
+}
+
+.copy-btn {
+    background: white !important;
+    color: #FF6B35;
+    border: 2px solid #FF6B35;
+}
+
+.copy-btn:active {
+    background: #FFF5EB !important;
+}
+
+.share-button svg {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 2px;
+}
+
+
 .share-button {
     padding: 10px 12px;
     border: none;

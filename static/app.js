@@ -966,12 +966,27 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
     }
 
     renderShareButtons(bhajan) { 
-        const bhajJson = JSON.stringify(bhajan).replace(/'/g, "\'").replace(/"/g, '\"');
         return `<div class="share-button-group">
-            <button class="share-button secondary" onclick="app.downloadBhajan('${bhajan.title.replace(/'/g, "\'")}', '${bhajan.lyrics.replace(/'/g, "\'").substring(0,100)}...')">📥 Download</button>
-            <button class="share-button" onclick="app.shareWhatsApp('${bhajan.title.replace(/'/g, "\'")}')">💬 WhatsApp</button>
-            <button class="share-button" onclick="app.shareTelegram('${bhajan.title.replace(/'/g, "\'")}')">✈️ Telegram</button>
-            <button class="share-button secondary" onclick="app.copyLink('${bhajan.id}')">🔗 Copy Link</button>
+            <button class="share-button download-btn" onclick="app.downloadBhajan('${bhajan.title.replace(/'/g, "\'")}', '${bhajan.lyrics.replace(/'/g, "\'").substring(0,100)}...')">
+                <span class="icon">📥</span>
+                <span class="label">Download</span>
+            </button>
+            <button class="share-button whatsapp-btn" onclick="app.shareWhatsApp('${bhajan.title.replace(/'/g, "\'")}')">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-5.031 1.378l-.361.214-3.741-.982.998 3.645-.235.374a9.86 9.86 0 001.51 5.748c.25.43.532.85.851 1.25h.002c2.488 2.549 6.1 3.637 9.322 2.897 3.223-.74 5.886-3.351 6.623-6.59.737-3.238-.159-6.531-2.368-8.835-2.21-2.304-5.597-3.27-8.719-2.461" fill="currentColor"/>
+                </svg>
+                <span class="label">WhatsApp</span>
+            </button>
+            <button class="share-button telegram-btn" onclick="app.shareTelegram('${bhajan.title.replace(/'/g, "\'")}')">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0m5.562 8.161c-.18 1.897-.962 6.502-1.359 8.627-.168.9-.499 1.201-1.82.737-1.32-.463-2.053-.919-3.509-1.922-1.354-.961-2.529-1.959-1.529-3.146.1-.111 1.891-1.743 3.852-3.443.508-.427.058-.668-.109-.595-1.25.791-3.688 2.302-4.997 3.076-.634.391-1.289.411-2.066.112-.756-.289-1.416-.434-1.381-.918.034-.484.514-.945 1.416-1.395 5.554-2.41 7.362-3.17 7.365-3.172 1.047-.573 2.627-.379 3.756.294z" fill="currentColor"/>
+                </svg>
+                <span class="label">Telegram</span>
+            </button>
+            <button class="share-button copy-btn" onclick="app.copyLink('${bhajan.id}')">
+                <span class="icon">🔗</span>
+                <span class="label">Copy Link</span>
+            </button>
         </div>`; 
     }
 
