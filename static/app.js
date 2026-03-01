@@ -981,6 +981,7 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
             <button class="icon-btn" onclick="app.shareWhatsApp('${bhajan.title.replace(/'/g, "\"'")}', '${bhajan.id}')"><img src="/whatsapp-logo.svg" alt=""></button>
             <button class="icon-btn" onclick="app.shareTelegram('${bhajan.title.replace(/'/g, "\"'")}', '${bhajan.id}')"><img src="/telegram-logo.svg" alt=""></button>
             <button class="icon-btn" onclick="app.copyLink('${bhajan.id}')">🔗</button>
+            <button class="icon-btn" onclick="app.toggleFavorite('${bhajan.id}', '${bhajan.title.replace(/'/g, "\'")}')">❤️</button>
         </div>`; 
     }
 
@@ -1032,18 +1033,64 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
     }
     
     renderFavorites() { 
+        const favIds = this.getFavorites();
+        const favorites = this.bhajans.filter(b => favIds.includes(b.id));
+
         const html = `<div class="min-h-screen bg-orange-50">
             ${this.renderNavHeader({backLabel:'Back', backAction:"app.setPage('home')", title:'Favorites', subtitle:'Your saved bhajans'})}
             <div class="max-w-6xl mx-auto px-4 py-8">
-                <div class="card text-center py-12">
-                    <p class="text-gray-500">No favorites yet</p>
-                    <p class="text-gray-400 text-sm mt-2">Click ❤️ on any bhajan to save it!</p>
-                </div>
+                ${favorites.length > 0 ? `
+                    <div class="grid gap-4">
+                        ${favorites.map(b => `
+                            <div class="card cursor-pointer hover:shadow-lg" onclick="app.setPage('bhajan', ${b.id})">
+                                <div class="flex justify-between items-start gap-3">
+                                    <div class="flex-1">
+                                        <h3 class="font-semibold hanuman-text">${b.title}</h3>
+                                        <p class="text-sm text-gray-600 mt-1">${b.uploader_name || 'Community'}</p>
+                                    </div>
+                                    <button class="text-2xl hover:scale-110" onclick="event.stopPropagation(); app.toggleFavorite(${b.id}, '${b.title.replace(/'/g, "\'")}')">❤️</button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : `
+                    <div class="card text-center py-12">
+                        <p class="text-gray-500">No favorites yet</p>
+                        <p class="text-gray-400 text-sm mt-2">Click ❤️ on any bhajan to save it!</p>
+                    </div>
+                `}
             </div>
         </div>`; 
-        this.appContainer.innerHTML = html + this.renderFloatingMenu() + this.renderBottomTabBar('favorites'); 
+        this.appContainer.innerHTML = html + this.renderFloatingMenu(); 
     }
 
+
+
+    // ===== FAVORITES =====
+    getFavorites() {
+        const saved = localStorage.getItem('bhajan_favorites');
+        return saved ? JSON.parse(saved) : [];
+    }
+
+    saveFavorites(favs) {
+        localStorage.setItem('bhajan_favorites', JSON.stringify(favs));
+    }
+
+    isFavorited(bhajanId) {
+        return this.getFavorites().includes(bhajanId);
+    }
+
+    toggleFavorite(bhajanId, bhajanTitle) {
+        const favs = this.getFavorites();
+        const idx = favs.indexOf(bhajanId);
+        if (idx > -1) {
+            favs.splice(idx, 1);
+        } else {
+            favs.push(bhajanId);
+        }
+        this.saveFavorites(favs);
+        this.setPage('bhajan', bhajanId);
+    }
 
     // ===== URL ROUTING =====
     updateURL(page, id) {
