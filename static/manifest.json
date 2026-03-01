@@ -10,13 +10,13 @@
   "theme_color": "#FF6B35",
   "icons": [
     {
-      "src": "/logo-bird.png",
+      "src": "/logo-hanuman.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/logo-bird.png",
+      "src": "/logo-hanuman.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
