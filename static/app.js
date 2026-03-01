@@ -954,7 +954,6 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
             <button class="tab-button ${active('home')}" onclick="app.setPage('home')"><span>🏠</span><span class="tab-label">Home</span></button>
             <button class="tab-button ${active('search')}" onclick="app.openSearch()"><span>🔍</span><span class="tab-label">Search</span></button>
             <button class="tab-button ${active('favorites')}" onclick="app.setPage('favorites')"><span>❤️</span><span class="tab-label">Favorites</span></button>
-            <button class="tab-button ${active('settings')}" onclick="app.setPage('settings')"><span>⚙️</span><span class="tab-label">Settings</span></button>
         </div>`;
     }
     
@@ -967,12 +966,42 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
     }
 
     renderShareButtons(bhajan) { 
+        const bhajJson = JSON.stringify(bhajan).replace(/'/g, "\'").replace(/"/g, '\"');
         return `<div class="share-button-group">
-            <button class="share-button secondary" onclick="alert('Download feature coming soon!')">📥 Download</button>
-            <button class="share-button" onclick="alert('Share to WhatsApp!')">📤 WhatsApp</button>
-            <button class="share-button" onclick="alert('Share to Telegram!')">📤 Telegram</button>
-            <button class="share-button secondary" onclick="alert('Link copied!')">🔗 Copy</button>
+            <button class="share-button secondary" onclick="app.downloadBhajan('${bhajan.title.replace(/'/g, "\'")}', '${bhajan.lyrics.replace(/'/g, "\'").substring(0,100)}...')">📥 Download</button>
+            <button class="share-button" onclick="app.shareWhatsApp('${bhajan.title.replace(/'/g, "\'")}')">💬 WhatsApp</button>
+            <button class="share-button" onclick="app.shareTelegram('${bhajan.title.replace(/'/g, "\'")}')">✈️ Telegram</button>
+            <button class="share-button secondary" onclick="app.copyLink('${bhajan.id}')">🔗 Copy Link</button>
         </div>`; 
+    }
+
+    downloadBhajan(title, preview) {
+        const text = title + '\n\n' + preview;
+        const a = document.createElement('a');
+        a.href = 'data:text/plain,' + encodeURIComponent(text);
+        a.download = title + '.txt';
+        a.click();
+    }
+
+    shareWhatsApp(title) {
+        const msg = encodeURIComponent('Check out this bhajan: ' + title + '\nhttps://bhajans.s365.in');
+        window.open('https://wa.me/?text=' + msg, '_blank');
+    }
+
+    shareTelegram(title) {
+        const msg = encodeURIComponent('Check out: ' + title);
+        window.open('https://t.me/share/url?url=https://bhajans.s365.in&text=' + msg, '_blank');
+    }
+
+    copyLink(id) {
+        const link = 'https://bhajans.s365.in';
+        navigator.clipboard.writeText(link).then(() => {
+            const feedback = document.createElement('div');
+            feedback.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#FF6B35;color:white;padding:12px 20px;border-radius:8px;z-index:1000;font-weight:bold;';
+            feedback.textContent = '✅ Link copied!';
+            document.body.appendChild(feedback);
+            setTimeout(() => feedback.remove(), 2000);
+        });
     }
 
     renderSettings() { 
