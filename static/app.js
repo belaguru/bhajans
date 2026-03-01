@@ -423,12 +423,9 @@ class BelaGuruApp {
                                     <h1 class="text-lg sm:text-2xl font-bold text-white leading-tight">
                                         Shree Kshetra Belaguru
                                     </h1>
-                                    <div class="flex items-center gap-2 mt-0.5">
-                                        <img src="/logo-hanuman.png" alt="Hanuman" class="w-5 h-5 sm:w-6 sm:h-6">
-                                        <p class="text-orange-100 text-sm sm:text-lg font-bold">
-                                            Bhajana Maalika
-                                        </p>
-                                    </div>
+                                    <p class="text-orange-100 text-sm sm:text-lg font-bold mt-0.5">
+                                        Bhajana Maalika
+                                    </p>
                                 </div>
                             </div>
                             <button onclick="app.setPage('upload')" style="background-color: white; color: #FF6B35; padding: 8px 16px; border: 2px solid white; border-radius: 6px; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0;">
