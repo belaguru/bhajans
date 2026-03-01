@@ -16,12 +16,12 @@
     <link rel="apple-touch-icon" href="/logo-hanuman.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="/style.css?v=39">
+    <link rel="stylesheet" href="/style.css?v=40">
 </head>
 <body class="bg-orange-50">
     <div id="app"></div>
     
-    <script src="/app.js?v=39"></script>
+    <script src="/app.js?v=40"></script>
     <script>
         // PWA Install State
         let deferredPrompt = null;
@@ -38,9 +38,21 @@
             console.warn('⚠️ Service Worker not supported');
         }
 
+        // Fallback: Enable button after 5 seconds if beforeinstallprompt doesn't fire
+        setTimeout(() => {
+            const btn = document.getElementById('install-btn-header');
+            if (btn && btn.disabled) {
+                console.log('⚠️ beforeinstallprompt not fired, enabling button as fallback');
+                btn.disabled = false;
+                btn.style.opacity = '1';
+                btn.style.cursor = 'pointer';
+            }
+        }, 5000);
+
         // PWA Install Prompt Handler
         window.addEventListener('beforeinstallprompt', (e) => {
-            console.log('✅ Install prompt ready - enabling button');
+            console.log('🎉 beforeinstallprompt EVENT FIRED - PWA is ready!');
+            console.log('📱 Install button is now enabled');
             e.preventDefault();
             deferredPrompt = e;
             installPromptShown = false;
@@ -58,8 +70,8 @@
         // Global function to trigger install
         window.triggerInstall = async function() {
             if (!deferredPrompt) {
-                console.warn('Install not ready yet');
-                alert('Install is not ready yet. Please refresh the page and wait a few seconds.');
+                console.warn('beforeinstallprompt event never fired');
+                alert('Use browser menu to install:\n\nChrome/Edge: ⋮ → "Install app"\nSafari: Share → "Add to Home Screen"\nFirefox: ⋯ → "Install"');
                 return;
             }
             try {
