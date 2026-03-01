@@ -130,7 +130,7 @@ class BhajanResponse(BaseModel):
     lyrics: str
     tags: List[str]
     uploader_name: str
-    youtube_url: str = None
+    youtube_url: Optional[str] = None
     created_at: str
     updated_at: str
 
@@ -220,7 +220,8 @@ def create_bhajan(
         bhajan = Bhajan(
             title=title,
             lyrics=cleaned_lyrics,
-            uploader_name=uploader_name
+            uploader_name=uploader_name,
+            youtube_url=youtube_url.strip() if youtube_url else None
         )
         bhajan.set_tags(tag_list)
         
@@ -247,6 +248,7 @@ def update_bhajan(
     lyrics: Optional[str] = Form(None),
     tags: str = Form(""),
     uploader_name: Optional[str] = Form(None),
+    youtube_url: Optional[str] = Form(None),
     db: Session = Depends(get_db)
 ):
     """Update bhajan (title, lyrics, tags, uploader_name)"""
@@ -274,6 +276,10 @@ def update_bhajan(
     # Update uploader name if provided
     if uploader_name:
         bhajan.uploader_name = uploader_name
+
+    # Update YouTube URL if provided
+    if youtube_url is not None:
+        bhajan.youtube_url = youtube_url.strip() if youtube_url else None
 
     bhajan.updated_at = datetime.utcnow()
     db.commit()
