@@ -693,21 +693,6 @@ class BelaGuruApp {
                     ` : ''}
 
                     <!-- YouTube Video Player -->
-                    ${bhajan.youtube_url ? `
-                    <div style="margin-bottom:24px;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
-                        <iframe 
-                            width="100%" 
-                            height="400" 
-                            src="https://www.youtube.com/embed/$(bhajan.youtube_url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\n?#]+)|^([a-zA-Z0-9_-]{11})$/)?.[1] || bhajan.youtube_url)"
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen
-                            style="display:block;">
-                        </iframe>
-                    </div>
-                    ` : ''}
-
-                    <!-- YouTube Video Player -->
                     ${bhajan.youtube_url ? (function() {
                         let vidId = bhajan.youtube_url;
                         if (bhajan.youtube_url.includes('youtu.be/')) {
