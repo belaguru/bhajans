@@ -14,25 +14,37 @@ const urlsToCache = [
 
 // Install event
 self.addEventListener('install', event => {
+  console.log('[ServiceWorker] Installing...');
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
-      .then(() => self.skipWaiting())
+      .then(cache => {
+        console.log('[ServiceWorker] Caching files');
+        return cache.addAll(urlsToCache);
+      })
+      .then(() => {
+        console.log('[ServiceWorker] Install complete, skipping waiting');
+        return self.skipWaiting();
+      })
   );
 });
 
 // Activate event
 self.addEventListener('activate', event => {
+  console.log('[ServiceWorker] Activating...');
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cacheName => {
           if (cacheName !== CACHE_NAME) {
+            console.log('[ServiceWorker] Removing old cache:', cacheName);
             return caches.delete(cacheName);
           }
         })
       );
-    }).then(() => self.clients.claim())
+    }).then(() => {
+      console.log('[ServiceWorker] Active and claiming clients');
+      return self.clients.claim();
+    })
   );
 });
 

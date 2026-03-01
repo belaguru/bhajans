@@ -16,16 +16,19 @@
     <link rel="apple-touch-icon" href="/logo-hanuman.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="/style.css?v=41">
+    <link rel="stylesheet" href="/style.css?v=42">
 </head>
 <body class="bg-orange-50">
     <div id="app"></div>
     
-    <script src="/app.js?v=41"></script>
+    <script src="/app.js?v=42"></script>
     <script>
-        // PWA Install State
+        // PWA Install State - Optimized for Android
         let deferredPrompt = null;
         let installPromptShown = false;
+        let isAndroid = /Android/i.test(navigator.userAgent);
+        let isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+        console.log('📱 Device: ' + (isAndroid ? 'ANDROID' : isIOS ? 'iOS' : 'Desktop'));
 
         // Register Service Worker for PWA support
         if ('serviceWorker' in navigator) {
@@ -42,16 +45,16 @@
         setTimeout(() => {
             const btn = document.getElementById('install-btn-header');
             if (btn && btn.disabled) {
-                console.log('⚠️ beforeinstallprompt not fired, enabling button as fallback');
+                console.log('⚠️ ANDROID: beforeinstallprompt should have fired. Enabling as fallback');
                 btn.disabled = false;
                 btn.style.opacity = '1';
                 btn.style.cursor = 'pointer';
             }
-        }, 5000);
+        }, 3000);
 
         // PWA Install Prompt Handler
         window.addEventListener('beforeinstallprompt', (e) => {
-            console.log('🎉 beforeinstallprompt EVENT FIRED - PWA is ready!');
+            console.log('🎉🎉🎉 ANDROID: beforeinstallprompt FIRED! Ready to install!');
             console.log('📱 Install button is now enabled');
             e.preventDefault();
             deferredPrompt = e;
@@ -69,8 +72,11 @@
 
         // Global function to trigger install
         window.triggerInstall = async function() {
+            console.log('📱 Install button clicked. deferredPrompt = ' + (deferredPrompt ? 'YES ✅' : 'NO ❌'));
+            
             // Check if beforeinstallprompt event fired
             if (deferredPrompt) {
+                console.log('✅ ANDROID: Showing browser install dialog');
                 try {
                     deferredPrompt.prompt();
                     const { outcome } = await deferredPrompt.userChoice;
