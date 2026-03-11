@@ -42,8 +42,10 @@ class BelaGuruApp {
 
     async loadTags() {
         try {
-            const response = await fetch("/api/tags");
-            this.allTags = await response.json();
+            const response = await fetch("/api/tags/counts");
+            const tagData = await response.json();
+            this.allTags = tagData.map(t => ({ name: t.tag, count: t.count }));
+            this.showAllTags = false; // Default: hide sparse tags
         } catch (error) {
             console.error("Error loading tags:", error);
         }
