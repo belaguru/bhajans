@@ -718,40 +718,49 @@ class BelaGuruApp {
         this.appContainer.innerHTML = html + this.renderFloatingMenu();
         this.renderSearchStatus(); // Initialize search status on load
         
-        // Attach tag search event listeners with explicit this binding
-        const self = this;
-        const tagSearchInput = document.getElementById('tag-search-input');
-        const tagSearchInputMobile = document.getElementById('tag-search-input-mobile');
-        const tagSearchClear = document.getElementById('tag-search-clear');
-        const tagSearchClearMobile = document.getElementById('tag-search-clear-mobile');
-        
-        if (tagSearchInput) {
-            tagSearchInput.oninput = function(e) {
-                self.tagSearchQuery = e.target.value.toLowerCase();
-                self.render();
-            };
-        }
-        
-        if (tagSearchInputMobile) {
-            tagSearchInputMobile.oninput = function(e) {
-                self.tagSearchQuery = e.target.value.toLowerCase();
-                self.render();
-            };
-        }
-        
-        if (tagSearchClear) {
-            tagSearchClear.onclick = function() {
-                self.tagSearchQuery = "";
-                self.render();
-            };
-        }
-        
-        if (tagSearchClearMobile) {
-            tagSearchClearMobile.onclick = function() {
-                self.tagSearchQuery = "";
-                self.render();
-            };
-        }
+        // Attach tag search event listeners using window.app reference
+        setTimeout(() => {
+            const tagSearchInput = document.getElementById('tag-search-input');
+            const tagSearchInputMobile = document.getElementById('tag-search-input-mobile');
+            const tagSearchClear = document.getElementById('tag-search-clear');
+            const tagSearchClearMobile = document.getElementById('tag-search-clear-mobile');
+            
+            if (tagSearchInput) {
+                tagSearchInput.oninput = function(e) {
+                    if (window.app) {
+                        window.app.tagSearchQuery = e.target.value.toLowerCase();
+                        window.app.render();
+                    }
+                };
+            }
+            
+            if (tagSearchInputMobile) {
+                tagSearchInputMobile.oninput = function(e) {
+                    if (window.app) {
+                        window.app.tagSearchQuery = e.target.value.toLowerCase();
+                        window.app.render();
+                    }
+                };
+            }
+            
+            if (tagSearchClear) {
+                tagSearchClear.onclick = function() {
+                    if (window.app) {
+                        window.app.tagSearchQuery = "";
+                        window.app.render();
+                    }
+                };
+            }
+            
+            if (tagSearchClearMobile) {
+                tagSearchClearMobile.onclick = function() {
+                    if (window.app) {
+                        window.app.tagSearchQuery = "";
+                        window.app.render();
+                    }
+                };
+            }
+        }, 0);
     }
 
     renderUpload() {
