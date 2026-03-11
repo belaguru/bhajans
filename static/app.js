@@ -168,7 +168,7 @@ class BelaGuruApp {
 
             if (count > 0) {
                 statusHTML = `
-                    <div class="card bg-green-50 border-l-4 border-green-500">
+                    <div class="card bg-green-50 border-l-4 border-green-500 mb-6">
                         <div class="flex items-center justify-between gap-3">
                             <div class="flex-1">
                                 <p class="text-sm text-gray-700">
@@ -186,7 +186,7 @@ class BelaGuruApp {
                 `;
             } else {
                 statusHTML = `
-                    <div class="card bg-red-50 border-l-4 border-red-500">
+                    <div class="card bg-red-50 border-l-4 border-red-500 mb-6">
                         <div class="flex items-center justify-between gap-3">
                             <div class="flex-1">
                                 <p class="text-sm text-gray-700">
@@ -504,7 +504,7 @@ class BelaGuruApp {
 
                 <div class="max-w-6xl mx-auto px-4 py-6">
                     <!-- Search Status (NEW) -->
-                    <div id="search-status" class="mb-6"></div>
+                    <div id="search-status"></div>
 
                     <!-- Mobile Tag Toggle Button -->
                     <div class="lg:hidden mb-4">
