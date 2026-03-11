@@ -21,10 +21,6 @@ class BelaGuruApp {
         this._selectedTags = [];
         this._tagDropdownVisible = false;
 
-        // Bind methods for inline event handlers
-        this.searchTags = this.searchTags.bind(this);
-        this.clearTagSearch = this.clearTagSearch.bind(this);
-
         this.init();
     }
 
@@ -541,16 +537,16 @@ class BelaGuruApp {
                         <!-- Mobile Tag Search Box -->
                         <div class="relative mb-3">
                             <input 
+                                id="tag-search-input-mobile"
                                 type="text" 
                                 placeholder="Search tags..." 
                                 value="${this.tagSearchQuery}"
-                                oninput="app.searchTags(this.value)"
                                 class="w-full px-3 py-2 pl-8 pr-8 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                             />
                             <span class="absolute left-2 top-2.5 text-gray-400">🔍</span>
                             ${this.tagSearchQuery ? `
                                 <button 
-                                    onclick="app.clearTagSearch()"
+                                    id="tag-search-clear-mobile"
                                     class="absolute right-2 top-2 text-gray-400 hover:text-gray-600 text-lg leading-none"
                                 >×</button>
                             ` : ""}
@@ -613,16 +609,16 @@ class BelaGuruApp {
                                 <!-- Tag Search Box -->
                                 <div class="relative mb-3">
                                     <input 
+                                        id="tag-search-input"
                                         type="text" 
                                         placeholder="Search tags..." 
                                         value="${this.tagSearchQuery}"
-                                        oninput="app.searchTags(this.value)"
                                         class="w-full px-3 py-2 pl-8 pr-8 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                                     />
                                     <span class="absolute left-2 top-2.5 text-gray-400">🔍</span>
                                     ${this.tagSearchQuery ? `
                                         <button 
-                                            onclick="app.clearTagSearch()"
+                                            id="tag-search-clear"
                                             class="absolute right-2 top-2 text-gray-400 hover:text-gray-600 text-lg leading-none"
                                         >×</button>
                                     ` : ""}
@@ -721,6 +717,40 @@ class BelaGuruApp {
 
         this.appContainer.innerHTML = html + this.renderFloatingMenu();
         this.renderSearchStatus(); // Initialize search status on load
+        
+        // Attach tag search event listeners
+        const tagSearchInput = document.getElementById('tag-search-input');
+        const tagSearchInputMobile = document.getElementById('tag-search-input-mobile');
+        const tagSearchClear = document.getElementById('tag-search-clear');
+        const tagSearchClearMobile = document.getElementById('tag-search-clear-mobile');
+        
+        if (tagSearchInput) {
+            tagSearchInput.addEventListener('input', (e) => {
+                this.tagSearchQuery = e.target.value.toLowerCase();
+                this.render();
+            });
+        }
+        
+        if (tagSearchInputMobile) {
+            tagSearchInputMobile.addEventListener('input', (e) => {
+                this.tagSearchQuery = e.target.value.toLowerCase();
+                this.render();
+            });
+        }
+        
+        if (tagSearchClear) {
+            tagSearchClear.addEventListener('click', () => {
+                this.tagSearchQuery = "";
+                this.render();
+            });
+        }
+        
+        if (tagSearchClearMobile) {
+            tagSearchClearMobile.addEventListener('click', () => {
+                this.tagSearchQuery = "";
+                this.render();
+            });
+        }
     }
 
     renderUpload() {
