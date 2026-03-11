@@ -476,30 +476,87 @@ class BelaGuruApp {
 
                 <!-- Main Content -->
                     <!-- Filter Status -->
-                    ${this.selectedTag || this.searchQuery ? `
-                        <div class="bg-gradient-to-r from-green-50 to-white border-l-4 border-green-500 px-6 py-4 mb-6 rounded-lg shadow-sm">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-3">
-                                    <span class="text-2xl">✅</span>
-                                    <div>
+                    <div class="bg-gradient-to-r from-orange-50 to-white border-l-4 border-hanuman-orange px-6 py-4 mb-6 rounded-lg shadow-sm">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl">📊</span>
+                                <div>
+                                    ${this.selectedTag || this.searchQuery ? `
                                         <p class="text-sm text-gray-600 mb-1">
-                                            ${this.selectedTag ? `🏷️ Tag: <span class="font-semibold text-green-700">${this.selectedTag}</span>` : ""}
-                                            ${this.searchQuery ? `🔍 Search: <span class="font-semibold text-green-700">"${this.searchQuery}"</span>` : ""}
+                                            ${this.selectedTag ? `🏷️ Tag: <span class="font-semibold hanuman-accent">${this.selectedTag}</span>` : ""}
+                                            ${this.searchQuery ? `🔍 Search: <span class="font-semibold hanuman-accent">"${this.searchQuery}"</span>` : ""}
                                         </p>
-                                        <p class="font-semibold text-gray-800">
-                                            Found <span class="text-green-600">${this.filteredBhajans.length}</span> of ${this.bhajans.length} bhajans
-                                        </p>
-                                    </div>
+                                    ` : ""}
+                                    <p class="font-semibold hanuman-text">
+                                        Showing <span class="text-hanuman-orange">${this.filteredBhajans.length}</span> 
+                                        ${this.filteredBhajans.length !== this.bhajans.length ? `of ${this.bhajans.length}` : ""} bhajan${this.filteredBhajans.length !== 1 ? "s" : ""}
+                                    </p>
                                 </div>
+                            </div>
+                            ${this.selectedTag || this.searchQuery ? `
                                 <button 
                                     onclick="app.clearFilters()" 
-                                    class="px-4 py-2 bg-white border-2 border-green-200 rounded-lg text-sm font-semibold text-green-700 hover:bg-green-50 transition"
+                                    class="px-4 py-2 bg-white border-2 border-orange-200 rounded-lg text-sm font-semibold hanuman-accent hover:bg-orange-50 transition"
                                 >
                                     Clear Filters
                                 </button>
+                            ` : ""}
+                        </div>
+                    </div>
+
+
+                <div class="max-w-6xl mx-auto px-4 py-6">
+                    <!-- Search Status (NEW) -->
+                    <div id="search-status" class="mb-6"></div>
+
+                    <!-- Mobile Tag Toggle Button -->
+                    <div class="lg:hidden mb-4">
+                        <button onclick="document.getElementById('mobile-tags-section').classList.toggle('hidden')" 
+                                class="w-full px-4 py-3 bg-white border-2 border-orange-200 rounded-lg font-semibold hanuman-accent hover:bg-orange-50 transition">
+                            ▼ Filter by Tags
+                        </button>
+                    </div>
+                    
+                    <!-- Mobile Tags (Hidden by default) -->
+                    <div id="mobile-tags-section" class="hidden lg:hidden mb-4 card">
+                        <h3 class="font-bold text-lg mb-4 hanuman-accent">📑 Tags</h3>
+                        <div class="space-y-2">
+                            ${this.allTags.map(tag => `
+                                <button
+                                    onclick="app.filterByTag('${tag}'); document.getElementById('mobile-tags-section').classList.add('hidden');"
+                                    class="w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${
+                                        this.selectedTag === tag
+                                            ? 'bg-orange-100 hanuman-accent font-semibold'
+                                            : 'hover:bg-orange-50 text-gray-700'
+                                    }"
+                                >
+                                    ${tag}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                        <!-- Sidebar (Tags) - Desktop Only -->
+                        <div class="hidden lg:block lg:col-span-1">
+                            <div class="card sticky top-32">
+                                <h3 class="font-bold text-lg mb-4 hanuman-accent">📑 Tags</h3>
+                                <div class="space-y-2">
+                                    ${this.allTags.map(tag => `
+                                        <button
+                                            onclick="app.filterByTag('${tag}')"
+                                            class="w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${
+                                                this.selectedTag === tag
+                                                    ? 'bg-orange-100 hanuman-accent font-semibold'
+                                                    : 'hover:bg-orange-50 text-gray-700'
+                                            }"
+                                        >
+                                            ${tag}
+                                        </button>
+                                    `).join('')}
+                                </div>
                             </div>
                         </div>
-                    ` : ""}
 
                         <!-- Bhajans Grid -->
                         <div class="lg:col-span-3" id="bhajans-grid-container">
@@ -1032,6 +1089,7 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
         const heartIcon = isFav ? '❤️' : '🤍';
         const heartTitle = isFav ? 'Remove from favorites' : 'Add to favorites';
         return `<div class="share-button-group">
+            <button class="icon-btn" onclick="app.downloadBhajan('${bhajan.title.replace(/'/g, "\"'")}', '${bhajan.lyrics.replace(/'/g, "\"'").substring(0,100)}...')">📥</button>
             <button class="icon-btn" onclick="app.shareWhatsApp('${bhajan.title.replace(/'/g, "\"'")}', '${bhajan.id}')"><img src="/whatsapp-logo.svg" alt=""></button>
             <button class="icon-btn" onclick="app.shareTelegram('${bhajan.title.replace(/'/g, "\"'")}', '${bhajan.id}')"><img src="/telegram-logo.svg" alt=""></button>
             <button class="icon-btn" onclick="app.copyLink('${bhajan.id}')">🔗</button>
