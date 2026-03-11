@@ -21,6 +21,10 @@ class BelaGuruApp {
         this._selectedTags = [];
         this._tagDropdownVisible = false;
 
+        // Bind methods for inline event handlers
+        this.searchTags = this.searchTags.bind(this);
+        this.clearTagSearch = this.clearTagSearch.bind(this);
+
         this.init();
     }
 
