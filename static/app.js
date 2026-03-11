@@ -17,6 +17,7 @@ class BelaGuruApp {
         this.searchQuery = "";
         this.appContainer = document.getElementById("app");
         this.searchTimeout = null;
+        this.mobileTagsOpen = false; // Track mobile tags section state
         // Tag input state for upload/edit forms
         this._selectedTags = [];
         this._tagDropdownVisible = false;
@@ -120,6 +121,14 @@ class BelaGuruApp {
     clearTagSearch() {
         this.tagSearchQuery = "";
         this.renderHome();
+    }
+
+    toggleMobileTags() {
+        const section = document.getElementById('mobile-tags-section');
+        if (section) {
+            section.classList.toggle('hidden');
+            this.mobileTagsOpen = !section.classList.contains('hidden');
+        }
     }
 
     applyFilters() {
@@ -433,6 +442,12 @@ class BelaGuruApp {
     // ===== RENDER METHODS =====
 
     renderHome() {
+        // Save mobile tags section state before render
+        const mobileTagsSection = document.getElementById('mobile-tags-section');
+        if (mobileTagsSection) {
+            this.mobileTagsOpen = !mobileTagsSection.classList.contains('hidden');
+        }
+        
         const html = `
             <div class="min-h-screen bg-orange-50">
                 <!-- Header -->
@@ -493,7 +508,7 @@ class BelaGuruApp {
 
                     <!-- Mobile Tag Toggle Button -->
                     <div class="lg:hidden mb-4">
-                        <button onclick="document.getElementById('mobile-tags-section').classList.toggle('hidden')" 
+                        <button onclick="app.toggleMobileTags()" 
                                 class="w-full px-4 py-3 bg-white border-2 border-orange-200 rounded-lg font-semibold hanuman-accent hover:bg-orange-50 transition">
                             ▼ Filter by Tags
                         </button>
@@ -550,7 +565,7 @@ class BelaGuruApp {
                                 
                                 return filteredTags.map(tagObj => `
                                     <button
-                                        onclick="app.filterByTag('${tagObj.tag}'); document.getElementById('mobile-tags-section').classList.add('hidden');"
+                                        onclick="app.filterByTag('${tagObj.tag}'); document.getElementById('mobile-tags-section').classList.add('hidden'); app.mobileTagsOpen = false;"
                                         class="w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
                                             this.selectedTag === tagObj.tag
                                                 ? 'bg-orange-100 hanuman-accent font-semibold'
@@ -752,6 +767,14 @@ class BelaGuruApp {
                         window.app.renderHome();
                     }
                 };
+            }
+            
+            // Restore mobile tags section state after render
+            if (window.app && window.app.mobileTagsOpen) {
+                const mobileTagsSection = document.getElementById('mobile-tags-section');
+                if (mobileTagsSection) {
+                    mobileTagsSection.classList.remove('hidden');
+                }
             }
         }, 0);
     }
