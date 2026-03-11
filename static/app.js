@@ -523,7 +523,7 @@ class BelaGuruApp {
                                 </button>
                             ` : ""}
                         </div>
-                        <div class="space-y-2">
+                        <div class="space-y-2 overflow-y-auto" style="max-height: 60vh;">
                             ${this.allTags
                                 .filter(t => this.showAllTags || t.count >= 3)
                                 .map(tagObj => `
@@ -559,7 +559,7 @@ class BelaGuruApp {
                                         </button>
                                     ` : ""}
                                 </div>
-                                <div class="space-y-2">
+                                <div class="space-y-2 overflow-y-auto" style="max-height: calc(100vh - 200px);">
                                     ${this.allTags
                                         .filter(t => this.showAllTags || t.count >= 3)
                                         .map(tagObj => `
@@ -575,7 +575,7 @@ class BelaGuruApp {
                                                 <span class="text-xs ${this.selectedTag === tagObj.tag ? 'text-orange-600' : 'text-gray-500'}">(${tagObj.count})</span>
                                             </button>
                                         `).join('')}
-                                    ${!this.showAllTags && this.allTags.filter(t => t.count < 3).length > 0 ? `
+                                    ${!this.showAllTags && this.allTags.filter(t => t.count >= 3).length > 0 ? `
                                         <p class="text-xs text-gray-500 mt-3 px-3">
                                             +${this.allTags.filter(t => t.count < 3).length} more tags hidden
                                         </p>
