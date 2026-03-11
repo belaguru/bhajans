@@ -722,14 +722,16 @@ class BelaGuruApp {
                     if (window.app) {
                         window.app.tagSearchQuery = e.target.value.toLowerCase();
                         window.app.renderHome();
-                        // Restore focus after render
+                        // Restore focus after render (longer delay for mobile browsers)
                         setTimeout(() => {
                             const input = document.getElementById('tag-search-input-mobile');
                             if (input) {
                                 input.focus();
+                                // Force focus on mobile
+                                input.click();
                                 input.setSelectionRange(input.value.length, input.value.length);
                             }
-                        }, 0);
+                        }, 50);
                     }
                 };
             }
