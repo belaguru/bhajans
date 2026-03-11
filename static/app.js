@@ -43,7 +43,7 @@ class BelaGuruApp {
 
     async loadTags() {
         try {
-            const response = await fetch("/api/tags");
+            const response = await fetch("/api/tags/counts");
             this.allTags = await response.json();
         } catch (error) {
             console.error("Error loading tags:", error);
