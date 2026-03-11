@@ -502,7 +502,7 @@ class BelaGuruApp {
 
                 <!-- Main Content -->
 
-                <div class="max-w-6xl mx-auto px-4 py-6">
+                <div class="max-w-6xl mx-auto px-4 pb-6">
                     <!-- Search Status (NEW) -->
                     <div id="search-status"></div>
 
