@@ -11,6 +11,7 @@ class BelaGuruApp {
         this.bhajans = [];
         this.filteredBhajans = [];
         this.allTags = [];
+        this.showAllTags = false;
         this.selectedTag = null;
         this.searchQuery = "";
         this.appContainer = document.getElementById("app");
@@ -42,10 +43,8 @@ class BelaGuruApp {
 
     async loadTags() {
         try {
-            const response = await fetch("/api/tags/counts");
-            const tagData = await response.json();
-            this.allTags = tagData.map(t => ({ name: t.tag, count: t.count }));
-            this.showAllTags = false; // Default: hide sparse tags
+            const response = await fetch("/api/tags");
+            this.allTags = await response.json();
         } catch (error) {
             console.error("Error loading tags:", error);
         }
@@ -95,16 +94,21 @@ class BelaGuruApp {
     }
 
     filterByTag(tag) {
+        this.selectedTag = this.selectedTag === tag ? null : tag;
+        this.applyFilters();
+        this.renderResults();
+        this.renderSearchStatus(); // NEW: Update status when filtering
+    }
+
+    toggleShowAllTags() {
+        this.showAllTags = !this.showAllTags;
+        this.render();
+    }
 
     clearFilters() {
         this.selectedTag = null;
         this.searchQuery = "";
         this.render();
-    }
-        this.selectedTag = this.selectedTag === tagObj.name ? null : tag;
-        this.applyFilters();
-        this.renderResults();
-        this.renderSearchStatus(); // NEW: Update status when filtering
     }
 
     applyFilters() {
@@ -471,77 +475,6 @@ class BelaGuruApp {
                 </div>
 
                 <!-- Main Content -->
-                <div class="max-w-6xl mx-auto px-4 py-6">
-                    <!-- Search Status (NEW) -->
-                    <div id="search-status" class="mb-6"></div>
-
-                    <!-- Mobile Tag Toggle Button -->
-                    <div class="lg:hidden mb-4">
-                        <button onclick="document.getElementById('mobile-tags-section').classList.toggle('hidden')" 
-                                class="w-full px-4 py-3 bg-white border-2 border-orange-200 rounded-lg font-semibold hanuman-accent hover:bg-orange-50 transition">
-                            ▼ Filter by Tags
-                        </button>
-                    </div>
-                    
-                    <!-- Mobile Tags (Hidden by default) -->
-                    <div id="mobile-tags-section" class="hidden lg:hidden mb-4 card">
-                        <div class="flex items-center justify-between mb-4">
-                                    <h3 class="font-bold text-lg hanuman-accent">📑 Tags</h3>
-                                    ${this.allTags.filter(t => t.count < 3).length > 0 ? `
-                                        <button onclick="app.toggleShowAllTags()" class="text-xs text-blue-600 hover:underline">
-                                            ${this.showAllTags ? 'Hide sparse' : 'Show all'}
-                                        </button>
-                                    ` : ''}
-                                </div>
-                        <div class="space-y-2">
-                            ${this.allTags.map(tag => `
-                                <button
-                                    onclick="app.filterByTag('${tag}'); document.getElementById('mobile-tags-section').classList.add('hidden');"
-                                    class="w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
-                                        this.selectedTag === tagObj.name
-                                            ? 'bg-orange-100 hanuman-accent font-semibold'
-                                            : 'hover:bg-orange-50 text-gray-700'
-                                    }"
-                                >
-                                            <span>${tagObj.name}</span>
-                                            <span class="text-xs ${this.selectedTag === tagObj.nameObj.name ? \'text-orange-600\' : \'text-gray-500\'}">(${tagObj.count})</span>
-                                        </button>
-                            `).join('')}
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-                        <!-- Sidebar (Tags) - Desktop Only -->
-                        <div class="hidden lg:block lg:col-span-1">
-                            <div class="card sticky top-32">
-                                <h3 class="font-bold text-lg mb-4 hanuman-accent">📑 Tags</h3>
-                                <div class="space-y-2">
-                                    ${this.allTags.filter(t => this.showAllTags || t.count >= 3).map(tagObj => `
-                                        <button
-                                            onclick="app.filterByTag(\'${tagObj.name}\')"
-                                            class="w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
-                                                this.selectedTag === tagObj.name
-                                                    ? 'bg-orange-100 hanuman-accent font-semibold'
-                                                    : 'hover:bg-orange-50 text-gray-700'
-                                            }"
-                                        >
-                                            <span>${tagObj.name}</span>
-                                            <span class="text-xs ${this.selectedTag === tagObj.nameObj.name ? \'text-orange-600\' : \'text-gray-500\'}">(${tagObj.count})</span>
-                                        </button>
-                                                                        `).join('')}
-                                    ${!this.showAllTags && this.allTags.filter(t => t.count < 3).length > 0 ? `
-                                        <p class="text-xs text-gray-500 mt-3 px-3">
-                                            +${this.allTags.filter(t => t.count < 3).length} more tags hidden
-                                        </p>
-                                    ` : ''}
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Bhajans Grid -->
-                        <div class="lg:col-span-3" id="bhajans-grid-container">
-                            <div class="space-y-4" id="bhajans-grid">
-                                ${this.filteredBhajans.length > 0 ? `
                     <!-- Filter Status -->
                     <div class="bg-gradient-to-r from-orange-50 to-white border-l-4 border-hanuman-orange px-6 py-4 mb-6 rounded-lg shadow-sm">
                         <div class="flex items-center justify-between">
@@ -570,6 +503,65 @@ class BelaGuruApp {
                             ` : ""}
                         </div>
                     </div>
+
+
+                <div class="max-w-6xl mx-auto px-4 py-6">
+                    <!-- Search Status (NEW) -->
+                    <div id="search-status" class="mb-6"></div>
+
+                    <!-- Mobile Tag Toggle Button -->
+                    <div class="lg:hidden mb-4">
+                        <button onclick="document.getElementById('mobile-tags-section').classList.toggle('hidden')" 
+                                class="w-full px-4 py-3 bg-white border-2 border-orange-200 rounded-lg font-semibold hanuman-accent hover:bg-orange-50 transition">
+                            ▼ Filter by Tags
+                        </button>
+                    </div>
+                    
+                    <!-- Mobile Tags (Hidden by default) -->
+                    <div id="mobile-tags-section" class="hidden lg:hidden mb-4 card">
+                        <h3 class="font-bold text-lg mb-4 hanuman-accent">📑 Tags</h3>
+                        <div class="space-y-2">
+                            ${this.allTags.map(tag => `
+                                <button
+                                    onclick="app.filterByTag('${tag}'); document.getElementById('mobile-tags-section').classList.add('hidden');"
+                                    class="w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${
+                                        this.selectedTag === tag
+                                            ? 'bg-orange-100 hanuman-accent font-semibold'
+                                            : 'hover:bg-orange-50 text-gray-700'
+                                    }"
+                                >
+                                    ${tag}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                        <!-- Sidebar (Tags) - Desktop Only -->
+                        <div class="hidden lg:block lg:col-span-1">
+                            <div class="card sticky top-32">
+                                <h3 class="font-bold text-lg mb-4 hanuman-accent">📑 Tags</h3>
+                                <div class="space-y-2">
+                                    ${this.allTags.map(tag => `
+                                        <button
+                                            onclick="app.filterByTag('${tag}')"
+                                            class="w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${
+                                                this.selectedTag === tag
+                                                    ? 'bg-orange-100 hanuman-accent font-semibold'
+                                                    : 'hover:bg-orange-50 text-gray-700'
+                                            }"
+                                        >
+                                            ${tag}
+                                        </button>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bhajans Grid -->
+                        <div class="lg:col-span-3" id="bhajans-grid-container">
+                            <div class="space-y-4" id="bhajans-grid">
+                                ${this.filteredBhajans.length > 0 ? `
                                     ${this.filteredBhajans.map(bhajan => `
                                         <div class="card cursor-pointer transform hover:scale-105 transition-transform"
                                              onclick="app.setPage('bhajan', ${bhajan.id})">
