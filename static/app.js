@@ -12,6 +12,7 @@ class BelaGuruApp {
         this.filteredBhajans = [];
         this.allTags = [];
         this.showAllTags = false;
+        this.tagSearchQuery = "";
         this.selectedTag = null;
         this.searchQuery = "";
         this.appContainer = document.getElementById("app");
@@ -108,6 +109,16 @@ class BelaGuruApp {
     clearFilters() {
         this.selectedTag = null;
         this.searchQuery = "";
+        this.render();
+    }
+
+    searchTags(query) {
+        this.tagSearchQuery = query.toLowerCase();
+        this.render();
+    }
+
+    clearTagSearch() {
+        this.tagSearchQuery = "";
         this.render();
     }
 
@@ -523,10 +534,46 @@ class BelaGuruApp {
                                 </button>
                             ` : ""}
                         </div>
-                        <div class="space-y-2 overflow-y-auto" style="max-height: 60vh;">
-                            ${this.allTags
-                                .filter(t => this.showAllTags || t.count >= 3)
-                                .map(tagObj => `
+                        <!-- Mobile Tag Search Box -->
+                        <div class="relative mb-3">
+                            <input 
+                                type="text" 
+                                placeholder="Search tags..." 
+                                value="${this.tagSearchQuery}"
+                                oninput="app.searchTags(this.value)"
+                                class="w-full px-3 py-2 pl-8 pr-8 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                            />
+                            <span class="absolute left-2 top-2.5 text-gray-400">🔍</span>
+                            ${this.tagSearchQuery ? `
+                                <button 
+                                    onclick="app.clearTagSearch()"
+                                    class="absolute right-2 top-2 text-gray-400 hover:text-gray-600 text-lg leading-none"
+                                >×</button>
+                            ` : ""}
+                        </div>
+                        <div class="space-y-2 overflow-y-auto" style="max-height: calc(60vh - 80px);">
+                            ${(() => {
+                                const filteredTags = this.allTags
+                                    .filter(t => this.showAllTags || t.count >= 3)
+                                    .filter(t => !this.tagSearchQuery || t.tag.toLowerCase().includes(this.tagSearchQuery));
+                                
+                                if (filteredTags.length === 0) {
+                                    return `
+                                        <div class="text-center py-8 text-gray-500">
+                                            <p class="text-sm">No tags found</p>
+                                            ${this.tagSearchQuery ? `<p class="text-xs mt-1">Try different keywords</p>` : ''}
+                                        </div>
+                                    `;
+                                }
+                                
+                                const hiddenBySearch = this.allTags.filter(t => 
+                                    (this.showAllTags || t.count >= 3) && 
+                                    this.tagSearchQuery && 
+                                    !t.tag.toLowerCase().includes(this.tagSearchQuery)
+                                ).length;
+                                const hiddenBySparse = !this.showAllTags ? this.allTags.filter(t => t.count < 3).length : 0;
+                                
+                                return filteredTags.map(tagObj => `
                                     <button
                                         onclick="app.filterByTag('${tagObj.tag}'); document.getElementById('mobile-tags-section').classList.add('hidden');"
                                         class="w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
@@ -538,12 +585,12 @@ class BelaGuruApp {
                                         <span>${tagObj.tag}</span>
                                         <span class="text-xs ${this.selectedTag === tagObj.tag ? 'text-orange-600' : 'text-gray-500'}">(${tagObj.count})</span>
                                     </button>
-                                `).join('')}
-                            ${!this.showAllTags && this.allTags.filter(t => t.count < 3).length > 0 ? `
-                                <p class="text-xs text-gray-500 mt-3 px-3">
-                                    +${this.allTags.filter(t => t.count < 3).length} more tags hidden
-                                </p>
-                            ` : ""}
+                                `).join('') + (hiddenBySearch + hiddenBySparse > 0 ? `
+                                    <p class="text-xs text-gray-500 mt-3 px-3">
+                                        +${hiddenBySearch + hiddenBySparse} hidden${hiddenBySearch && hiddenBySparse ? ` (${hiddenBySparse} sparse + ${hiddenBySearch} by search)` : hiddenBySearch ? ' by search' : ' sparse'}
+                                    </p>
+                                ` : '');
+                            })()}
                         </div>
                     </div>
 
@@ -551,7 +598,7 @@ class BelaGuruApp {
                         <!-- Sidebar (Tags) - Desktop Only -->
                         <div class="hidden lg:block lg:col-span-1">
                             <div class="card sticky top-32">
-                                <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center justify-between mb-3">
                                     <h3 class="font-bold text-lg hanuman-accent">📑 Tags</h3>
                                     ${this.allTags.filter(t => t.count < 3).length > 0 ? `
                                         <button onclick="app.toggleShowAllTags()" class="text-xs text-blue-600 hover:underline">
@@ -559,10 +606,46 @@ class BelaGuruApp {
                                         </button>
                                     ` : ""}
                                 </div>
-                                <div class="space-y-2 overflow-y-auto" style="max-height: calc(100vh - 200px);">
-                                    ${this.allTags
-                                        .filter(t => this.showAllTags || t.count >= 3)
-                                        .map(tagObj => `
+                                <!-- Tag Search Box -->
+                                <div class="relative mb-3">
+                                    <input 
+                                        type="text" 
+                                        placeholder="Search tags..." 
+                                        value="${this.tagSearchQuery}"
+                                        oninput="app.searchTags(this.value)"
+                                        class="w-full px-3 py-2 pl-8 pr-8 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                                    />
+                                    <span class="absolute left-2 top-2.5 text-gray-400">🔍</span>
+                                    ${this.tagSearchQuery ? `
+                                        <button 
+                                            onclick="app.clearTagSearch()"
+                                            class="absolute right-2 top-2 text-gray-400 hover:text-gray-600 text-lg leading-none"
+                                        >×</button>
+                                    ` : ""}
+                                </div>
+                                <div class="space-y-2 overflow-y-auto" style="max-height: calc(100vh - 290px);">
+                                    ${(() => {
+                                        const filteredTags = this.allTags
+                                            .filter(t => this.showAllTags || t.count >= 3)
+                                            .filter(t => !this.tagSearchQuery || t.tag.toLowerCase().includes(this.tagSearchQuery));
+                                        
+                                        if (filteredTags.length === 0) {
+                                            return `
+                                                <div class="text-center py-8 text-gray-500">
+                                                    <p class="text-sm">No tags found</p>
+                                                    ${this.tagSearchQuery ? `<p class="text-xs mt-1">Try different keywords</p>` : ''}
+                                                </div>
+                                            `;
+                                        }
+                                        
+                                        const hiddenBySearch = this.allTags.filter(t => 
+                                            (this.showAllTags || t.count >= 3) && 
+                                            this.tagSearchQuery && 
+                                            !t.tag.toLowerCase().includes(this.tagSearchQuery)
+                                        ).length;
+                                        const hiddenBySparse = !this.showAllTags ? this.allTags.filter(t => t.count < 3).length : 0;
+                                        
+                                        return filteredTags.map(tagObj => `
                                             <button
                                                 onclick="app.filterByTag('${tagObj.tag}')"
                                                 class="w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
@@ -574,12 +657,12 @@ class BelaGuruApp {
                                                 <span>${tagObj.tag}</span>
                                                 <span class="text-xs ${this.selectedTag === tagObj.tag ? 'text-orange-600' : 'text-gray-500'}">(${tagObj.count})</span>
                                             </button>
-                                        `).join('')}
-                                    ${!this.showAllTags && this.allTags.filter(t => t.count >= 3).length > 0 ? `
-                                        <p class="text-xs text-gray-500 mt-3 px-3">
-                                            +${this.allTags.filter(t => t.count < 3).length} more tags hidden
-                                        </p>
-                                    ` : ""}
+                                        `).join('') + (hiddenBySearch + hiddenBySparse > 0 ? `
+                                            <p class="text-xs text-gray-500 mt-3 px-3">
+                                                +${hiddenBySearch + hiddenBySparse} hidden${hiddenBySearch && hiddenBySparse ? ` (${hiddenBySparse} sparse + ${hiddenBySearch} by search)` : hiddenBySearch ? ' by search' : ' sparse'}
+                                            </p>
+                                        ` : '');
+                                    })()}
                                 </div>
                             </div>
                         </div>
