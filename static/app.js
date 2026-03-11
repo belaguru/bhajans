@@ -103,23 +103,23 @@ class BelaGuruApp {
 
     toggleShowAllTags() {
         this.showAllTags = !this.showAllTags;
-        this.render();
+        this.renderHome();
     }
 
     clearFilters() {
         this.selectedTag = null;
         this.searchQuery = "";
-        this.render();
+        this.renderHome();
     }
 
     searchTags(query) {
         this.tagSearchQuery = query.toLowerCase();
-        this.render();
+        this.renderHome();
     }
 
     clearTagSearch() {
         this.tagSearchQuery = "";
-        this.render();
+        this.renderHome();
     }
 
     applyFilters() {
@@ -729,7 +729,7 @@ class BelaGuruApp {
                 tagSearchInput.oninput = function(e) {
                     if (window.app) {
                         window.app.tagSearchQuery = e.target.value.toLowerCase();
-                        window.app.render();
+                        window.app.renderHome();
                     }
                 };
             }
@@ -738,7 +738,7 @@ class BelaGuruApp {
                 tagSearchInputMobile.oninput = function(e) {
                     if (window.app) {
                         window.app.tagSearchQuery = e.target.value.toLowerCase();
-                        window.app.render();
+                        window.app.renderHome();
                     }
                 };
             }
@@ -747,7 +747,7 @@ class BelaGuruApp {
                 tagSearchClear.onclick = function() {
                     if (window.app) {
                         window.app.tagSearchQuery = "";
-                        window.app.render();
+                        window.app.renderHome();
                     }
                 };
             }
@@ -756,7 +756,7 @@ class BelaGuruApp {
                 tagSearchClearMobile.onclick = function() {
                     if (window.app) {
                         window.app.tagSearchQuery = "";
-                        window.app.render();
+                        window.app.renderHome();
                     }
                 };
             }
