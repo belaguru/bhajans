@@ -515,20 +515,35 @@ class BelaGuruApp {
                     
                     <!-- Mobile Tags (Hidden by default) -->
                     <div id="mobile-tags-section" class="hidden lg:hidden mb-4 card">
-                        <h3 class="font-bold text-lg mb-4 hanuman-accent">📑 Tags</h3>
-                        <div class="space-y-2">
-                            ${this.allTags.map(tag => `
-                                <button
-                                    onclick="app.filterByTag('${tag}'); document.getElementById('mobile-tags-section').classList.add('hidden');"
-                                    class="w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${
-                                        this.selectedTag === tag
-                                            ? 'bg-orange-100 hanuman-accent font-semibold'
-                                            : 'hover:bg-orange-50 text-gray-700'
-                                    }"
-                                >
-                                    ${tag}
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold text-lg hanuman-accent">📑 Tags</h3>
+                            ${this.allTags.filter(t => t.count < 3).length > 0 ? `
+                                <button onclick="app.toggleShowAllTags()" class="text-xs text-blue-600 hover:underline">
+                                    ${this.showAllTags ? 'Hide sparse' : 'Show all'}
                                 </button>
-                            `).join('')}
+                            ` : ""}
+                        </div>
+                        <div class="space-y-2">
+                            ${this.allTags
+                                .filter(t => this.showAllTags || t.count >= 3)
+                                .map(tagObj => `
+                                    <button
+                                        onclick="app.filterByTag('${tagObj.tag}'); document.getElementById('mobile-tags-section').classList.add('hidden');"
+                                        class="w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
+                                            this.selectedTag === tagObj.tag
+                                                ? 'bg-orange-100 hanuman-accent font-semibold'
+                                                : 'hover:bg-orange-50 text-gray-700'
+                                        }"
+                                    >
+                                        <span>${tagObj.tag}</span>
+                                        <span class="text-xs ${this.selectedTag === tagObj.tag ? 'text-orange-600' : 'text-gray-500'}">(${tagObj.count})</span>
+                                    </button>
+                                `).join('')}
+                            ${!this.showAllTags && this.allTags.filter(t => t.count < 3).length > 0 ? `
+                                <p class="text-xs text-gray-500 mt-3 px-3">
+                                    +${this.allTags.filter(t => t.count < 3).length} more tags hidden
+                                </p>
+                            ` : ""}
                         </div>
                     </div>
 
@@ -536,20 +551,35 @@ class BelaGuruApp {
                         <!-- Sidebar (Tags) - Desktop Only -->
                         <div class="hidden lg:block lg:col-span-1">
                             <div class="card sticky top-32">
-                                <h3 class="font-bold text-lg mb-4 hanuman-accent">📑 Tags</h3>
-                                <div class="space-y-2">
-                                    ${this.allTags.map(tag => `
-                                        <button
-                                            onclick="app.filterByTag('${tag}')"
-                                            class="w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${
-                                                this.selectedTag === tag
-                                                    ? 'bg-orange-100 hanuman-accent font-semibold'
-                                                    : 'hover:bg-orange-50 text-gray-700'
-                                            }"
-                                        >
-                                            ${tag}
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="font-bold text-lg hanuman-accent">📑 Tags</h3>
+                                    ${this.allTags.filter(t => t.count < 3).length > 0 ? `
+                                        <button onclick="app.toggleShowAllTags()" class="text-xs text-blue-600 hover:underline">
+                                            ${this.showAllTags ? 'Hide sparse' : 'Show all'}
                                         </button>
-                                    `).join('')}
+                                    ` : ""}
+                                </div>
+                                <div class="space-y-2">
+                                    ${this.allTags
+                                        .filter(t => this.showAllTags || t.count >= 3)
+                                        .map(tagObj => `
+                                            <button
+                                                onclick="app.filterByTag('${tagObj.tag}')"
+                                                class="w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
+                                                    this.selectedTag === tagObj.tag
+                                                        ? 'bg-orange-100 hanuman-accent font-semibold'
+                                                        : 'hover:bg-orange-50 text-gray-700'
+                                                }"
+                                            >
+                                                <span>${tagObj.tag}</span>
+                                                <span class="text-xs ${this.selectedTag === tagObj.tag ? 'text-orange-600' : 'text-gray-500'}">(${tagObj.count})</span>
+                                            </button>
+                                        `).join('')}
+                                    ${!this.showAllTags && this.allTags.filter(t => t.count < 3).length > 0 ? `
+                                        <p class="text-xs text-gray-500 mt-3 px-3">
+                                            +${this.allTags.filter(t => t.count < 3).length} more tags hidden
+                                        </p>
+                                    ` : ""}
                                 </div>
                             </div>
                         </div>
