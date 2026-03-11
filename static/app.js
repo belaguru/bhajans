@@ -741,6 +741,8 @@ class BelaGuruApp {
                         setTimeout(() => {
                             const input = document.getElementById('tag-search-input-mobile');
                             if (input) {
+                                // Scroll into view first (above keyboard)
+                                input.scrollIntoView({ behavior: 'smooth', block: 'center' });
                                 input.focus();
                                 // Force focus on mobile
                                 input.click();
