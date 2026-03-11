@@ -503,7 +503,7 @@ class BelaGuruApp {
                     <div id="mobile-tags-section" class="hidden lg:hidden mb-4 card">
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="font-bold text-lg hanuman-accent">📑 Tags</h3>
-                            ${this.allTags.filter(t => t.count < 3).length > 0 ? `
+                            ${this.allTags.filter(t => t.count < 5).length > 0 ? `
                                 <button onclick="app.toggleShowAllTags()" class="text-xs text-blue-600 hover:underline">
                                     ${this.showAllTags ? 'Hide sparse' : 'Show all'}
                                 </button>
@@ -529,7 +529,7 @@ class BelaGuruApp {
                         <div class="space-y-2 overflow-y-auto" style="max-height: calc(60vh - 80px);">
                             ${(() => {
                                 const filteredTags = this.allTags
-                                    .filter(t => this.showAllTags || t.count >= 3)
+                                    .filter(t => this.showAllTags || t.count >= 5)
                                     .filter(t => !this.tagSearchQuery || t.tag.toLowerCase().includes(this.tagSearchQuery));
                                 
                                 if (filteredTags.length === 0) {
@@ -542,11 +542,11 @@ class BelaGuruApp {
                                 }
                                 
                                 const hiddenBySearch = this.allTags.filter(t => 
-                                    (this.showAllTags || t.count >= 3) && 
+                                    (this.showAllTags || t.count >= 5) && 
                                     this.tagSearchQuery && 
                                     !t.tag.toLowerCase().includes(this.tagSearchQuery)
                                 ).length;
-                                const hiddenBySparse = !this.showAllTags ? this.allTags.filter(t => t.count < 3).length : 0;
+                                const hiddenBySparse = !this.showAllTags ? this.allTags.filter(t => t.count < 5).length : 0;
                                 
                                 return filteredTags.map(tagObj => `
                                     <button
@@ -575,7 +575,7 @@ class BelaGuruApp {
                             <div class="card sticky top-32">
                                 <div class="flex items-center justify-between mb-3">
                                     <h3 class="font-bold text-lg hanuman-accent">📑 Tags</h3>
-                                    ${this.allTags.filter(t => t.count < 3).length > 0 ? `
+                                    ${this.allTags.filter(t => t.count < 5).length > 0 ? `
                                         <button onclick="app.toggleShowAllTags()" class="text-xs text-blue-600 hover:underline">
                                             ${this.showAllTags ? 'Hide sparse' : 'Show all'}
                                         </button>
@@ -601,7 +601,7 @@ class BelaGuruApp {
                                 <div class="space-y-2 overflow-y-auto" style="max-height: calc(100vh - 290px);">
                                     ${(() => {
                                         const filteredTags = this.allTags
-                                            .filter(t => this.showAllTags || t.count >= 3)
+                                            .filter(t => this.showAllTags || t.count >= 5)
                                             .filter(t => !this.tagSearchQuery || t.tag.toLowerCase().includes(this.tagSearchQuery));
                                         
                                         if (filteredTags.length === 0) {
@@ -614,11 +614,11 @@ class BelaGuruApp {
                                         }
                                         
                                         const hiddenBySearch = this.allTags.filter(t => 
-                                            (this.showAllTags || t.count >= 3) && 
+                                            (this.showAllTags || t.count >= 5) && 
                                             this.tagSearchQuery && 
                                             !t.tag.toLowerCase().includes(this.tagSearchQuery)
                                         ).length;
-                                        const hiddenBySparse = !this.showAllTags ? this.allTags.filter(t => t.count < 3).length : 0;
+                                        const hiddenBySparse = !this.showAllTags ? this.allTags.filter(t => t.count < 5).length : 0;
                                         
                                         return filteredTags.map(tagObj => `
                                             <button
