@@ -93,6 +93,12 @@ class BelaGuruApp {
     }
 
     filterByTag(tag) {
+
+    clearFilters() {
+        this.selectedTag = null;
+        this.searchQuery = "";
+        this.render();
+    }
         this.selectedTag = this.selectedTag === tag ? null : tag;
         this.applyFilters();
         this.renderResults();
@@ -520,6 +526,34 @@ class BelaGuruApp {
                         <div class="lg:col-span-3" id="bhajans-grid-container">
                             <div class="space-y-4" id="bhajans-grid">
                                 ${this.filteredBhajans.length > 0 ? `
+                    <!-- Filter Status -->
+                    <div class="bg-gradient-to-r from-orange-50 to-white border-l-4 border-hanuman-orange px-6 py-4 mb-6 rounded-lg shadow-sm">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl">📊</span>
+                                <div>
+                                    ${this.selectedTag || this.searchQuery ? `
+                                        <p class="text-sm text-gray-600 mb-1">
+                                            ${this.selectedTag ? `🏷️ Tag: <span class="font-semibold hanuman-accent">${this.selectedTag}</span>` : ""}
+                                            ${this.searchQuery ? `🔍 Search: <span class="font-semibold hanuman-accent">"${this.searchQuery}"</span>` : ""}
+                                        </p>
+                                    ` : ""}
+                                    <p class="font-semibold hanuman-text">
+                                        Showing <span class="text-hanuman-orange">${this.filteredBhajans.length}</span> 
+                                        ${this.filteredBhajans.length !== this.bhajans.length ? `of ${this.bhajans.length}` : ""} bhajan${this.filteredBhajans.length !== 1 ? "s" : ""}
+                                    </p>
+                                </div>
+                            </div>
+                            ${this.selectedTag || this.searchQuery ? `
+                                <button 
+                                    onclick="app.clearFilters()" 
+                                    class="px-4 py-2 bg-white border-2 border-orange-200 rounded-lg text-sm font-semibold hanuman-accent hover:bg-orange-50 transition"
+                                >
+                                    Clear Filters
+                                </button>
+                            ` : ""}
+                        </div>
+                    </div>
                                     ${this.filteredBhajans.map(bhajan => `
                                         <div class="card cursor-pointer transform hover:scale-105 transition-transform"
                                              onclick="app.setPage('bhajan', ${bhajan.id})">
