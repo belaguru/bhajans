@@ -368,6 +368,29 @@ def serve_index():
     return FileResponse(index_path)
 
 
+@app.get("/api/tags/counts")
+def get_tag_counts(db: Session = Depends(get_db)):
+    """Get all tags with their usage counts"""
+    try:
+        bhajans = db.query(Bhajan).all()
+        tag_counts = {}
+        
+        for bhajan in bhajans:
+            if bhajan.tags:
+                for tag in bhajan.tags.split(','):
+                    tag = tag.strip()
+                    if tag:
+                        tag_counts[tag] = tag_counts.get(tag, 0) + 1
+        
+        # Return sorted by count descending
+        sorted_tags = sorted(tag_counts.items(), key=lambda x: x[1], reverse=True)
+        return [{"tag": tag, "count": count} for tag, count in sorted_tags]
+    
+    except Exception as e:
+        logger.error(f"Error getting tag counts: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @app.get("/{path:path}")
 def serve_static(path: str):
     """Serve static files"""
@@ -417,25 +440,3 @@ if __name__ == "__main__":
         sys.exit(1)
     finally:
         logger.info("Server shutdown complete")
-
-@app.get("/api/tags/counts")
-def get_tag_counts(db: Session = Depends(get_db)):
-    """Get all tags with their usage counts"""
-    try:
-        bhajans = db.query(Bhajan).all()
-        tag_counts = {}
-        
-        for bhajan in bhajans:
-            if bhajan.tags:
-                for tag in bhajan.tags.split(','):
-                    tag = tag.strip()
-                    if tag:
-                        tag_counts[tag] = tag_counts.get(tag, 0) + 1
-        
-        # Return sorted by count descending
-        sorted_tags = sorted(tag_counts.items(), key=lambda x: x[1], reverse=True)
-        return [{"tag": tag, "count": count} for tag, count in sorted_tags]
-    
-    except Exception as e:
-        logger.error(f"Error getting tag counts: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
