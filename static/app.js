@@ -718,38 +718,39 @@ class BelaGuruApp {
         this.appContainer.innerHTML = html + this.renderFloatingMenu();
         this.renderSearchStatus(); // Initialize search status on load
         
-        // Attach tag search event listeners
+        // Attach tag search event listeners with explicit this binding
+        const self = this;
         const tagSearchInput = document.getElementById('tag-search-input');
         const tagSearchInputMobile = document.getElementById('tag-search-input-mobile');
         const tagSearchClear = document.getElementById('tag-search-clear');
         const tagSearchClearMobile = document.getElementById('tag-search-clear-mobile');
         
         if (tagSearchInput) {
-            tagSearchInput.addEventListener('input', (e) => {
-                this.tagSearchQuery = e.target.value.toLowerCase();
-                this.render();
-            });
+            tagSearchInput.oninput = function(e) {
+                self.tagSearchQuery = e.target.value.toLowerCase();
+                self.render();
+            };
         }
         
         if (tagSearchInputMobile) {
-            tagSearchInputMobile.addEventListener('input', (e) => {
-                this.tagSearchQuery = e.target.value.toLowerCase();
-                this.render();
-            });
+            tagSearchInputMobile.oninput = function(e) {
+                self.tagSearchQuery = e.target.value.toLowerCase();
+                self.render();
+            };
         }
         
         if (tagSearchClear) {
-            tagSearchClear.addEventListener('click', () => {
-                this.tagSearchQuery = "";
-                this.render();
-            });
+            tagSearchClear.onclick = function() {
+                self.tagSearchQuery = "";
+                self.render();
+            };
         }
         
         if (tagSearchClearMobile) {
-            tagSearchClearMobile.addEventListener('click', () => {
-                this.tagSearchQuery = "";
-                this.render();
-            });
+            tagSearchClearMobile.onclick = function() {
+                self.tagSearchQuery = "";
+                self.render();
+            };
         }
     }
 
