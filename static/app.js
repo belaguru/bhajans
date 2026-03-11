@@ -486,31 +486,6 @@ class BelaGuruApp {
                 </div>
 
                 <!-- Main Content -->
-                    <!-- Filter Status -->
-                    ${this.selectedTag || this.searchQuery ? `
-                        <div class="bg-gradient-to-r from-green-50 to-white border-l-4 border-green-500 px-6 py-4 mb-6 rounded-lg shadow-sm">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-3">
-                                    <span class="text-2xl">✅</span>
-                                    <div>
-                                        <p class="text-sm text-gray-600 mb-1">
-                                            ${this.selectedTag ? `🏷️ Tag: <span class="font-semibold text-green-700">${this.selectedTag}</span>` : ""}
-                                            ${this.searchQuery ? `🔍 Search: <span class="font-semibold text-green-700">"${this.searchQuery}"</span>` : ""}
-                                        </p>
-                                        <p class="font-semibold text-gray-800">
-                                            Found <span class="text-green-600">${this.filteredBhajans.length}</span> of ${this.bhajans.length || 0} bhajans
-                                        </p>
-                                    </div>
-                                </div>
-                                <button 
-                                    onclick="app.clearFilters()" 
-                                    class="px-4 py-2 bg-white border-2 border-green-200 rounded-lg text-sm font-semibold text-green-700 hover:bg-green-50 transition"
-                                >
-                                    Clear Filters
-                                </button>
-                            </div>
-                        </div>
-                    ` : ""}
 
                 <div class="max-w-6xl mx-auto px-4 py-6">
                     <!-- Search Status (NEW) -->
