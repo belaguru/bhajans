@@ -155,7 +155,7 @@ class BelaGuruApp {
                                     ${filterInfo.join(' + ')}
                                 </p>
                                 <p class="font-semibold text-green-700 mt-1">
-                                    ✅ Found <strong>${count}</strong> ${resultText}
+                                    ✅ Found <strong>${count}</strong> of ${this.bhajans.length} ${resultText}
                                 </p>
                             </div>
                             <button onclick="app.clearFilters()" class="text-sm px-3 py-1 rounded bg-green-200 hover:bg-green-300 text-green-800 font-semibold transition-colors">
@@ -487,7 +487,7 @@ class BelaGuruApp {
                                             ${this.searchQuery ? `🔍 Search: <span class="font-semibold text-green-700">"${this.searchQuery}"</span>` : ""}
                                         </p>
                                         <p class="font-semibold text-gray-800">
-                                            Found <span class="text-green-600">${this.filteredBhajans.length}</span> of ${this.bhajans.length} bhajans
+                                            Found <span class="text-green-600">${this.filteredBhajans.length}</span> of ${this.bhajans.length || 0} bhajans
                                         </p>
                                     </div>
                                 </div>
