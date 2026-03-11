@@ -377,9 +377,17 @@ def get_tag_counts(db: Session = Depends(get_db)):
         
         for bhajan in bhajans:
             if bhajan.tags:
-                for tag in bhajan.tags.split(','):
-                    tag = tag.strip()
-                    if tag:
+                # Parse tags - handle both JSON array strings and comma-separated
+                import json
+                try:
+                    # Try parsing as JSON first
+                    tags_list = json.loads(bhajan.tags) if bhajan.tags.startswith('[') else bhajan.tags.split(',')
+                except:
+                    tags_list = bhajan.tags.split(',')
+                
+                for tag in tags_list:
+                    tag = str(tag).strip().strip('"').strip("'")  # Clean quotes and whitespace
+                    if tag and tag not in ['[', ']', '']:
                         tag_counts[tag] = tag_counts.get(tag, 0) + 1
         
         # Return sorted by count descending
