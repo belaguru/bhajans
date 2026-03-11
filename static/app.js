@@ -730,6 +730,14 @@ class BelaGuruApp {
                     if (window.app) {
                         window.app.tagSearchQuery = e.target.value.toLowerCase();
                         window.app.renderHome();
+                        // Restore focus after render
+                        setTimeout(() => {
+                            const input = document.getElementById('tag-search-input');
+                            if (input) {
+                                input.focus();
+                                input.setSelectionRange(input.value.length, input.value.length);
+                            }
+                        }, 0);
                     }
                 };
             }
@@ -739,6 +747,14 @@ class BelaGuruApp {
                     if (window.app) {
                         window.app.tagSearchQuery = e.target.value.toLowerCase();
                         window.app.renderHome();
+                        // Restore focus after render
+                        setTimeout(() => {
+                            const input = document.getElementById('tag-search-input-mobile');
+                            if (input) {
+                                input.focus();
+                                input.setSelectionRange(input.value.length, input.value.length);
+                            }
+                        }, 0);
                     }
                 };
             }
