@@ -261,7 +261,7 @@ input:focus, textarea:focus, select:focus {
 /* ===== FLOATING MENU ===== */
 .floating-menu-button {
     position: fixed;
-    bottom: 90px;
+    bottom: 140px;
     right: 20px;
     z-index: 999;
     background: linear-gradient(135deg, #FF6B35, #E67E22);
@@ -389,7 +389,7 @@ input:focus, textarea:focus, select:focus {
     color: white;
     padding: 16px;
     border-radius: 8px;
-    margin-bottom: 90px;
+    margin-bottom: 140px;
     box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
 }
 
