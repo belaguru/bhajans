@@ -355,6 +355,7 @@ def health_check():
         raise HTTPException(status_code=500, detail=str(e))
 
 
+app.mount("/static", StaticFiles(directory="static"), name="static")
 # Serve static files
 @app.get("/", response_class=FileResponse)
 def serve_index():

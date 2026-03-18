@@ -333,8 +333,8 @@ class BelaGuruApp {
 
         const query = value.toLowerCase().trim();
         const filtered = this.allTags.filter(tag =>
-            !this._selectedTags.includes(tag) &&
-            tag.toLowerCase().includes(query)
+            !this._selectedTags.includes(tag.tag) &&
+            tag.tag.toLowerCase().includes(query)
         );
 
         if (filtered.length === 0 && !query) {
@@ -343,12 +343,12 @@ class BelaGuruApp {
         }
 
         let items = filtered.map(tag => `
-            <div class="tag-dropdown-item" onmousedown="app.selectTag('${inputId}', '${tag}')">
-                ${tag}
+            <div class="tag-dropdown-item" onmousedown="app.selectTag('${inputId}', '${tag.tag}')">
+                ${tag.tag}
             </div>
         `).join('');
 
-        if (query && !this.allTags.some(t => t.toLowerCase() === query) && !this._selectedTags.some(t => t.toLowerCase() === query)) {
+        if (query && !this.allTags.some(t => t.tag.toLowerCase() === query) && !this._selectedTags.some(t => t.toLowerCase() === query)) {
             items += `
                 <div class="tag-dropdown-item tag-dropdown-new" onmousedown="app.selectTag('${inputId}', '${value.trim()}')">
                     + Add "${value.trim()}"
