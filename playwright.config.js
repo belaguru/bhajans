@@ -14,6 +14,8 @@ module.exports = defineConfig({
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
+    headless: false,  // Show browser window
+    slowMo: 500,      // 500ms delay between actions (for visibility)
   },
 
   projects: [
