@@ -141,13 +141,132 @@ class BhajanResponse(BaseModel):
 @app.get("/api/bhajans", response_model=List[BhajanResponse])
 def get_bhajans(
     search: Optional[str] = None,
-    tag: Optional[str] = None,
+    tag: Optional[List[str]] = None,
     db: Session = Depends(get_db)
 ):
-    """Get all bhajans with optional search/filter (excludes deleted)"""
+    """Get all bhajans with optional search/filter (excludes deleted)
+    
+    Enhanced tag filtering:
+    - Supports multiple tags (AND logic)
+    - Resolves synonyms to canonical tags
+    - Includes hierarchical search (child tags)
+    
+    Args:
+        search: Search in title/lyrics
+        tag: Tag name(s) to filter by (can be repeated: ?tag=Hanuman&tag=Stotra)
+    """
+    import sqlite3
+    import json as json_lib
+    
     try:
         logger.info(f"GET /api/bhajans - search={search}, tag={tag}")
         
+        # If tag filtering requested, use taxonomy search
+        if tag:
+            conn = sqlite3.connect("./data/portal.db")
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            
+            # Resolve tag names to IDs (with synonym resolution and hierarchy)
+            def resolve_tag_name(tag_name):
+                """Resolve tag name to canonical tag ID (handles synonyms)"""
+                # Try direct match
+                cursor.execute("SELECT id FROM tag_taxonomy WHERE name = ?", (tag_name,))
+                row = cursor.fetchone()
+                if row:
+                    return row["id"]
+                
+                # Try synonym match
+                cursor.execute("SELECT tag_id FROM tag_synonyms WHERE synonym = ?", (tag_name,))
+                row = cursor.fetchone()
+                if row:
+                    return row["tag_id"]
+                
+                return None
+            
+            def get_descendant_ids(tid):
+                """Get all descendant tag IDs recursively"""
+                descendants = [tid]
+                cursor.execute("SELECT id FROM tag_taxonomy WHERE parent_id = ?", (tid,))
+                children = cursor.fetchall()
+                for child in children:
+                    descendants.extend(get_descendant_ids(child["id"]))
+                return descendants
+            
+            # Resolve all tag names to tag ID sets (including descendants)
+            tag_id_sets = []
+            for tag_name in tag:
+                tag_id = resolve_tag_name(tag_name)
+                if tag_id:
+                    tag_id_sets.append(set(get_descendant_ids(tag_id)))
+            
+            if not tag_id_sets:
+                # No valid tags found
+                conn.close()
+                return []
+            
+            # Find bhajans that match ALL tag sets (AND logic)
+            # First tag set
+            placeholders = ",".join("?" * len(tag_id_sets[0]))
+            query = f"""
+                SELECT DISTINCT bhajan_id FROM bhajan_tags
+                WHERE tag_id IN ({placeholders})
+            """
+            cursor.execute(query, list(tag_id_sets[0]))
+            matching_bhajan_ids = {row["bhajan_id"] for row in cursor.fetchall()}
+            
+            # Intersect with other tag sets
+            for tag_id_set in tag_id_sets[1:]:
+                placeholders = ",".join("?" * len(tag_id_set))
+                query = f"""
+                    SELECT DISTINCT bhajan_id FROM bhajan_tags
+                    WHERE tag_id IN ({placeholders})
+                """
+                cursor.execute(query, list(tag_id_set))
+                matching_bhajan_ids &= {row["bhajan_id"] for row in cursor.fetchall()}
+            
+            if not matching_bhajan_ids:
+                conn.close()
+                return []
+            
+            # Get bhajan details
+            placeholders = ",".join("?" * len(matching_bhajan_ids))
+            query_sql = f"""
+                SELECT id, title, lyrics, tags, uploader_name, youtube_url, created_at, updated_at
+                FROM bhajans
+                WHERE id IN ({placeholders})
+                  AND deleted_at IS NULL
+            """
+            
+            params = list(matching_bhajan_ids)
+            
+            if search:
+                search_pattern = f"%{search}%"
+                query_sql += " AND (title LIKE ? OR lyrics LIKE ?)"
+                params.extend([search_pattern, search_pattern])
+            
+            query_sql += " ORDER BY created_at DESC"
+            
+            cursor.execute(query_sql, params)
+            
+            bhajans = []
+            for row in cursor.fetchall():
+                bhajans.append({
+                    "id": row["id"],
+                    "title": row["title"],
+                    "lyrics": row["lyrics"],
+                    "tags": json_lib.loads(row["tags"]) if row["tags"] else [],
+                    "uploader_name": row["uploader_name"],
+                    "youtube_url": row["youtube_url"],
+                    "created_at": row["created_at"],
+                    "updated_at": row["updated_at"]
+                })
+            
+            conn.close()
+            logger.info(f"Returning {len(bhajans)} bhajans")
+            return bhajans
+        
+        # No tag filter - use ORM query
         query = db.query(Bhajan).filter(Bhajan.deleted_at == None)
         
         if search:
@@ -158,9 +277,6 @@ def get_bhajans(
                     Bhajan.lyrics.ilike(search)
                 )
             )
-        
-        if tag:
-            query = query.filter(Bhajan.tags.contains(f'"{tag}"'))
         
         query = query.order_by(desc(Bhajan.created_at))
         
@@ -584,6 +700,149 @@ def get_stats(db: Session = Depends(get_db)):
     except Exception as e:
         logger.error(f"Error in get_stats: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/search")
+def enhanced_search(q: str, db: Session = Depends(get_db)):
+    """Enhanced search across bhajans, tags, translations, and synonyms
+    
+    Searches in:
+    - Bhajan titles
+    - Bhajan lyrics
+    - Tag names
+    - Tag translations (all languages)
+    - Tag synonyms
+    
+    Returns matching bhajans with relevance indication
+    
+    Args:
+        q: Search query
+    """
+    import sqlite3
+    import json as json_lib
+    
+    if not q or len(q.strip()) < 2:
+        return []
+    
+    query = q.strip()
+    
+    conn = sqlite3.connect("./data/portal.db")
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+    
+    # Track bhajan IDs with match source for relevance
+    bhajan_matches = {}  # {bhajan_id: relevance_score}
+    
+    # 1. Search in bhajan titles (highest relevance = 100)
+    search_pattern = f"%{query}%"
+    cursor.execute("""
+        SELECT id FROM bhajans
+        WHERE title LIKE ? AND deleted_at IS NULL
+    """, (search_pattern,))
+    
+    for row in cursor.fetchall():
+        bhajan_matches[row["id"]] = max(bhajan_matches.get(row["id"], 0), 100)
+    
+    # 2. Search in bhajan lyrics (relevance = 80)
+    cursor.execute("""
+        SELECT id FROM bhajans
+        WHERE lyrics LIKE ? AND deleted_at IS NULL
+    """, (search_pattern,))
+    
+    for row in cursor.fetchall():
+        bhajan_matches[row["id"]] = max(bhajan_matches.get(row["id"], 0), 80)
+    
+    # 3. Search in tag names (relevance = 90)
+    cursor.execute("""
+        SELECT id FROM tag_taxonomy
+        WHERE name LIKE ?
+    """, (search_pattern,))
+    
+    tag_ids = [row["id"] for row in cursor.fetchall()]
+    
+    if tag_ids:
+        # Get bhajans with these tags
+        placeholders = ",".join("?" * len(tag_ids))
+        cursor.execute(f"""
+            SELECT DISTINCT bhajan_id FROM bhajan_tags
+            WHERE tag_id IN ({placeholders})
+        """, tag_ids)
+        
+        for row in cursor.fetchall():
+            bhajan_matches[row["bhajan_id"]] = max(bhajan_matches.get(row["bhajan_id"], 0), 90)
+    
+    # 4. Search in tag translations (relevance = 85)
+    cursor.execute("""
+        SELECT tag_id FROM tag_translations
+        WHERE translation LIKE ?
+    """, (search_pattern,))
+    
+    tag_ids_trans = [row["tag_id"] for row in cursor.fetchall()]
+    
+    if tag_ids_trans:
+        placeholders = ",".join("?" * len(tag_ids_trans))
+        cursor.execute(f"""
+            SELECT DISTINCT bhajan_id FROM bhajan_tags
+            WHERE tag_id IN ({placeholders})
+        """, tag_ids_trans)
+        
+        for row in cursor.fetchall():
+            bhajan_matches[row["bhajan_id"]] = max(bhajan_matches.get(row["bhajan_id"], 0), 85)
+    
+    # 5. Search in tag synonyms (relevance = 75)
+    cursor.execute("""
+        SELECT tag_id FROM tag_synonyms
+        WHERE synonym LIKE ?
+    """, (search_pattern,))
+    
+    tag_ids_syn = [row["tag_id"] for row in cursor.fetchall()]
+    
+    if tag_ids_syn:
+        placeholders = ",".join("?" * len(tag_ids_syn))
+        cursor.execute(f"""
+            SELECT DISTINCT bhajan_id FROM bhajan_tags
+            WHERE tag_id IN ({placeholders})
+        """, tag_ids_syn)
+        
+        for row in cursor.fetchall():
+            bhajan_matches[row["bhajan_id"]] = max(bhajan_matches.get(row["bhajan_id"], 0), 75)
+    
+    if not bhajan_matches:
+        conn.close()
+        return []
+    
+    # Get full bhajan details, sorted by relevance
+    sorted_bhajan_ids = sorted(bhajan_matches.keys(), key=lambda x: bhajan_matches[x], reverse=True)
+    
+    placeholders = ",".join("?" * len(sorted_bhajan_ids))
+    cursor.execute(f"""
+        SELECT id, title, lyrics, tags, uploader_name, youtube_url, created_at, updated_at
+        FROM bhajans
+        WHERE id IN ({placeholders})
+          AND deleted_at IS NULL
+    """, sorted_bhajan_ids)
+    
+    bhajans = []
+    rows_dict = {row["id"]: row for row in cursor.fetchall()}
+    
+    # Return in relevance order
+    for bhajan_id in sorted_bhajan_ids:
+        if bhajan_id in rows_dict:
+            row = rows_dict[bhajan_id]
+            bhajans.append({
+                "id": row["id"],
+                "title": row["title"],
+                "lyrics": row["lyrics"],
+                "tags": json_lib.loads(row["tags"]) if row["tags"] else [],
+                "uploader_name": row["uploader_name"],
+                "youtube_url": row["youtube_url"],
+                "created_at": row["created_at"],
+                "updated_at": row["updated_at"],
+                "relevance": bhajan_matches[bhajan_id]
+            })
+    
+    conn.close()
+    return bhajans
 
 
 @app.get("/health")
