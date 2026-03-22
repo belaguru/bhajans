@@ -733,12 +733,14 @@ body.font-size-large {
 }
 
 .tag-tree-node-content {
-    display: flex;
-    align-items: center;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
     padding: 6px 4px;
     cursor: pointer;
     border-radius: 4px;
     transition: background-color 0.2s;
+    gap: 8px;
 }
 
 .tag-tree-node-content:hover {
@@ -746,12 +748,12 @@ body.font-size-large {
 }
 
 .expand-icon {
+    flex-shrink: 0;
     width: 20px;
     height: 20px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin-right: 4px;
     cursor: pointer;
     user-select: none;
     font-size: 12px;
@@ -771,10 +773,11 @@ body.font-size-large {
 }
 
 .tag-checkbox {
-    margin-right: 8px;
+    flex-shrink: 0;
     cursor: pointer;
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
+    margin: 0;
 }
 
 .tag-label {
