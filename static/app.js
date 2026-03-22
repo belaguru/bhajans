@@ -574,25 +574,24 @@ class BelaGuruApp {
             const isExpanded = this._expandedNodes && this._expandedNodes.has(`${inputId}_${tagNode.id}`);
             
             html += `
-                <li class="tag-tree-node" data-tag-id="${tagNode.id}" data-tag-name="${tagName}" data-level="${level}">
-                    <div class="tag-tree-node-content">
+                <li class="tag-tree-node" data-tag-id="${tagNode.id}" data-tag-name="${tagName}" data-level="${level}" style="margin-left: ${level * 20}px;">
+                    <div style="display: flex; flex-direction: row; align-items: center; gap: 8px; padding: 6px 4px;">
                         <span class="expand-icon ${hasChildren ? (isExpanded ? 'expanded' : 'collapsed') : 'leaf'}" 
-                              onclick="app.toggleTagNode('${inputId}', ${tagNode.id})">
+                              onclick="app.toggleTagNode('${inputId}', ${tagNode.id})"
+                              style="width: 20px; flex-shrink: 0; cursor: pointer;">
                         </span>
-                        
                         <input 
                             type="checkbox" 
-                            class="tag-checkbox" 
+                            style="width: 18px; height: 18px; flex-shrink: 0; cursor: pointer;"
                             data-tag-id="${tagNode.id}"
                             data-tag-name="${tagName}"
                             ${isSelected ? 'checked' : ''}
                             onchange="app.toggleTagSelection('${inputId}', ${tagNode.id}, '${tagName}', this.checked)"
                         >
-                        
-                        <span class="tag-label">
+                        <span style="flex: 1;">
                             ${tagName}
-                            ${tagNode.translations && tagNode.translations.kn ? `<span class="tag-translation">(${tagNode.translations.kn})</span>` : ''}
-                            <span class="tag-category-badge tag-category-${tagNode.category}">${tagNode.category}</span>
+                            ${tagNode.translations && tagNode.translations.kn ? `<span style="color: #888; margin-left: 4px;">(${tagNode.translations.kn})</span>` : ''}
+                            <span style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 11px; margin-left: 6px; color: #666;">${tagNode.category}</span>
                         </span>
                     </div>
                     
