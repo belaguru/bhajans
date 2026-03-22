@@ -12,6 +12,7 @@ from sqlalchemy import or_, desc
 from pydantic import BaseModel
 from typing import List, Optional
 from models import Bhajan, init_db, get_db
+from dual_write import dual_write_tags, read_bhajan_tags, get_bhajan_with_unified_tags
 
 # Configure comprehensive logging
 LOG_DIR = "./logs"
@@ -165,7 +166,9 @@ def get_bhajans(
         
         bhajans = query.all()
         logger.info(f"Returning {len(bhajans)} bhajans")
-        return [b.to_dict() for b in bhajans]
+        
+        # Return with unified tags (prefers taxonomy)
+        return [get_bhajan_with_unified_tags(db, b.id) for b in bhajans]
     
     except Exception as e:
         logger.error(f"Error in get_bhajans: {e}", exc_info=True)
@@ -183,7 +186,8 @@ def get_bhajan(bhajan_id: int, db: Session = Depends(get_db)):
     if not bhajan:
         raise HTTPException(status_code=404, detail="Bhajan not found")
     
-    return bhajan.to_dict()
+    # Return with unified tags (prefers taxonomy)
+    return get_bhajan_with_unified_tags(db, bhajan_id)
 
 
 @app.post("/api/bhajans", response_model=BhajanResponse)
@@ -223,15 +227,20 @@ def create_bhajan(
             uploader_name=uploader_name,
             youtube_url=youtube_url.strip() if youtube_url else None
         )
-        bhajan.set_tags(tag_list)
         
         logger.info(f"Creating bhajan in database...")
         db.add(bhajan)
         db.commit()
         db.refresh(bhajan)
         
+        # Dual-write tags (to both JSON field and taxonomy table)
+        logger.info(f"Writing {len(tag_list)} tags using dual-write strategy...")
+        dual_write_tags(db, bhajan.id, tag_list, source="manual")
+        
         logger.info(f"✅ Bhajan created with ID {bhajan.id}")
-        return bhajan.to_dict()
+        
+        # Return with unified tags
+        return get_bhajan_with_unified_tags(db, bhajan.id)
     
     except HTTPException:
         raise
@@ -269,9 +278,10 @@ def update_bhajan(
         cleaned_lyrics = "\n".join(line.lstrip() for line in lyrics.split("\n"))
         bhajan.lyrics = cleaned_lyrics
 
-    # Update tags
+    # Update tags using dual-write strategy
     tag_list = [t.strip() for t in tags.split(",") if t.strip()]
-    bhajan.set_tags(tag_list)
+    if tag_list:
+        dual_write_tags(db, bhajan.id, tag_list, source="manual")
 
     # Update uploader name if provided
     if uploader_name:
@@ -285,7 +295,8 @@ def update_bhajan(
     db.commit()
     db.refresh(bhajan)
 
-    return bhajan.to_dict()
+    # Return with unified tags
+    return get_bhajan_with_unified_tags(db, bhajan.id)
 
 
 @app.delete("/api/bhajans/{bhajan_id}")
@@ -309,18 +320,252 @@ def delete_bhajan(bhajan_id: int, db: Session = Depends(get_db)):
 
 
 @app.get("/api/tags")
-def get_all_tags(db: Session = Depends(get_db)):
-    """Get all unique tags"""
-    import json
+def get_all_tags(
+    category: Optional[str] = None,
+    parent_id: Optional[int] = None,
+    db: Session = Depends(get_db)
+):
+    """Get all canonical tags with optional filters
     
-    bhajans = db.query(Bhajan).all()
-    tags_set = set()
+    Args:
+        category: Filter by category (deity, type, composer, etc.)
+        parent_id: Get only children of specified parent tag
     
-    for bhajan in bhajans:
-        tags = bhajan.get_tags()
-        tags_set.update(tags)
+    Returns:
+        List of tags with structure: [{id, name, category, level, parent_id, translations}]
+    """
+    import sqlite3
     
-    return sorted(list(tags_set))
+    conn = sqlite3.connect("./data/portal.db")
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+    
+    # Build query with filters
+    query = "SELECT id, name, category, level, parent_id FROM tag_taxonomy WHERE 1=1"
+    params = []
+    
+    if category:
+        query += " AND category = ?"
+        params.append(category)
+    
+    if parent_id is not None:
+        query += " AND parent_id = ?"
+        params.append(parent_id)
+    
+    query += " ORDER BY level, category, name"
+    
+    cursor.execute(query, params)
+    tags = []
+    
+    for row in cursor.fetchall():
+        tag_id = row["id"]
+        
+        # Get translations for this tag
+        cursor.execute(
+            "SELECT language, translation FROM tag_translations WHERE tag_id = ?",
+            (tag_id,)
+        )
+        translations = {t["language"]: t["translation"] for t in cursor.fetchall()}
+        
+        tags.append({
+            "id": tag_id,
+            "name": row["name"],
+            "category": row["category"],
+            "level": row["level"],
+            "parent_id": row["parent_id"],
+            "translations": translations
+        })
+    
+    conn.close()
+    return tags
+
+
+@app.get("/api/tags/tree")
+def get_tags_tree(db: Session = Depends(get_db)):
+    """Get hierarchical tag tree structure
+    
+    Returns nested JSON like:
+    {
+        "Deity": {
+            "id": 1,
+            "category": "root",
+            "children": {
+                "Vishnu": {
+                    "id": 3,
+                    "category": "deity",
+                    "children": {
+                        "Krishna": {...},
+                        "Rama": {...}
+                    }
+                }
+            }
+        }
+    }
+    """
+    import sqlite3
+    
+    conn = sqlite3.connect("./data/portal.db")
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+    
+    # Get all tags
+    cursor.execute("SELECT id, name, category, level, parent_id FROM tag_taxonomy ORDER BY level, name")
+    all_tags = cursor.fetchall()
+    
+    # Build tree structure
+    tree = {}
+    tag_lookup = {}
+    
+    for tag in all_tags:
+        tag_dict = {
+            "id": tag["id"],
+            "category": tag["category"],
+            "children": {}
+        }
+        tag_lookup[tag["id"]] = tag_dict
+        
+        if tag["parent_id"] is None:
+            # Root level
+            tree[tag["name"]] = tag_dict
+        else:
+            # Child - add to parent's children
+            parent = tag_lookup.get(tag["parent_id"])
+            if parent:
+                parent["children"][tag["name"]] = tag_dict
+    
+    conn.close()
+    return tree
+
+
+@app.get("/api/tags/{tag_id}")
+def get_tag_details(tag_id: int, db: Session = Depends(get_db)):
+    """Get detailed information about a specific tag
+    
+    Returns:
+        {
+            id, name, category, level, parent_id,
+            translations: {language: translation},
+            synonyms: [list],
+            children: [list of child tags],
+            parent: {parent tag details}
+        }
+    """
+    import sqlite3
+    
+    conn = sqlite3.connect("./data/portal.db")
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+    
+    # Get tag
+    cursor.execute("SELECT * FROM tag_taxonomy WHERE id = ?", (tag_id,))
+    tag_row = cursor.fetchone()
+    
+    if not tag_row:
+        conn.close()
+        raise HTTPException(status_code=404, detail="Tag not found")
+    
+    # Get translations
+    cursor.execute("SELECT language, translation FROM tag_translations WHERE tag_id = ?", (tag_id,))
+    translations = {t["language"]: t["translation"] for t in cursor.fetchall()}
+    
+    # Get synonyms
+    cursor.execute("SELECT synonym FROM tag_synonyms WHERE tag_id = ?", (tag_id,))
+    synonyms = [s["synonym"] for s in cursor.fetchall()]
+    
+    # Get children
+    cursor.execute("SELECT id, name FROM tag_taxonomy WHERE parent_id = ?", (tag_id,))
+    children = [{"id": c["id"], "name": c["name"]} for c in cursor.fetchall()]
+    
+    # Get parent
+    parent = None
+    if tag_row["parent_id"]:
+        cursor.execute("SELECT id, name FROM tag_taxonomy WHERE id = ?", (tag_row["parent_id"],))
+        parent_row = cursor.fetchone()
+        if parent_row:
+            parent = {"id": parent_row["id"], "name": parent_row["name"]}
+    
+    result = {
+        "id": tag_row["id"],
+        "name": tag_row["name"],
+        "category": tag_row["category"],
+        "level": tag_row["level"],
+        "parent_id": tag_row["parent_id"],
+        "translations": translations,
+        "synonyms": synonyms,
+        "children": children,
+        "parent": parent
+    }
+    
+    conn.close()
+    return result
+
+
+@app.get("/api/tags/{tag_id}/bhajans")
+def get_bhajans_by_tag_id(
+    tag_id: int,
+    page: int = 1,
+    per_page: int = 50,
+    db: Session = Depends(get_db)
+):
+    """Get bhajans tagged with specified tag (includes hierarchical search)
+    
+    Includes bhajans tagged with this tag AND all descendant tags
+    
+    Args:
+        tag_id: Tag ID
+        page: Page number (default 1)
+        per_page: Results per page (default 50)
+    """
+    import sqlite3
+    
+    conn = sqlite3.connect("./data/portal.db")
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+    
+    # Get all descendant tag IDs (recursive)
+    def get_descendant_ids(tid):
+        descendants = [tid]
+        cursor.execute("SELECT id FROM tag_taxonomy WHERE parent_id = ?", (tid,))
+        children = cursor.fetchall()
+        for child in children:
+            descendants.extend(get_descendant_ids(child["id"]))
+        return descendants
+    
+    tag_ids = get_descendant_ids(tag_id)
+    
+    # Get bhajans with any of these tags
+    placeholders = ",".join("?" * len(tag_ids))
+    
+    offset = (page - 1) * per_page if page > 0 else 0
+    
+    query = f"""
+        SELECT DISTINCT b.id, b.title, b.lyrics, b.tags, b.uploader_name, 
+               b.youtube_url, b.created_at, b.updated_at
+        FROM bhajans b
+        JOIN bhajan_tags bt ON b.id = bt.bhajan_id
+        WHERE bt.tag_id IN ({placeholders})
+          AND b.deleted_at IS NULL
+        ORDER BY b.created_at DESC
+        LIMIT ? OFFSET ?
+    """
+    
+    cursor.execute(query, tag_ids + [per_page, offset])
+    bhajans = []
+    
+    for row in cursor.fetchall():
+        bhajans.append({
+            "id": row["id"],
+            "title": row["title"],
+            "lyrics": row["lyrics"],
+            "tags": json.loads(row["tags"]) if row["tags"] else [],
+            "uploader_name": row["uploader_name"],
+            "youtube_url": row["youtube_url"],
+            "created_at": row["created_at"],
+            "updated_at": row["updated_at"]
+        })
+    
+    conn.close()
+    return bhajans
 
 
 @app.get("/api/stats")
