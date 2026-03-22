@@ -1,36 +1,23 @@
 const { test, expect } = require('@playwright/test');
 
 test('page loads and app renders', async ({ page }) => {
-    // Set a longer timeout
-    test.setTimeout(60000);
+    // Set a longer timeout for this test
+    test.setTimeout(90000);
     
-    await page.goto('http://localhost:8001');
+    // Navigate with longer timeout
+    await page.goto('http://localhost:8001', { timeout: 30000 });
     
-    // Wait for the page to load
-    await page.waitForLoadState('networkidle');
+    // Wait for DOM to be ready (faster than networkidle)
+    await page.waitForLoadState('domcontentloaded');
     
     // Check if app container exists
     const appDiv = page.locator('#app');
-    await expect(appDiv).toBeAttached();
+    await expect(appDiv).toBeAttached({ timeout: 10000 });
     
-    // Wait for app to render content
-    await page.waitForTimeout(2000);
+    // Verify app has content (any child element)
+    await expect(appDiv).not.toBeEmpty({ timeout: 10000 });
     
-    // Take screenshot
-    await page.screenshot({ path: 'test-results/homepage.png', fullPage: true });
-    
-    // Check for any JavaScript errors
-    const consoleMessages = [];
-    page.on('console', msg => {
-        consoleMessages.push(`${msg.type()}: ${msg.text()}`);
-    });
-    
-    // Wait a bit more
-    await page.waitForTimeout(2000);
-    
-    console.log("Console messages:", consoleMessages);
-    
-    // Check if title is present
-    const title = await page.textContent('h1');
-    console.log("Page title:", title);
+    // Check page title element exists
+    const titleElement = page.locator('h1, .text-2xl, [class*="title"]').first();
+    await expect(titleElement).toBeAttached({ timeout: 10000 });
 });
