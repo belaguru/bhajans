@@ -579,6 +579,33 @@ def get_tags_tree(db: Session = Depends(get_db)):
     return tree
 
 
+@app.get("/api/tags/counts")
+def get_tag_counts(db: Session = Depends(get_db)):
+    """Get all tags with their usage counts"""
+    try:
+        bhajans = db.query(Bhajan).all()
+        tag_counts = {}
+        
+        for bhajan in bhajans:
+            if bhajan.tags:
+                try:
+                    tags_list = json.loads(bhajan.tags) if bhajan.tags.startswith('[') else bhajan.tags.split(',')
+                except:
+                    tags_list = bhajan.tags.split(',')
+                
+                for tag in tags_list:
+                    tag = str(tag).strip().strip('"').strip("'")
+                    if tag and tag not in ['[', ']', '']:
+                        tag_counts[tag] = tag_counts.get(tag, 0) + 1
+        
+        sorted_tags = sorted(tag_counts.items(), key=lambda x: x[1], reverse=True)
+        return [{"tag": tag, "count": count} for tag, count in sorted_tags]
+    
+    except Exception as e:
+        logger.error(f"Error getting tag counts: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @app.get("/api/tags/{tag_id}")
 def get_tag_details(tag_id: int, db: Session = Depends(get_db)):
     """Get detailed information about a specific tag
@@ -1119,37 +1146,6 @@ def serve_index():
         logger.error(f"[ROOT REQUEST] FILE NOT FOUND: {index_path}")
         raise HTTPException(status_code=404, detail="index.html not found")
     return FileResponse(index_path)
-
-
-@app.get("/api/tags/counts")
-def get_tag_counts(db: Session = Depends(get_db)):
-    """Get all tags with their usage counts"""
-    try:
-        bhajans = db.query(Bhajan).all()
-        tag_counts = {}
-        
-        for bhajan in bhajans:
-            if bhajan.tags:
-                # Parse tags - handle both JSON array strings and comma-separated
-                import json
-                try:
-                    # Try parsing as JSON first
-                    tags_list = json.loads(bhajan.tags) if bhajan.tags.startswith('[') else bhajan.tags.split(',')
-                except:
-                    tags_list = bhajan.tags.split(',')
-                
-                for tag in tags_list:
-                    tag = str(tag).strip().strip('"').strip("'")  # Clean quotes and whitespace
-                    if tag and tag not in ['[', ']', '']:
-                        tag_counts[tag] = tag_counts.get(tag, 0) + 1
-        
-        # Return sorted by count descending
-        sorted_tags = sorted(tag_counts.items(), key=lambda x: x[1], reverse=True)
-        return [{"tag": tag, "count": count} for tag, count in sorted_tags]
-    
-    except Exception as e:
-        logger.error(f"Error getting tag counts: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.get("/{path:path}")
