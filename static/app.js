@@ -450,14 +450,23 @@ class BelaGuruApp {
     renderPopularTags() {
         // Get top 10 most popular tags across all categories
         const allTagsFlat = [];
-        Object.values(this.tagsByCategory).forEach(tags => {
-            allTagsFlat.push(...tags);
-        });
+        
+        if (this.tagsByCategory && typeof this.tagsByCategory === 'object') {
+            Object.values(this.tagsByCategory).forEach(tags => {
+                if (Array.isArray(tags)) {
+                    allTagsFlat.push(...tags);
+                }
+            });
+        }
         
         const topTags = allTagsFlat
             .filter(t => !this.tagSearchQuery || t.name.toLowerCase().includes(this.tagSearchQuery))
             .sort((a, b) => b.count - a.count)
             .slice(0, 10);
+        
+        if (topTags.length === 0) {
+            return '<p class="text-sm text-gray-500 px-2">No tags available</p>';
+        }
         
         return topTags.map(tag => `
             <button
