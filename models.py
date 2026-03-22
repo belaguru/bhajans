@@ -4,14 +4,75 @@ Database models for Belaguru Bhajan Portal
 import json
 import os
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, Text, DateTime, create_engine
+from sqlalchemy import Column, Integer, String, Text, DateTime, Float, ForeignKey, create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, relationship
 
 # Ensure data directory exists
 os.makedirs("./data", exist_ok=True)
 
 Base = declarative_base()
+
+
+class TagTaxonomy(Base):
+    """Tag Taxonomy model - hierarchical tag system"""
+    __tablename__ = "tag_taxonomy"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(100), nullable=False, unique=True, index=True)
+    parent_id = Column(Integer, ForeignKey("tag_taxonomy.id", ondelete="SET NULL"), nullable=True, index=True)
+    category = Column(String(50), nullable=False, index=True)
+    level = Column(Integer, nullable=False, default=0, index=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Self-referential relationship for hierarchy
+    parent = relationship("TagTaxonomy", remote_side=[id], backref="children")
+    
+    # Relationships to translations and synonyms
+    translations = relationship("TagTranslation", back_populates="tag", cascade="all, delete-orphan")
+    synonyms = relationship("TagSynonym", back_populates="tag", cascade="all, delete-orphan")
+
+
+class TagTranslation(Base):
+    """Tag Translation model - multi-language support"""
+    __tablename__ = "tag_translations"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    tag_id = Column(Integer, ForeignKey("tag_taxonomy.id", ondelete="CASCADE"), nullable=False, index=True)
+    language = Column(String(10), nullable=False, index=True)
+    translation = Column(String(100), nullable=False)
+    
+    # Relationship back to tag
+    tag = relationship("TagTaxonomy", back_populates="translations")
+
+
+class TagSynonym(Base):
+    """Tag Synonym model - search aliases"""
+    __tablename__ = "tag_synonyms"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    tag_id = Column(Integer, ForeignKey("tag_taxonomy.id", ondelete="CASCADE"), nullable=False, index=True)
+    synonym = Column(String(100), nullable=False, unique=True, index=True)
+    
+    # Relationship back to tag
+    tag = relationship("TagTaxonomy", back_populates="synonyms")
+
+
+class BhajanTag(Base):
+    """Bhajan-Tag Association model - many-to-many with metadata"""
+    __tablename__ = "bhajan_tags"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    bhajan_id = Column(Integer, ForeignKey("bhajans.id", ondelete="CASCADE"), nullable=False, index=True)
+    tag_id = Column(Integer, ForeignKey("tag_taxonomy.id", ondelete="CASCADE"), nullable=False, index=True)
+    source = Column(String(50), default="manual", index=True)
+    confidence = Column(Float, default=1.0)
+    created_at = Column(DateTime, default=datetime.utcnow, index=True)
+    
+    # Relationships
+    bhajan = relationship("Bhajan", back_populates="taxonomy_tags")
+    tag = relationship("TagTaxonomy")
 
 
 class Bhajan(Base):
@@ -21,23 +82,45 @@ class Bhajan(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String(255), nullable=False, index=True)
     lyrics = Column(Text, nullable=False)
-    tags = Column(Text, default="[]")  # JSON array as string
+    tags = Column(Text, default="[]")  # JSON array as string (backward compatibility)
     uploader_name = Column(String(100), default="Anonymous")
     youtube_url = Column(String(500), default=None, nullable=True)  # YouTube video URL
     created_at = Column(DateTime, default=datetime.utcnow, index=True)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     deleted_at = Column(DateTime, default=None)  # Soft delete timestamp
     
+    # Relationship to taxonomy tags
+    taxonomy_tags = relationship("BhajanTag", back_populates="bhajan")
+    
     def get_tags(self):
-        """Parse tags from JSON string"""
+        """Parse tags from JSON string (backward compatibility)"""
         try:
             return json.loads(self.tags) if self.tags else []
         except:
             return []
     
     def set_tags(self, tags_list):
-        """Set tags from list"""
+        """Set tags from list (backward compatibility)"""
         self.tags = json.dumps(tags_list)
+    
+    def get_all_tags(self):
+        """
+        Get all tags - both old JSON tags and new taxonomy tags
+        Returns dict with 'json_tags' and 'taxonomy_tags'
+        """
+        return {
+            "json_tags": self.get_tags(),
+            "taxonomy_tags": [
+                {
+                    "id": bt.tag.id,
+                    "name": bt.tag.name,
+                    "category": bt.tag.category,
+                    "source": bt.source,
+                    "confidence": bt.confidence
+                }
+                for bt in self.taxonomy_tags
+            ]
+        }
     
     def to_dict(self):
         """Convert to dictionary"""
