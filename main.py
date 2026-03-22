@@ -131,8 +131,12 @@ class BhajanResponse(BaseModel):
     tags: List[str]
     uploader_name: str
     youtube_url: Optional[str] = None
+    mp3_file: Optional[str] = None
     created_at: str
     updated_at: str
+    
+    class Config:
+        from_attributes = True
 
 
 # API Endpoints
@@ -193,9 +197,10 @@ def create_bhajan(
     tags: str = Form(""),
     uploader_name: str = Form("Anonymous"),
     youtube_url: str = Form(None),
+    mp3_file: UploadFile = File(None),
     db: Session = Depends(get_db)
 ):
-    """Create new bhajan"""
+    """Create new bhajan with optional MP3 upload"""
     try:
         logger.info(f"POST /api/bhajans - title={title[:50]}, uploader={uploader_name}, tags={tags}")
         
@@ -212,6 +217,42 @@ def create_bhajan(
             logger.warning(f"Invalid lyrics length: {len(lyrics)}")
             raise HTTPException(status_code=400, detail="Lyrics must be at least 20 characters")
         
+        # Handle MP3 file upload
+        mp3_filename = None
+        if mp3_file and mp3_file.filename:
+            logger.info(f"Processing MP3 upload: {mp3_file.filename}")
+            
+            # Validate file extension
+            if not mp3_file.filename.lower().endswith('.mp3'):
+                raise HTTPException(status_code=400, detail="Only .mp3 files are allowed")
+            
+            # Read file content to check size
+            file_content = mp3_file.file.read()
+            file_size = len(file_content)
+            max_size = 5 * 1024 * 1024  # 5MB
+            
+            if file_size > max_size:
+                raise HTTPException(status_code=400, detail=f"File too large ({file_size / 1024 / 1024:.2f}MB). Maximum size is 5MB")
+            
+            # Generate unique filename
+            import re
+            timestamp = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
+            sanitized_title = re.sub(r'[^\w\s-]', '', title).strip().replace(' ', '_')[:50]
+            mp3_filename = f"{timestamp}_{sanitized_title}.mp3"
+            
+            # Save file
+            audio_dir = "./static/audio"
+            os.makedirs(audio_dir, exist_ok=True)
+            file_path = os.path.join(audio_dir, mp3_filename)
+            
+            try:
+                with open(file_path, "wb") as f:
+                    f.write(file_content)
+                logger.info(f"✅ MP3 saved: {file_path} ({file_size / 1024:.2f}KB)")
+            except Exception as e:
+                logger.error(f"Failed to save MP3: {e}")
+                raise HTTPException(status_code=500, detail="Failed to save MP3 file")
+        
         # Clean lyrics
         cleaned_lyrics = "\n".join(line.lstrip() for line in lyrics.split("\n"))
         logger.info(f"Cleaned lyrics: {len(cleaned_lyrics)} chars")
@@ -221,7 +262,8 @@ def create_bhajan(
             title=title,
             lyrics=cleaned_lyrics,
             uploader_name=uploader_name,
-            youtube_url=youtube_url.strip() if youtube_url else None
+            youtube_url=youtube_url.strip() if youtube_url else None,
+            mp3_file=mp3_filename
         )
         bhajan.set_tags(tag_list)
         
@@ -249,9 +291,10 @@ def update_bhajan(
     tags: str = Form(""),
     uploader_name: Optional[str] = Form(None),
     youtube_url: Optional[str] = Form(None),
+    mp3_file: UploadFile = File(None),
     db: Session = Depends(get_db)
 ):
-    """Update bhajan (title, lyrics, tags, uploader_name)"""
+    """Update bhajan (title, lyrics, tags, uploader_name, mp3)"""
     bhajan = db.query(Bhajan).filter(
         Bhajan.id == bhajan_id,
         Bhajan.deleted_at == None
@@ -280,6 +323,52 @@ def update_bhajan(
     # Update YouTube URL if provided
     if youtube_url is not None:
         bhajan.youtube_url = youtube_url.strip() if youtube_url else None
+
+    # Handle MP3 file upload
+    if mp3_file and mp3_file.filename:
+        logger.info(f"Processing MP3 upload for bhajan {bhajan_id}: {mp3_file.filename}")
+        
+        # Validate file extension
+        if not mp3_file.filename.lower().endswith('.mp3'):
+            raise HTTPException(status_code=400, detail="Only .mp3 files are allowed")
+        
+        # Read file content to check size
+        file_content = mp3_file.file.read()
+        file_size = len(file_content)
+        max_size = 5 * 1024 * 1024  # 5MB
+        
+        if file_size > max_size:
+            raise HTTPException(status_code=400, detail=f"File too large ({file_size / 1024 / 1024:.2f}MB). Maximum size is 5MB")
+        
+        # Delete old MP3 if exists
+        if bhajan.mp3_file:
+            old_path = os.path.join("./static/audio", bhajan.mp3_file)
+            if os.path.exists(old_path):
+                try:
+                    os.remove(old_path)
+                    logger.info(f"Deleted old MP3: {old_path}")
+                except Exception as e:
+                    logger.warning(f"Could not delete old MP3: {e}")
+        
+        # Generate unique filename
+        import re
+        timestamp = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
+        sanitized_title = re.sub(r'[^\w\s-]', '', bhajan.title).strip().replace(' ', '_')[:50]
+        mp3_filename = f"{timestamp}_{sanitized_title}.mp3"
+        
+        # Save file
+        audio_dir = "./static/audio"
+        os.makedirs(audio_dir, exist_ok=True)
+        file_path = os.path.join(audio_dir, mp3_filename)
+        
+        try:
+            with open(file_path, "wb") as f:
+                f.write(file_content)
+            bhajan.mp3_file = mp3_filename
+            logger.info(f"✅ MP3 saved: {file_path} ({file_size / 1024:.2f}KB)")
+        except Exception as e:
+            logger.error(f"Failed to save MP3: {e}")
+            raise HTTPException(status_code=500, detail="Failed to save MP3 file")
 
     bhajan.updated_at = datetime.utcnow()
     db.commit()

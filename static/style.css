@@ -691,4 +691,70 @@ body.font-size-large {
         transform: translate(-50%, -40%);
     }
 }
+
+/* MP3 File Input Styling */
+.mp3-file-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px dashed #E0D5C8;
+    border-radius: 8px;
+    background-color: #FAFAF9;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    color: #2C2416;
+}
+
+.mp3-file-input:hover {
+    border-color: var(--hanuman-orange);
+    background-color: #FFF5F0;
+}
+
+.mp3-file-input:focus {
+    outline: none;
+    border-color: var(--hanuman-orange);
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+/* Audio Player Styling */
+.audio-player-container {
+    background: linear-gradient(135deg, #FFF5F0 0%, #FFFFFF 100%);
+    border-left: 4px solid var(--hanuman-orange);
+}
+
+.audio-player {
+    width: 100%;
+    height: 48px;
+    border-radius: 8px;
+    outline: none;
+}
+
+.audio-player::-webkit-media-controls-panel {
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.audio-player::-webkit-media-controls-play-button,
+.audio-player::-webkit-media-controls-mute-button {
+    background-color: var(--hanuman-orange);
+    border-radius: 50%;
+}
+
+.audio-player::-webkit-media-controls-current-time-display,
+.audio-player::-webkit-media-controls-time-remaining-display {
+    color: #2C2416;
+    font-weight: 600;
+}
+
+/* Mobile responsive audio player */
+@media (max-width: 640px) {
+    .audio-player {
+        height: 44px;
+    }
+    
+    .audio-player-container h3 {
+        font-size: 16px;
+    }
+}
 }

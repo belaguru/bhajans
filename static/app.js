@@ -52,6 +52,25 @@ class BelaGuruApp {
         }
     }
 
+    validateMp3File(file) {
+        if (!file) return true; // Optional file
+        
+        const maxSize = 5 * 1024 * 1024; // 5MB
+        
+        if (!file.name.toLowerCase().endsWith('.mp3')) {
+            alert('Only .mp3 files are allowed!');
+            return false;
+        }
+        
+        if (file.size > maxSize) {
+            const sizeMB = (file.size / 1024 / 1024).toFixed(2);
+            alert(`File too large (${sizeMB}MB)! Maximum size is 5MB.`);
+            return false;
+        }
+        
+        return true;
+    }
+
     async createBhajan(data) {
         try {
             const formData = new FormData();
@@ -60,6 +79,7 @@ class BelaGuruApp {
             formData.append("tags", data.tags.join(","));
             formData.append("uploader_name", data.uploader_name || "Anonymous");
             if (data.youtube_url) formData.append("youtube_url", data.youtube_url);
+            if (data.mp3_file) formData.append("mp3_file", data.mp3_file);
 
             const response = await fetch("/api/bhajans", {
                 method: "POST",
@@ -847,6 +867,21 @@ class BelaGuruApp {
                             <small style="color:#666;margin-top:4px;display:block;">Paste full YouTube URL or video ID</small>
                         </div>
 
+                        <div class="card">
+                            <label class="block font-semibold hanuman-text mb-2">
+                                MP3 Audio File (optional)
+                            </label>
+                            <input
+                                type="file"
+                                id="mp3_file"
+                                name="mp3_file"
+                                accept=".mp3"
+                                onchange="app.handleMp3FileChange(this)"
+                                class="mp3-file-input"
+                            >
+                            <small id="mp3-file-info" style="color:#666;margin-top:4px;display:block;">Max 5MB • MP3 format only</small>
+                        </div>
+
                         <div class="card bg-orange-50 border-l-4 border-orange-400">
                             <p class="text-sm text-gray-700">
                                 ✨ <span class="font-semibold">Community Upload:</span> Your bhajan will be visible to everyone. Please ensure you have the rights to share it.
@@ -864,6 +899,28 @@ class BelaGuruApp {
         this.appContainer.innerHTML = html + this.renderFloatingMenu();
     }
 
+    handleMp3FileChange(input, mode = 'create') {
+        const fileInfoId = mode === 'edit' ? 'edit-mp3-file-info' : 'mp3-file-info';
+        const fileInfo = document.getElementById(fileInfoId);
+        
+        if (input.files && input.files[0]) {
+            const file = input.files[0];
+            const sizeMB = (file.size / 1024 / 1024).toFixed(2);
+            
+            if (this.validateMp3File(file)) {
+                fileInfo.textContent = `✅ ${file.name} (${sizeMB}MB)`;
+                fileInfo.style.color = '#059669';
+            } else {
+                input.value = ''; // Clear invalid file
+                fileInfo.textContent = mode === 'edit' ? 'Max 5MB • MP3 format only' : 'Max 5MB • MP3 format only';
+                fileInfo.style.color = '#666';
+            }
+        } else {
+            fileInfo.textContent = mode === 'edit' ? 'Max 5MB • MP3 format only' : 'Max 5MB • MP3 format only';
+            fileInfo.style.color = '#666';
+        }
+    }
+
     handleUploadSubmit(event) {
         event.preventDefault();
 
@@ -873,13 +930,20 @@ class BelaGuruApp {
         const tags = tagsValue ? tagsValue.split(",").map(t => t.trim()).filter(t => t) : [];
         const uploader_name = document.getElementById("uploader_name").value.trim();
         const youtube_url = document.getElementById("youtube_url").value.trim();
+        const mp3Input = document.getElementById("mp3_file");
+        const mp3_file = mp3Input && mp3Input.files[0] ? mp3Input.files[0] : null;
 
         if (!title || !lyrics) {
             alert("Please fill in title and lyrics");
             return;
         }
 
-        this.createBhajan({ title, lyrics, tags, uploader_name, youtube_url }).then(success => {
+        // Validate MP3 file if provided
+        if (mp3_file && !this.validateMp3File(mp3_file)) {
+            return;
+        }
+
+        this.createBhajan({ title, lyrics, tags, uploader_name, youtube_url, mp3_file }).then(success => {
             if (success) {
                 alert("Bhajan uploaded successfully! 🎉");
                 this.setPage("home");
@@ -940,6 +1004,17 @@ class BelaGuruApp {
                         }
                         return `<div style="margin-bottom:24px;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1);"><iframe width="100%" height="400" src="https://www.youtube.com/embed/${vidId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
                     })() : ''}
+
+                    <!-- MP3 Audio Player -->
+                    ${bhajan.mp3_file ? `
+                    <div class="card mb-6 audio-player-container">
+                        <h3 class="text-lg font-bold hanuman-text mb-3">🎵 Audio Recording</h3>
+                        <audio controls class="audio-player">
+                            <source src="/static/audio/${bhajan.mp3_file}" type="audio/mpeg">
+                            Your browser doesn't support audio playback.
+                        </audio>
+                    </div>
+                    ` : ''}
 
                     <!-- Lyrics -->
                     <div class="card">
@@ -1068,6 +1143,26 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
                             <small style="color:#666;margin-top:4px;display:block;">Leave blank if no video</small>
                         </div>
 
+                        <div class="card">
+                            <label class="block font-semibold hanuman-text mb-2">
+                                MP3 Audio File
+                            </label>
+                            ${bhajan.mp3_file ? `
+                                <div class="mb-3 p-3 bg-green-50 rounded border border-green-200">
+                                    <p class="text-sm text-green-700 font-semibold">✅ Current MP3: ${bhajan.mp3_file}</p>
+                                </div>
+                            ` : ''}
+                            <input
+                                type="file"
+                                id="edit_mp3_file"
+                                name="mp3_file"
+                                accept=".mp3"
+                                onchange="app.handleMp3FileChange(this, 'edit')"
+                                class="mp3-file-input"
+                            >
+                            <small id="edit-mp3-file-info" style="color:#666;margin-top:4px;display:block;">${bhajan.mp3_file ? 'Upload new MP3 to replace current one' : 'Max 5MB • MP3 format only'}</small>
+                        </div>
+
                         <button type="submit" class="btn-primary w-full py-3 text-lg font-bold">
                             Save Changes ✅
                         </button>
@@ -1088,6 +1183,13 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
         const tags = tagsValue ? tagsValue.split(",").map(t => t.trim()).filter(t => t) : [];
         const uploader_name = document.getElementById("edit_uploader_name").value.trim();
         const youtube_url = document.getElementById("edit_youtube_url").value.trim();
+        const mp3Input = document.getElementById("edit_mp3_file");
+        const mp3_file = mp3Input && mp3Input.files[0] ? mp3Input.files[0] : null;
+
+        // Validate MP3 file if provided
+        if (mp3_file && !this.validateMp3File(mp3_file)) {
+            return;
+        }
 
         const formData = new FormData();
         if (title) formData.append("title", title);
@@ -1095,6 +1197,7 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
         formData.append("tags", tags.join(","));
         if (uploader_name) formData.append("uploader_name", uploader_name);
         if (youtube_url) formData.append("youtube_url", youtube_url);
+        if (mp3_file) formData.append("mp3_file", mp3_file);
 
         fetch(`/api/bhajans/${bhajanId}`, {
             method: "PUT",
