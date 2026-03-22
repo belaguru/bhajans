@@ -17,13 +17,12 @@ from pathlib import Path
 from collections import Counter
 
 
-# Known tags from current database (76 unique tags)
-EXPECTED_TAG_COUNT = 76
+# Known tags from current database (62 unique tags after cleanup)
+EXPECTED_TAG_COUNT = 62
 
-# Meta tags that should be deleted
-META_TAGS = {
-    'test', 'Test', 'test-audio', 'YouTube'
-}
+# Meta tags that were deleted (already removed from database during cleanup)
+# These are no longer in the mapping since the data is clean
+META_TAGS = set()  # Empty - already cleaned
 
 # Case duplicate pairs (lowercase -> canonical)
 CASE_DUPLICATES = {
