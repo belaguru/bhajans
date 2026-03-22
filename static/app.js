@@ -1687,6 +1687,23 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
         this.closeFloatingMenu();
     }
 
+    // Easter egg: Tap version 5 times to access admin
+    easterEggTap() {
+        this.easterEggCount = (this.easterEggCount || 0) + 1;
+        clearTimeout(this.easterEggTimeout);
+        
+        if (this.easterEggCount >= 5) {
+            this.easterEggCount = 0;
+            this.closeFloatingMenu();
+            window.location.href = '/admin/tags';
+        } else {
+            // Reset count after 2 seconds of no taps
+            this.easterEggTimeout = setTimeout(() => {
+                this.easterEggCount = 0;
+            }, 2000);
+        }
+    }
+
     loadFontSizePreference() {
         const saved = localStorage.getItem('bhajan-font-size') || 'normal';
         document.body.classList.add(`font-size-${saved}`);
@@ -1735,6 +1752,12 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
                     <button onclick="app.changeFontSize('small')" class="${savedFontSize === 'small' ? 'active' : ''}">A</button>
                     <button onclick="app.changeFontSize('normal')" class="${savedFontSize === 'normal' ? 'active' : ''}"><strong>A</strong></button>
                     <button onclick="app.changeFontSize('large')" class="${savedFontSize === 'large' ? 'active' : ''}"><strong style="font-size: 18px;">A</strong></button>
+                </div>
+                
+                <!-- Easter Egg: Tap 5 times to reveal admin -->
+                <div class="floating-menu-divider" style="margin-top: 8px;"></div>
+                <div class="easter-egg-trigger" onclick="app.easterEggTap()" style="padding: 8px; text-align: center; cursor: pointer; user-select: none;">
+                    <span style="font-size: 10px; color: #999;">🕉️ v1.0</span>
                 </div>
             </div>
         `;
