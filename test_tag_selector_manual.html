@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tag Selector Test</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div style="padding: 20px; max-width: 800px; margin: 0 auto;">
+        <h1>Hierarchical Tag Selector Test</h1>
+        <div id="test-container"></div>
+    </div>
+
+    <script src="/static/app.js"></script>
+    <script>
+        // Initialize app
+        const testApp = new BelaGuruApp();
+        
+        // Wait for tag tree to load
+        setTimeout(() => {
+            const testDiv = document.getElementById('test-container');
+            testDiv.innerHTML = testApp.renderHierarchicalTagSelector('test', []);
+            console.log('Tag tree loaded:', testApp.tagTree);
+        }, 2000);
+    </script>
+</body>
+</html>

@@ -6,14 +6,18 @@
 
 class BelaGuruApp {
     constructor() {
+        console.log("🦁 BelaGuruApp constructor starting...");
         this.currentPage = "home";
         this.bhajans = [];
         this.filteredBhajans = [];
         this.allTags = [];
+        this.showAllTags = false;
+        this.tagSearchQuery = "";
         this.selectedTag = null;
         this.searchQuery = "";
         this.appContainer = document.getElementById("app");
         this.searchTimeout = null;
+        this.mobileTagsOpen = false; // Track mobile tags section state
         // Tag input state for upload/edit forms
         this._selectedTags = [];
         this._tagDropdownVisible = false;
@@ -25,7 +29,8 @@ class BelaGuruApp {
         await this.loadBhajans();
         await this.loadTags();
         this.loadFontSizePreference();
-        this.renderHome();
+        this.initURLListener();
+        this.loadFromURL();
     }
 
     async loadBhajans() {
@@ -40,7 +45,7 @@ class BelaGuruApp {
 
     async loadTags() {
         try {
-            const response = await fetch("/api/tags");
+            const response = await fetch("/api/tags/counts");
             this.allTags = await response.json();
         } catch (error) {
             console.error("Error loading tags:", error);
@@ -54,6 +59,7 @@ class BelaGuruApp {
             formData.append("lyrics", data.lyrics);
             formData.append("tags", data.tags.join(","));
             formData.append("uploader_name", data.uploader_name || "Anonymous");
+            if (data.youtube_url) formData.append("youtube_url", data.youtube_url);
 
             const response = await fetch("/api/bhajans", {
                 method: "POST",
@@ -96,6 +102,35 @@ class BelaGuruApp {
         this.renderSearchStatus(); // NEW: Update status when filtering
     }
 
+    toggleShowAllTags() {
+        this.showAllTags = !this.showAllTags;
+        this.renderHome();
+    }
+
+    clearFilters() {
+        this.selectedTag = null;
+        this.searchQuery = "";
+        this.renderHome();
+    }
+
+    searchTags(query) {
+        this.tagSearchQuery = query.toLowerCase();
+        this.renderHome();
+    }
+
+    clearTagSearch() {
+        this.tagSearchQuery = "";
+        this.renderHome();
+    }
+
+    toggleMobileTags() {
+        const section = document.getElementById('mobile-tags-section');
+        if (section) {
+            section.classList.toggle('hidden');
+            this.mobileTagsOpen = !section.classList.contains('hidden');
+        }
+    }
+
     applyFilters() {
         this.filteredBhajans = this.bhajans.filter(bhajan => {
             const matchesSearch = !this.searchQuery ||
@@ -133,14 +168,14 @@ class BelaGuruApp {
 
             if (count > 0) {
                 statusHTML = `
-                    <div class="card bg-green-50 border-l-4 border-green-500">
+                    <div class="card bg-green-50 border-l-4 border-green-500 mb-6">
                         <div class="flex items-center justify-between gap-3">
                             <div class="flex-1">
                                 <p class="text-sm text-gray-700">
                                     ${filterInfo.join(' + ')}
                                 </p>
                                 <p class="font-semibold text-green-700 mt-1">
-                                    ✅ Found <strong>${count}</strong> ${resultText}
+                                    ✅ Found <strong>${count}</strong> of ${this.bhajans.length} ${resultText}
                                 </p>
                             </div>
                             <button onclick="app.clearFilters()" class="text-sm px-3 py-1 rounded bg-green-200 hover:bg-green-300 text-green-800 font-semibold transition-colors">
@@ -151,7 +186,7 @@ class BelaGuruApp {
                 `;
             } else {
                 statusHTML = `
-                    <div class="card bg-red-50 border-l-4 border-red-500">
+                    <div class="card bg-red-50 border-l-4 border-red-500 mb-6">
                         <div class="flex items-center justify-between gap-3">
                             <div class="flex-1">
                                 <p class="text-sm text-gray-700">
@@ -242,12 +277,18 @@ class BelaGuruApp {
         this.currentPage = page;
 
         if (page === "home") {
+            this.updateURL('home');
             this.renderHome();
         } else if (page === "upload") {
             this._selectedTags = [];
             this.renderUpload();
         } else if (page === "bhajan" && arguments[1]) {
+            this.updateURL('bhajan', arguments[1]);
             this.renderBhajanDetail(arguments[1]);
+        } else if (page === "settings") {
+            this.renderSettings();
+        } else if (page === "favorites") {
+            this.renderFavorites();
         }
     }
 
@@ -292,8 +333,8 @@ class BelaGuruApp {
 
         const query = value.toLowerCase().trim();
         const filtered = this.allTags.filter(tag =>
-            !this._selectedTags.includes(tag) &&
-            tag.toLowerCase().includes(query)
+            !this._selectedTags.includes(tag.tag) &&
+            tag.tag.toLowerCase().includes(query)
         );
 
         if (filtered.length === 0 && !query) {
@@ -302,12 +343,12 @@ class BelaGuruApp {
         }
 
         let items = filtered.map(tag => `
-            <div class="tag-dropdown-item" onmousedown="app.selectTag('${inputId}', '${tag}')">
-                ${tag}
+            <div class="tag-dropdown-item" onmousedown="app.selectTag('${inputId}', '${tag.tag}')">
+                ${tag.tag}
             </div>
         `).join('');
 
-        if (query && !this.allTags.some(t => t.toLowerCase() === query) && !this._selectedTags.some(t => t.toLowerCase() === query)) {
+        if (query && !this.allTags.some(t => t.tag.toLowerCase() === query) && !this._selectedTags.some(t => t.toLowerCase() === query)) {
             items += `
                 <div class="tag-dropdown-item tag-dropdown-new" onmousedown="app.selectTag('${inputId}', '${value.trim()}')">
                     + Add "${value.trim()}"
@@ -383,9 +424,6 @@ class BelaGuruApp {
                         <button onclick="${backAction}" class="nav-back-btn">
                             <span class="text-lg">&#8592;</span> ${backLabel}
                         </button>
-                        <button onclick="app.setPage('home')" class="nav-home-btn" title="Home">
-                            <span class="text-lg">&#8962;</span> Home
-                        </button>
                     </div>
                     <div class="flex items-start justify-between gap-4">
                         <div class="flex-1">
@@ -404,6 +442,12 @@ class BelaGuruApp {
     // ===== RENDER METHODS =====
 
     renderHome() {
+        // Save mobile tags section state before render
+        const mobileTagsSection = document.getElementById('mobile-tags-section');
+        if (mobileTagsSection) {
+            this.mobileTagsOpen = !mobileTagsSection.classList.contains('hidden');
+        }
+        
         const html = `
             <div class="min-h-screen bg-orange-50">
                 <!-- Header -->
@@ -411,19 +455,19 @@ class BelaGuruApp {
                     <div class="max-w-6xl mx-auto px-4 py-4 sm:py-6">
                         <div class="flex items-center justify-between gap-2 sm:gap-4 flex-wrap">
                             <div class="flex items-center gap-3 flex-1 min-w-0">
-                                <img src="/logo.png" alt="Belaguru Logo" class="w-12 h-12 sm:w-16 sm:h-16">
-                                <!-- LOGO: Replace /logo.png with new Belaguru logo file -->
+                                <img src="/logo-hanuman.png" alt="Belaguru Logo" class="w-12 h-12 sm:w-16 sm:h-16">
+                                <!-- LOGO: Using Hanuman logo -->
                                 <div class="flex-1 min-w-0">
                                     <h1 class="text-lg sm:text-2xl font-bold text-white leading-tight">
-                                        Shree Kshetra Belaguru
+                                        ಶ್ರೀ ಕ್ಷೇತ್ರ ಬೆಲಗೂರು - ಭಜನ ಮಾಲಿಕೆ
                                     </h1>
-                                    <p class="text-orange-100 text-xs sm:text-sm mt-0.5 font-semibold">
-                                        Bhajana Maalika
-                                    </p>
                                 </div>
                             </div>
                             <button onclick="app.setPage('upload')" style="background-color: white; color: #FF6B35; padding: 8px 16px; border: 2px solid white; border-radius: 6px; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0;">
                                 + Upload
+                            </button>
+                            <button onclick="window.triggerInstall && window.triggerInstall()" id="install-btn-header" style="background-color: #FF6B35; color: white; padding: 8px 16px; border: 2px solid #FF6B35; border-radius: 6px; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0; display: none;">
+                                📱 Manual Install
                             </button>
                         </div>
                     </div>
@@ -457,28 +501,158 @@ class BelaGuruApp {
                 </div>
 
                 <!-- Main Content -->
-                <div class="max-w-6xl mx-auto px-4 py-6">
+
+                <div class="max-w-6xl mx-auto px-4 pb-6">
                     <!-- Search Status (NEW) -->
-                    <div id="search-status" class="mb-6"></div>
+                    <div id="search-status"></div>
+
+                    <!-- Mobile Tag Toggle Button -->
+                    <div class="lg:hidden mb-4">
+                        <button onclick="app.toggleMobileTags()" 
+                                class="w-full px-4 py-3 bg-white border-2 border-orange-200 rounded-lg font-semibold hanuman-accent hover:bg-orange-50 transition">
+                            ▼ Filter by Tags
+                        </button>
+                    </div>
+                    
+                    <!-- Mobile Tags (Hidden by default) -->
+                    <div id="mobile-tags-section" class="hidden lg:hidden mb-4 card">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold text-lg hanuman-accent">📑 Tags</h3>
+                            ${this.allTags.filter(t => t.count < 5).length > 0 ? `
+                                <button onclick="app.toggleShowAllTags()" class="text-xs text-blue-600 hover:underline">
+                                    ${this.showAllTags ? 'Hide sparse' : 'Show all'}
+                                </button>
+                            ` : ""}
+                        </div>
+                        <!-- Mobile Tag Search Box -->
+                        <div class="relative mb-3">
+                            <input 
+                                id="tag-search-input-mobile"
+                                type="text" 
+                                placeholder="Search tags..." 
+                                value="${this.tagSearchQuery}"
+                                class="w-full px-3 py-2 pl-8 pr-8 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                            />
+                            <span class="absolute left-2 top-2.5 text-gray-400">🔍</span>
+                            ${this.tagSearchQuery ? `
+                                <button 
+                                    id="tag-search-clear-mobile"
+                                    class="absolute right-2 top-2 text-gray-400 hover:text-gray-600 text-lg leading-none"
+                                >×</button>
+                            ` : ""}
+                        </div>
+                        <div class="space-y-2 overflow-y-auto" style="max-height: calc(60vh - 80px);">
+                            ${(() => {
+                                const filteredTags = this.allTags
+                                    .filter(t => this.showAllTags || t.count >= 5)
+                                    .filter(t => !this.tagSearchQuery || t.tag.toLowerCase().includes(this.tagSearchQuery));
+                                
+                                if (filteredTags.length === 0) {
+                                    return `
+                                        <div class="text-center py-8 text-gray-500">
+                                            <p class="text-sm">No tags found</p>
+                                            ${this.tagSearchQuery ? `<p class="text-xs mt-1">Try different keywords</p>` : ''}
+                                        </div>
+                                    `;
+                                }
+                                
+                                const hiddenBySearch = this.allTags.filter(t => 
+                                    (this.showAllTags || t.count >= 5) && 
+                                    this.tagSearchQuery && 
+                                    !t.tag.toLowerCase().includes(this.tagSearchQuery)
+                                ).length;
+                                const hiddenBySparse = !this.showAllTags ? this.allTags.filter(t => t.count < 5).length : 0;
+                                
+                                return filteredTags.map(tagObj => `
+                                    <button
+                                        onclick="app.filterByTag('${tagObj.tag}'); document.getElementById('mobile-tags-section').classList.add('hidden'); app.mobileTagsOpen = false;"
+                                        class="w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
+                                            this.selectedTag === tagObj.tag
+                                                ? 'bg-orange-100 hanuman-accent font-semibold'
+                                                : 'hover:bg-orange-50 text-gray-700'
+                                        }"
+                                    >
+                                        <span>${tagObj.tag}</span>
+                                        <span class="text-xs ${this.selectedTag === tagObj.tag ? 'text-orange-600' : 'text-gray-500'}">(${tagObj.count})</span>
+                                    </button>
+                                `).join('') + (hiddenBySearch + hiddenBySparse > 0 ? `
+                                    <p class="text-xs text-gray-500 mt-3 px-3">
+                                        +${hiddenBySearch + hiddenBySparse} hidden${hiddenBySearch && hiddenBySparse ? ` (${hiddenBySparse} sparse + ${hiddenBySearch} by search)` : hiddenBySearch ? ' by search' : ' sparse'}
+                                    </p>
+                                ` : '');
+                            })()}
+                        </div>
+                    </div>
 
                     <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-                        <!-- Sidebar (Tags) -->
-                        <div class="lg:col-span-1">
+                        <!-- Sidebar (Tags) - Desktop Only -->
+                        <div class="hidden lg:block lg:col-span-1">
                             <div class="card sticky top-32">
-                                <h3 class="font-bold text-lg mb-4 hanuman-accent">📑 Tags</h3>
-                                <div class="space-y-2">
-                                    ${this.allTags.map(tag => `
-                                        <button
-                                            onclick="app.filterByTag('${tag}')"
-                                            class="w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${
-                                                this.selectedTag === tag
-                                                    ? 'bg-orange-100 hanuman-accent font-semibold'
-                                                    : 'hover:bg-orange-50 text-gray-700'
-                                            }"
-                                        >
-                                            ${tag}
+                                <div class="flex items-center justify-between mb-3">
+                                    <h3 class="font-bold text-lg hanuman-accent">📑 Tags</h3>
+                                    ${this.allTags.filter(t => t.count < 5).length > 0 ? `
+                                        <button onclick="app.toggleShowAllTags()" class="text-xs text-blue-600 hover:underline">
+                                            ${this.showAllTags ? 'Hide sparse' : 'Show all'}
                                         </button>
-                                    `).join('')}
+                                    ` : ""}
+                                </div>
+                                <!-- Tag Search Box -->
+                                <div class="relative mb-3">
+                                    <input 
+                                        id="tag-search-input"
+                                        type="text" 
+                                        placeholder="Search tags..." 
+                                        value="${this.tagSearchQuery}"
+                                        class="w-full px-3 py-2 pl-8 pr-8 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                                    />
+                                    <span class="absolute left-2 top-2.5 text-gray-400">🔍</span>
+                                    ${this.tagSearchQuery ? `
+                                        <button 
+                                            id="tag-search-clear"
+                                            class="absolute right-2 top-2 text-gray-400 hover:text-gray-600 text-lg leading-none"
+                                        >×</button>
+                                    ` : ""}
+                                </div>
+                                <div class="space-y-2 overflow-y-auto" style="max-height: calc(100vh - 290px);">
+                                    ${(() => {
+                                        const filteredTags = this.allTags
+                                            .filter(t => this.showAllTags || t.count >= 5)
+                                            .filter(t => !this.tagSearchQuery || t.tag.toLowerCase().includes(this.tagSearchQuery));
+                                        
+                                        if (filteredTags.length === 0) {
+                                            return `
+                                                <div class="text-center py-8 text-gray-500">
+                                                    <p class="text-sm">No tags found</p>
+                                                    ${this.tagSearchQuery ? `<p class="text-xs mt-1">Try different keywords</p>` : ''}
+                                                </div>
+                                            `;
+                                        }
+                                        
+                                        const hiddenBySearch = this.allTags.filter(t => 
+                                            (this.showAllTags || t.count >= 5) && 
+                                            this.tagSearchQuery && 
+                                            !t.tag.toLowerCase().includes(this.tagSearchQuery)
+                                        ).length;
+                                        const hiddenBySparse = !this.showAllTags ? this.allTags.filter(t => t.count < 5).length : 0;
+                                        
+                                        return filteredTags.map(tagObj => `
+                                            <button
+                                                onclick="app.filterByTag('${tagObj.tag}')"
+                                                class="w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
+                                                    this.selectedTag === tagObj.tag
+                                                        ? 'bg-orange-100 hanuman-accent font-semibold'
+                                                        : 'hover:bg-orange-50 text-gray-700'
+                                                }"
+                                            >
+                                                <span>${tagObj.tag}</span>
+                                                <span class="text-xs ${this.selectedTag === tagObj.tag ? 'text-orange-600' : 'text-gray-500'}">(${tagObj.count})</span>
+                                            </button>
+                                        `).join('') + (hiddenBySearch + hiddenBySparse > 0 ? `
+                                            <p class="text-xs text-gray-500 mt-3 px-3">
+                                                +${hiddenBySearch + hiddenBySparse} hidden${hiddenBySearch && hiddenBySparse ? ` (${hiddenBySparse} sparse + ${hiddenBySearch} by search)` : hiddenBySearch ? ' by search' : ' sparse'}
+                                            </p>
+                                        ` : '');
+                                    })()}
                                 </div>
                             </div>
                         </div>
@@ -533,6 +707,76 @@ class BelaGuruApp {
 
         this.appContainer.innerHTML = html + this.renderFloatingMenu();
         this.renderSearchStatus(); // Initialize search status on load
+        
+        // Attach tag search event listeners using window.app reference
+        setTimeout(() => {
+            const tagSearchInput = document.getElementById('tag-search-input');
+            const tagSearchInputMobile = document.getElementById('tag-search-input-mobile');
+            const tagSearchClear = document.getElementById('tag-search-clear');
+            const tagSearchClearMobile = document.getElementById('tag-search-clear-mobile');
+            
+            if (tagSearchInput) {
+                tagSearchInput.oninput = function(e) {
+                    if (window.app) {
+                        window.app.tagSearchQuery = e.target.value.toLowerCase();
+                        window.app.renderHome();
+                        // Restore focus after render
+                        setTimeout(() => {
+                            const input = document.getElementById('tag-search-input');
+                            if (input) {
+                                input.focus();
+                                input.setSelectionRange(input.value.length, input.value.length);
+                            }
+                        }, 0);
+                    }
+                };
+            }
+            
+            if (tagSearchInputMobile) {
+                tagSearchInputMobile.oninput = function(e) {
+                    if (window.app) {
+                        window.app.tagSearchQuery = e.target.value.toLowerCase();
+                        window.app.renderHome();
+                        // Restore focus after render (longer delay for mobile browsers)
+                        setTimeout(() => {
+                            const input = document.getElementById('tag-search-input-mobile');
+                            if (input) {
+                                input.focus();
+                                // Force focus on mobile
+                                input.click();
+                                input.setSelectionRange(input.value.length, input.value.length);
+                            }
+                        }, 50);
+                    }
+                };
+            }
+            
+            if (tagSearchClear) {
+                tagSearchClear.onclick = function() {
+                    if (window.app) {
+                        window.app.tagSearchQuery = "";
+                        window.app.renderHome();
+                    }
+                };
+            }
+            
+            if (tagSearchClearMobile) {
+                tagSearchClearMobile.onclick = function() {
+                    if (window.app) {
+                        window.app.tagSearchQuery = "";
+                        window.app.renderHome();
+                    }
+                };
+            }
+            
+            // Restore mobile tags section state after render
+            if (window.app && window.app.mobileTagsOpen) {
+                const mobileTagsSection = document.getElementById('mobile-tags-section');
+                if (mobileTagsSection) {
+                    mobileTagsSection.classList.remove('hidden');
+                }
+            }
+        }, 0);
     }
 
     renderUpload() {
@@ -591,6 +835,18 @@ class BelaGuruApp {
                             >
                         </div>
 
+                        <div class="card">
+                            <label class="block font-semibold hanuman-text mb-2">
+                                YouTube Video URL (optional)
+                            </label>
+                            <input
+                                type="url"
+                                id="youtube_url"
+                                placeholder="https://youtube.com/watch?v=..."
+                            >
+                            <small style="color:#666;margin-top:4px;display:block;">Paste full YouTube URL or video ID</small>
+                        </div>
+
                         <div class="card bg-orange-50 border-l-4 border-orange-400">
                             <p class="text-sm text-gray-700">
                                 ✨ <span class="font-semibold">Community Upload:</span> Your bhajan will be visible to everyone. Please ensure you have the rights to share it.
@@ -616,13 +872,14 @@ class BelaGuruApp {
         const tagsValue = document.getElementById("tags_value").value;
         const tags = tagsValue ? tagsValue.split(",").map(t => t.trim()).filter(t => t) : [];
         const uploader_name = document.getElementById("uploader_name").value.trim();
+        const youtube_url = document.getElementById("youtube_url").value.trim();
 
         if (!title || !lyrics) {
             alert("Please fill in title and lyrics");
             return;
         }
 
-        this.createBhajan({ title, lyrics, tags, uploader_name }).then(success => {
+        this.createBhajan({ title, lyrics, tags, uploader_name, youtube_url }).then(success => {
             if (success) {
                 alert("Bhajan uploaded successfully! 🎉");
                 this.setPage("home");
@@ -673,6 +930,17 @@ class BelaGuruApp {
                     </div>
                     ` : ''}
 
+                    <!-- YouTube Video Player -->
+                    ${bhajan.youtube_url ? (function() {
+                        let vidId = bhajan.youtube_url;
+                        if (bhajan.youtube_url.includes('youtu.be/')) {
+                            vidId = bhajan.youtube_url.split('youtu.be/')[1].split('?')[0];
+                        } else if (bhajan.youtube_url.includes('v=')) {
+                            vidId = bhajan.youtube_url.split('v=')[1].split('&')[0];
+                        }
+                        return `<div style="margin-bottom:24px;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1);"><iframe width="100%" height="400" src="https://www.youtube.com/embed/${vidId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
+                    })() : ''}
+
                     <!-- Lyrics -->
                     <div class="card">
                         <div class="flex items-center justify-between mb-4">
@@ -689,7 +957,7 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
             </div>
         `;
 
-        this.appContainer.innerHTML = html + this.renderFloatingMenu();
+        this.appContainer.innerHTML = html + this.renderShareButtons(bhajan) + this.renderFloatingMenu();
     }
 
     copyLyrics() {
@@ -787,6 +1055,19 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
                             >
                         </div>
 
+                        <div class="card">
+                            <label class="block font-semibold hanuman-text mb-2">
+                                YouTube Video URL
+                            </label>
+                            <input
+                                type="url"
+                                id="edit_youtube_url"
+                                value="${(bhajan.youtube_url || '').replace(/"/g, '&quot;')}"
+                                placeholder="https://youtube.com/watch?v=..."
+                            >
+                            <small style="color:#666;margin-top:4px;display:block;">Leave blank if no video</small>
+                        </div>
+
                         <button type="submit" class="btn-primary w-full py-3 text-lg font-bold">
                             Save Changes ✅
                         </button>
@@ -795,7 +1076,7 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
             </div>
         `;
 
-        this.appContainer.innerHTML = html + this.renderFloatingMenu();
+        this.appContainer.innerHTML = html + this.renderShareButtons(bhajan) + this.renderFloatingMenu();
     }
 
     handleEditSubmit(event, bhajanId) {
@@ -806,12 +1087,14 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
         const tagsValue = document.getElementById("edit_tags_value").value;
         const tags = tagsValue ? tagsValue.split(",").map(t => t.trim()).filter(t => t) : [];
         const uploader_name = document.getElementById("edit_uploader_name").value.trim();
+        const youtube_url = document.getElementById("edit_youtube_url").value.trim();
 
         const formData = new FormData();
         if (title) formData.append("title", title);
         if (lyrics) formData.append("lyrics", lyrics);
         formData.append("tags", tags.join(","));
         if (uploader_name) formData.append("uploader_name", uploader_name);
+        if (youtube_url) formData.append("youtube_url", youtube_url);
 
         fetch(`/api/bhajans/${bhajanId}`, {
             method: "PUT",
@@ -906,19 +1189,38 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
                 ⚙️
             </button>
             <div id="floating-menu" class="floating-menu">
+                <!-- Navigation -->
+                <div class="floating-menu-item" onclick="app.setPage('home'); app.closeFloatingMenu();">
+                    <span class="floating-menu-item-icon">🏠</span>
+                    <span>Home</span>
+                </div>
+                <div class="floating-menu-item" onclick="app.openSearch(); app.closeFloatingMenu();">
+                    <span class="floating-menu-item-icon">🔍</span>
+                    <span>Search</span>
+                </div>
+                <div class="floating-menu-item" onclick="app.setPage('upload'); app.closeFloatingMenu();">
+                    <span class="floating-menu-item-icon">📝</span>
+                    <span>Upload</span>
+                </div>
+                <div class="floating-menu-item" onclick="app.setPage('favorites'); app.closeFloatingMenu();">
+                    <span class="floating-menu-item-icon">❤️</span>
+                    <span>Favorites</span>
+                </div>
+                
+                <div class="floating-menu-divider"></div>
+                
+                <!-- Daily Bhajan -->
                 ${this.bhajans.length > 0 ? `
                     <div class="floating-menu-item" onclick="app.showDailyBhajan()">
                         <span class="floating-menu-item-icon">🎵</span>
                         <span>Daily Bhajan</span>
                     </div>
                 ` : ''}
-                <div class="floating-menu-item" onclick="app.setPage('upload'); app.closeFloatingMenu();">
-                    <span class="floating-menu-item-icon">📝</span>
-                    <span>Upload Bhajan</span>
-                </div>
+                
+                <!-- Font Size -->
                 <div class="floating-menu-divider"></div>
                 <div class="font-size-controls">
-                    <span style="font-size: 12px; font-weight: 600; color: #666;">Size:</span>
+                    <span style="font-size: 11px; font-weight: 700; color: #666; display: block; margin-bottom: 6px;">Font Size</span>
                     <button onclick="app.changeFontSize('small')" class="${savedFontSize === 'small' ? 'active' : ''}">A</button>
                     <button onclick="app.changeFontSize('normal')" class="${savedFontSize === 'normal' ? 'active' : ''}"><strong>A</strong></button>
                     <button onclick="app.changeFontSize('large')" class="${savedFontSize === 'large' ? 'active' : ''}"><strong style="font-size: 18px;">A</strong></button>
@@ -941,9 +1243,218 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
         `;
     }
 
+
+    
+    openSearch() { 
+        this.setPage('home'); 
+        setTimeout(() => { 
+            const input = document.querySelector('input[placeholder*="Search"]'); 
+            if(input) input.focus(); 
+        }, 100); 
+    }
+
+    renderShareButtons(bhajan) { 
+        const isFav = this.isFavorited(bhajan.id);
+        const heartIcon = isFav ? '❤️' : '🤍';
+        const heartTitle = isFav ? 'Remove from favorites' : 'Add to favorites';
+        return `<div class="share-button-group">
+            <button class="icon-btn" onclick="app.shareWhatsApp('${bhajan.title.replace(/'/g, "\"'")}', '${bhajan.id}')"><img src="/whatsapp-logo.svg" alt=""></button>
+            <button class="icon-btn" onclick="app.shareTelegram('${bhajan.title.replace(/'/g, "\"'")}', '${bhajan.id}')"><img src="/telegram-logo.svg" alt=""></button>
+            <button class="icon-btn" onclick="app.copyLink('${bhajan.id}')">🔗</button>
+            <button class="icon-btn" onclick="app.toggleFavorite('${bhajan.id}', '${bhajan.title.replace(/'/g, "\'")}' )" title="${heartTitle}">${heartIcon}</button>
+        </div>`; 
+    }
+
+
+    downloadBhajan(title, preview) {
+        const text = title + '\n\n' + preview;
+        const a = document.createElement('a');
+        a.href = 'data:text/plain,' + encodeURIComponent(text);
+        a.download = title + '.txt';
+        a.click();
+    }
+
+    shareWhatsApp(title, bhajanId) {
+        const url = bhajanId ? `https://bhajans.s365.in?bhajan=${bhajanId}` : 'https://bhajans.s365.in'; const msg = encodeURIComponent('Check out this bhajan: ' + title + '\n' + url);
+        window.open('https://wa.me/?text=' + msg, '_blank');
+    }
+
+    shareTelegram(title, bhajanId) {
+        const url = bhajanId ? `https://bhajans.s365.in?bhajan=${bhajanId}` : 'https://bhajans.s365.in';
+        const msg = encodeURIComponent('Check out: ' + title);
+        window.open('https://t.me/share/url?url=' + encodeURIComponent(url) + '&text=' + msg, '_blank');
+    }
+
+    copyLink(id) {
+        const link = `https://bhajans.s365.in?bhajan=${id}`;
+        navigator.clipboard.writeText(link).then(() => {
+            const feedback = document.createElement('div');
+            feedback.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#FF6B35;color:white;padding:12px 20px;border-radius:8px;z-index:1000;font-weight:bold;';
+            feedback.textContent = '✅ Link copied!';
+            document.body.appendChild(feedback);
+            setTimeout(() => feedback.remove(), 2000);
+        });
+    }
+
+    renderSettings() { 
+        const html = `<div class="min-h-screen bg-orange-50">
+            ${this.renderNavHeader({backLabel:'Back', backAction:"app.setPage('home')", title:'Settings', subtitle:'Customize your experience'})}
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <div class="card">
+                    <h3 class="font-semibold hanuman-text mb-4">Font Size</h3>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button onclick="app.changeFontSize('small')" class="py-2 px-4 bg-white border-2 border-orange-200 rounded hover:bg-orange-50">Small</button>
+                        <button onclick="app.changeFontSize('normal')" class="py-2 px-4 bg-white border-2 border-orange-200 rounded hover:bg-orange-50">Normal</button>
+                        <button onclick="app.changeFontSize('large')" class="py-2 px-4 bg-white border-2 border-orange-200 rounded hover:bg-orange-50">Large</button>
+                    </div>
+                </div>
+            </div>
+        </div>`; 
+        this.appContainer.innerHTML = html + this.renderFloatingMenu() + this.renderBottomTabBar('settings'); 
+    }
+    
+    renderFavorites() { 
+        const favIds = this.getFavorites();
+        const favorites = this.bhajans.filter(b => favIds.includes(b.id));
+
+        const html = `<div class="min-h-screen bg-orange-50">
+            ${this.renderNavHeader({backLabel:'Back', backAction:"app.setPage('home')", title:'Favorites', subtitle:'Your saved bhajans'})}
+            <div class="max-w-6xl mx-auto px-4 py-8">
+                ${favorites.length > 0 ? `
+                    <div class="grid gap-4">
+                        ${favorites.map(b => `
+                            <div class="card cursor-pointer hover:shadow-lg" onclick="app.setPage('bhajan', ${b.id})">
+                                <div class="flex justify-between items-start gap-3">
+                                    <div class="flex-1">
+                                        <h3 class="font-semibold hanuman-text">${b.title}</h3>
+                                        <p class="text-sm text-gray-600 mt-1">${b.uploader_name || 'Community'}</p>
+                                    </div>
+                                    <button class="text-2xl hover:scale-110" onclick="event.stopPropagation(); app.toggleFavorite(${b.id}, '${b.title.replace(/'/g, "\'")}')">❤️</button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : `
+                    <div class="card text-center py-12">
+                        <p class="text-gray-500">No favorites yet</p>
+                        <p class="text-gray-400 text-sm mt-2">Click ❤️ on any bhajan to save it!</p>
+                    </div>
+                `}
+            </div>
+        </div>`; 
+        this.appContainer.innerHTML = html + this.renderFloatingMenu(); 
+    }
+
+
+
+    // ===== FAVORITES =====
+    getFavorites() {
+        const saved = localStorage.getItem('bhajan_favorites');
+        if (!saved) return [];
+        const parsed = JSON.parse(saved);
+        return parsed.map(id => parseInt(id));
+    }
+
+    saveFavorites(favs) {
+        const numericFavs = favs.map(id => parseInt(id));
+        localStorage.setItem('bhajan_favorites', JSON.stringify(numericFavs));
+    }
+
+    isFavorited(bhajanId) {
+        return this.getFavorites().includes(bhajanId);
+    }
+
+    toggleFavorite(bhajanId, bhajanTitle) {
+        try {
+            bhajanId = parseInt(bhajanId);
+            const favs = this.getFavorites();
+            const idx = favs.indexOf(bhajanId);
+            let message = '';
+            
+            if (idx > -1) {
+                favs.splice(idx, 1);
+                message = '❌ Removed from favorites';
+            } else {
+                favs.push(bhajanId);
+                message = '❤️ Added to favorites!';
+            }
+            
+            this.saveFavorites(favs);
+            this.showFavoriteFeedback(message);
+            
+            // Refresh to update heart icon
+            setTimeout(() => {
+                this.setPage('bhajan', bhajanId);
+            }, 800);
+        } catch(err) {
+            console.error('Favorite error:', err);
+            alert('Error saving favorite: ' + err.message);
+        }
+    }
+
+    showFavoriteFeedback(message) {
+        const el = document.createElement('div');
+        el.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#FF6B35;color:white;padding:16px 32px;border-radius:12px;z-index:1001;font-weight:bold;font-size:18px;box-shadow:0 4px 12px rgba(0,0,0,0.2);';
+        el.textContent = message;
+        document.body.appendChild(el);
+        
+        // Animate in
+        el.style.animation = 'slideIn 0.4s ease';
+        
+        setTimeout(() => {
+            el.style.animation = 'slideOut 0.4s ease';
+            setTimeout(() => el.remove(), 400);
+        }, 1200);
+    }
+
+    // ===== URL ROUTING =====
+    updateURL(page, id) {
+        let url = window.location.pathname;
+        if (page === 'bhajan' && id) {
+            url += `?bhajan=${id}`;
+        }
+        window.history.pushState({ page, id }, '', url);
+    }
+
+    loadFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        const bhajanId = parseInt(params.get('bhajan'));
+        if (bhajanId) {
+            const bhajan = this.bhajans.find(b => b.id === bhajanId);
+            if (bhajan) {
+                this.setPage('bhajan', bhajanId);
+                return;
+            }
+        }
+        this.renderHome();
+    }
+
+    initURLListener() {
+        window.addEventListener('popstate', (event) => {
+            if (event.state && event.state.page === 'bhajan') {
+                this.setPage('bhajan', event.state.id);
+            } else {
+                this.setPage('home');
+            }
+        });
+    }
+
 }
 
 // Initialize app when DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
-    window.app = new BelaGuruApp();
+    try {
+        console.log("🦁 Simba: Starting app initialization...");
+        window.app = new BelaGuruApp();
+        console.log("🦁 Simba: App initialized successfully!");
+    } catch (error) {
+        console.error("🦁 SIMBA ERROR:", error);
+        document.getElementById("app").innerHTML = `
+            <div style="padding: 20px; color: red; font-family: Arial;">
+                <h2>⚠️ App Error</h2>
+                <p>${error.message}</p>
+                <p>${error.stack}</p>
+            </div>
+        `;
+    }
 });

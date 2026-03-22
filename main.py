@@ -136,6 +136,22 @@ class BhajanResponse(BaseModel):
     updated_at: str
 
 
+class TagCreate(BaseModel):
+    name: str
+    category: str
+    parent_id: Optional[int] = None
+    translations: dict = {}
+    synonyms: List[str] = []
+
+
+class TagUpdate(BaseModel):
+    name: Optional[str] = None
+    category: Optional[str] = None
+    parent_id: Optional[int] = None
+    translations: Optional[dict] = None
+    synonyms: Optional[List[str]] = None
+
+
 # API Endpoints
 
 @app.get("/api/bhajans", response_model=List[BhajanResponse])
@@ -533,9 +549,18 @@ def get_tags_tree(db: Session = Depends(get_db)):
     tag_lookup = {}
     
     for tag in all_tags:
+        # Get translations for this tag
+        cursor.execute(
+            "SELECT language, translation FROM tag_translations WHERE tag_id = ?",
+            (tag["id"],)
+        )
+        translations_rows = cursor.fetchall()
+        translations = {t["language"]: t["translation"] for t in translations_rows}
+        
         tag_dict = {
             "id": tag["id"],
             "category": tag["category"],
+            "translations": translations,
             "children": {}
         }
         tag_lookup[tag["id"]] = tag_dict
@@ -859,7 +884,229 @@ def health_check():
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.post("/api/tags")
+def create_tag(tag: TagCreate, db: Session = Depends(get_db)):
+    """Create a new tag in the taxonomy"""
+    import sqlite3
+    
+    conn = sqlite3.connect("./data/portal.db")
+    cursor = conn.cursor()
+    
+    try:
+        # Check if tag name already exists
+        cursor.execute("SELECT id FROM tag_taxonomy WHERE name = ?", (tag.name,))
+        if cursor.fetchone():
+            conn.close()
+            raise HTTPException(status_code=400, detail=f"Tag '{tag.name}' already exists")
+        
+        # Determine level based on parent
+        level = 0
+        if tag.parent_id:
+            cursor.execute("SELECT level FROM tag_taxonomy WHERE id = ?", (tag.parent_id,))
+            parent_row = cursor.fetchone()
+            if not parent_row:
+                conn.close()
+                raise HTTPException(status_code=404, detail="Parent tag not found")
+            level = parent_row[0] + 1
+        
+        # Insert tag
+        cursor.execute(
+            """INSERT INTO tag_taxonomy (name, category, parent_id, level, created_at, updated_at)
+               VALUES (?, ?, ?, ?, DATETIME('now'), DATETIME('now'))""",
+            (tag.name, tag.category, tag.parent_id, level)
+        )
+        tag_id = cursor.lastrowid
+        
+        # Insert translations
+        for lang, translation in tag.translations.items():
+            cursor.execute(
+                "INSERT INTO tag_translations (tag_id, language, translation) VALUES (?, ?, ?)",
+                (tag_id, lang, translation)
+            )
+        
+        # Insert synonyms
+        for synonym in tag.synonyms:
+            cursor.execute(
+                "INSERT INTO tag_synonyms (tag_id, synonym) VALUES (?, ?)",
+                (tag_id, synonym)
+            )
+        
+        conn.commit()
+        conn.close()
+        
+        logger.info(f"Created tag: {tag.name} (id={tag_id})")
+        return {"id": tag_id, "name": tag.name, "message": "Tag created successfully"}
+        
+    except HTTPException:
+        conn.close()
+        raise
+    except Exception as e:
+        conn.rollback()
+        conn.close()
+        logger.error(f"Error creating tag: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.put("/api/tags/{tag_id}")
+def update_tag(tag_id: int, tag: TagUpdate, db: Session = Depends(get_db)):
+    """Update an existing tag"""
+    import sqlite3
+    
+    conn = sqlite3.connect("./data/portal.db")
+    cursor = conn.cursor()
+    
+    try:
+        # Check if tag exists
+        cursor.execute("SELECT * FROM tag_taxonomy WHERE id = ?", (tag_id,))
+        if not cursor.fetchone():
+            conn.close()
+            raise HTTPException(status_code=404, detail="Tag not found")
+        
+        # Update basic fields
+        updates = []
+        params = []
+        
+        if tag.name:
+            updates.append("name = ?")
+            params.append(tag.name)
+        
+        if tag.category:
+            updates.append("category = ?")
+            params.append(tag.category)
+        
+        if tag.parent_id is not None:
+            # Recalculate level
+            if tag.parent_id:
+                cursor.execute("SELECT level FROM tag_taxonomy WHERE id = ?", (tag.parent_id,))
+                parent_row = cursor.fetchone()
+                if not parent_row:
+                    conn.close()
+                    raise HTTPException(status_code=404, detail="Parent tag not found")
+                new_level = parent_row[0] + 1
+            else:
+                new_level = 0
+            
+            updates.append("parent_id = ?")
+            params.append(tag.parent_id)
+            updates.append("level = ?")
+            params.append(new_level)
+        
+        if updates:
+            updates.append("updated_at = DATETIME('now')")
+            params.append(tag_id)
+            cursor.execute(
+                f"UPDATE tag_taxonomy SET {', '.join(updates)} WHERE id = ?",
+                params
+            )
+        
+        # Update translations (replace all)
+        if tag.translations is not None:
+            cursor.execute("DELETE FROM tag_translations WHERE tag_id = ?", (tag_id,))
+            for lang, translation in tag.translations.items():
+                cursor.execute(
+                    "INSERT INTO tag_translations (tag_id, language, translation) VALUES (?, ?, ?)",
+                    (tag_id, lang, translation)
+                )
+        
+        # Update synonyms (replace all)
+        if tag.synonyms is not None:
+            cursor.execute("DELETE FROM tag_synonyms WHERE tag_id = ?", (tag_id,))
+            for synonym in tag.synonyms:
+                cursor.execute(
+                    "INSERT INTO tag_synonyms (tag_id, synonym) VALUES (?, ?)",
+                    (tag_id, synonym)
+                )
+        
+        conn.commit()
+        conn.close()
+        
+        logger.info(f"Updated tag id={tag_id}")
+        return {"message": "Tag updated successfully"}
+        
+    except HTTPException:
+        conn.close()
+        raise
+    except Exception as e:
+        conn.rollback()
+        conn.close()
+        logger.error(f"Error updating tag: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.delete("/api/tags/{tag_id}")
+def delete_tag(tag_id: int, db: Session = Depends(get_db)):
+    """Delete a tag (only if not used by any bhajans)"""
+    import sqlite3
+    
+    conn = sqlite3.connect("./data/portal.db")
+    cursor = conn.cursor()
+    
+    try:
+        # Check if tag exists
+        cursor.execute("SELECT name FROM tag_taxonomy WHERE id = ?", (tag_id,))
+        tag_row = cursor.fetchone()
+        if not tag_row:
+            conn.close()
+            raise HTTPException(status_code=404, detail="Tag not found")
+        
+        tag_name = tag_row[0]
+        
+        # Check if tag is used by any bhajans
+        cursor.execute("SELECT COUNT(*) FROM bhajan_tags WHERE tag_id = ?", (tag_id,))
+        usage_count = cursor.fetchone()[0]
+        
+        if usage_count > 0:
+            conn.close()
+            raise HTTPException(
+                status_code=400,
+                detail=f"Cannot delete tag '{tag_name}' - it is used by {usage_count} bhajan(s)"
+            )
+        
+        # Check if tag has children
+        cursor.execute("SELECT COUNT(*) FROM tag_taxonomy WHERE parent_id = ?", (tag_id,))
+        children_count = cursor.fetchone()[0]
+        
+        if children_count > 0:
+            conn.close()
+            raise HTTPException(
+                status_code=400,
+                detail=f"Cannot delete tag '{tag_name}' - it has {children_count} child tag(s)"
+            )
+        
+        # Delete tag (translations and synonyms cascade automatically)
+        cursor.execute("DELETE FROM tag_taxonomy WHERE id = ?", (tag_id,))
+        
+        conn.commit()
+        conn.close()
+        
+        logger.info(f"Deleted tag: {tag_name} (id={tag_id})")
+        return {"message": f"Tag '{tag_name}' deleted successfully"}
+        
+    except HTTPException:
+        conn.close()
+        raise
+    except Exception as e:
+        conn.rollback()
+        conn.close()
+        logger.error(f"Error deleting tag: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 app.mount("/static", StaticFiles(directory="static"), name="static")
+
+
+# Admin routes
+@app.get("/admin/tags", response_class=FileResponse)
+def serve_admin_tags():
+    """Serve admin tag management page"""
+    template_path = os.path.join("templates", "admin_tags.html")
+    logger.info(f"[ADMIN TAGS] Serving from: {template_path}")
+    if not os.path.exists(template_path):
+        logger.error(f"[ADMIN TAGS] FILE NOT FOUND: {template_path}")
+        raise HTTPException(status_code=404, detail="Admin page not found")
+    return FileResponse(template_path)
+
+
 # Serve static files
 @app.get("/", response_class=FileResponse)
 def serve_index():

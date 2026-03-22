@@ -11,6 +11,8 @@ class BelaGuruApp {
         this.bhajans = [];
         this.filteredBhajans = [];
         this.allTags = [];
+        this.tagTaxonomy = [];
+        this.tagsByCategory = {};
         this.showAllTags = false;
         this.tagSearchQuery = "";
         this.selectedTag = null;
@@ -18,6 +20,7 @@ class BelaGuruApp {
         this.appContainer = document.getElementById("app");
         this.searchTimeout = null;
         this.mobileTagsOpen = false; // Track mobile tags section state
+        this.expandedCategories = {}; // Track which categories are expanded
         // Tag input state for upload/edit forms
         this._selectedTags = [];
         this._tagDropdownVisible = false;
@@ -28,6 +31,7 @@ class BelaGuruApp {
     async init() {
         await this.loadBhajans();
         await this.loadTags();
+        await this.loadTagTree();
         this.loadFontSizePreference();
         this.initURLListener();
         this.loadFromURL();
@@ -45,10 +49,87 @@ class BelaGuruApp {
 
     async loadTags() {
         try {
-            const response = await fetch("/api/tags/counts");
-            this.allTags = await response.json();
+            // Load tag taxonomy (for categories) - this is the proper endpoint
+            const taxonomyResponse = await fetch("/api/tags");
+            this.tagTaxonomy = await taxonomyResponse.json();
+            
+            // Load tag counts - this will work once we fix the route
+            try {
+                const response = await fetch("/api/bhajans");
+                const bhajans = await response.json();
+                
+                // Calculate counts from bhajans
+                const tagCounts = {};
+                bhajans.forEach(bhajan => {
+                    if (bhajan.tags && Array.isArray(bhajan.tags)) {
+                        bhajan.tags.forEach(tag => {
+                            tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+                        });
+                    }
+                });
+                
+                this.allTags = Object.entries(tagCounts)
+                    .map(([tag, count]) => ({ tag, count }))
+                    .sort((a, b) => b.count - a.count);
+            } catch (e) {
+                console.error("Error calculating tag counts:", e);
+                this.allTags = [];
+            }
+            
+            // Organize tags by category
+            this.tagsByCategory = this.organizeTagsByCategory();
         } catch (error) {
             console.error("Error loading tags:", error);
+            this.tagTaxonomy = [];
+            this.allTags = [];
+            this.tagsByCategory = {};
+        }
+    }
+    
+    organizeTagsByCategory() {
+        const categories = {};
+        
+        if (!this.tagTaxonomy || !Array.isArray(this.tagTaxonomy)) {
+            return categories;
+        }
+        
+        // Group tags by category
+        this.tagTaxonomy.forEach(tag => {
+            const category = tag.category || 'other';
+            if (!categories[category]) {
+                categories[category] = [];
+            }
+            
+            // Find count for this tag
+            const tagCount = this.allTags.find(t => t.tag === tag.name);
+            if (tagCount && tagCount.count > 0) {
+                categories[category].push({
+                    name: tag.name,
+                    count: tagCount.count,
+                    id: tag.id
+                });
+            }
+        });
+        
+        // Sort tags within each category by count
+        Object.keys(categories).forEach(cat => {
+            categories[cat].sort((a, b) => b.count - a.count);
+        });
+        
+        return categories;
+    }
+
+    /**
+     * Load hierarchical tag tree from API
+     */
+    async loadTagTree() {
+        try {
+            const response = await fetch("/api/tags/tree");
+            this.tagTree = await response.json();
+            console.log("Tag tree loaded:", this.tagTree);
+        } catch (error) {
+            console.error("Error loading tag tree:", error);
+            this.tagTree = {};
         }
     }
 
@@ -57,7 +138,14 @@ class BelaGuruApp {
             const formData = new FormData();
             formData.append("title", data.title);
             formData.append("lyrics", data.lyrics);
-            formData.append("tags", data.tags.join(","));
+            
+            // Support both old tag names and new tag IDs
+            if (data.tagIds) {
+                formData.append("tag_ids", data.tagIds.join(","));
+            } else if (data.tags) {
+                formData.append("tags", data.tags.join(","));
+            }
+            
             formData.append("uploader_name", data.uploader_name || "Anonymous");
             if (data.youtube_url) formData.append("youtube_url", data.youtube_url);
 
@@ -104,6 +192,11 @@ class BelaGuruApp {
 
     toggleShowAllTags() {
         this.showAllTags = !this.showAllTags;
+        this.renderHome();
+    }
+    
+    toggleCategory(category) {
+        this.expandedCategories[category] = !this.expandedCategories[category];
         this.renderHome();
     }
 
@@ -290,6 +383,403 @@ class BelaGuruApp {
         } else if (page === "favorites") {
             this.renderFavorites();
         }
+    }
+
+    // ===== TAG DISPLAY HELPERS =====
+    
+    renderTagsByCategory() {
+        const categoryNames = {
+            'deity': '🕉️ Deities',
+            'type': '📜 Types',
+            'composer': '🎵 Composers',
+            'language': '🌏 Languages',
+            'occasion': '🎉 Occasions',
+            'theme': '💡 Themes',
+            'raga': '🎼 Ragas',
+            'other': '📌 Other'
+        };
+        
+        const categoryOrder = ['deity', 'type', 'composer', 'language', 'occasion', 'theme', 'raga', 'other'];
+        
+        let html = '';
+        
+        categoryOrder.forEach(category => {
+            const tags = this.tagsByCategory[category] || [];
+            if (tags.length === 0) return;
+            
+            const isExpanded = this.expandedCategories[category];
+            const displayName = categoryNames[category] || category;
+            const totalCount = tags.reduce((sum, t) => sum + t.count, 0);
+            
+            html += `
+                <div class="mb-3">
+                    <button 
+                        onclick="app.toggleCategory('${category}')"
+                        class="w-full flex items-center justify-between px-2 py-1 text-sm font-semibold text-gray-700 hover:bg-orange-50 rounded transition"
+                    >
+                        <span>${isExpanded ? '▼' : '▶'} ${displayName}</span>
+                        <span class="text-xs text-gray-500">(${totalCount})</span>
+                    </button>
+                    ${isExpanded ? `
+                        <div class="mt-1 ml-3 space-y-1">
+                            ${tags.filter(t => !this.tagSearchQuery || t.name.toLowerCase().includes(this.tagSearchQuery)).slice(0, 10).map(tag => `
+                                <button
+                                    onclick="app.filterByTag('${tag.name}')"
+                                    class="w-full text-left px-3 py-1.5 rounded text-sm transition-all flex items-center justify-between ${
+                                        this.selectedTag === tag.name
+                                            ? 'bg-orange-100 hanuman-accent font-semibold'
+                                            : 'hover:bg-orange-50 text-gray-700'
+                                    }"
+                                >
+                                    <span class="truncate">${tag.name}</span>
+                                    <span class="text-xs ml-2 flex-shrink-0 ${this.selectedTag === tag.name ? 'text-orange-600' : 'text-gray-500'}">(${tag.count})</span>
+                                </button>
+                            `).join('')}
+                            ${tags.length > 10 && !this.tagSearchQuery ? `
+                                <p class="text-xs text-gray-500 px-3 py-1">+${tags.length - 10} more</p>
+                            ` : ''}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        });
+        
+        return html;
+    }
+    
+    renderPopularTags() {
+        // Get top 10 most popular tags across all categories
+        const allTagsFlat = [];
+        Object.values(this.tagsByCategory).forEach(tags => {
+            allTagsFlat.push(...tags);
+        });
+        
+        const topTags = allTagsFlat
+            .filter(t => !this.tagSearchQuery || t.name.toLowerCase().includes(this.tagSearchQuery))
+            .sort((a, b) => b.count - a.count)
+            .slice(0, 10);
+        
+        return topTags.map(tag => `
+            <button
+                onclick="app.filterByTag('${tag.name}')"
+                class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-semibold transition-all ${
+                    this.selectedTag === tag.name
+                        ? 'bg-orange-500 text-white'
+                        : 'bg-orange-100 text-orange-700 hover:bg-orange-200'
+                }"
+            >
+                <span>${tag.name}</span>
+                <span class="text-xs opacity-75">(${tag.count})</span>
+            </button>
+        `).join('');
+    }
+
+    // ===== TAG AUTOCOMPLETE COMPONENT =====
+
+    /**
+     * Load hierarchical tag tree from API
+     */
+    async loadTagTree() {
+        try {
+            const response = await fetch("/api/tags/tree");
+            this.tagTree = await response.json();
+            console.log("Tag tree loaded:", this.tagTree);
+        } catch (error) {
+            console.error("Error loading tag tree:", error);
+            this.tagTree = {};
+        }
+    }
+
+    /**
+     * Render hierarchical tag selector component
+     * @param {string} inputId - Unique ID for this tag selector instance
+     * @param {Array} selectedTagIds - Array of tag IDs to pre-select
+     */
+    renderHierarchicalTagSelector(inputId, selectedTagIds = []) {
+        this._selectedTagIds = selectedTagIds || [];
+        this._tagFilterQuery = "";
+        
+        return `
+            <div class="hierarchical-tag-selector" id="${inputId}_selector">
+                <!-- Selected tags pills -->
+                <div class="selected-tags-container" id="${inputId}_pills">
+                    ${this.renderSelectedTagPills(inputId)}
+                </div>
+                
+                <!-- Tag tree container -->
+                <div class="tag-tree-container" id="tag-tree-container">
+                    <!-- Search box -->
+                    <div class="tag-search-box">
+                        <input 
+                            type="text" 
+                            id="${inputId}_search" 
+                            placeholder="Search tags..."
+                            oninput="app.filterTagTree('${inputId}', this.value)"
+                        >
+                    </div>
+                    
+                    <!-- Tree structure -->
+                    <ul class="tag-tree" id="${inputId}_tree">
+                        ${this.renderTagTree(inputId, this.tagTree, selectedTagIds)}
+                    </ul>
+                </div>
+                
+                <!-- Hidden input for form submission -->
+                <input type="hidden" id="selected_tag_ids" name="tag_ids" value="${selectedTagIds.join(',')}">
+            </div>
+        `;
+    }
+
+    /**
+     * Recursively render tag tree structure
+     */
+    renderTagTree(inputId, treeData, selectedTagIds, level = 0) {
+        if (!treeData || typeof treeData !== 'object') return '';
+        
+        let html = '';
+        
+        Object.keys(treeData).forEach(tagName => {
+            const tagNode = treeData[tagName];
+            const hasChildren = tagNode.children && Object.keys(tagNode.children).length > 0;
+            const isSelected = selectedTagIds.includes(tagNode.id);
+            const isExpanded = this._expandedNodes && this._expandedNodes.has(`${inputId}_${tagNode.id}`);
+            
+            html += `
+                <li class="tag-tree-node" data-tag-id="${tagNode.id}" data-tag-name="${tagName}" data-level="${level}">
+                    <div class="tag-tree-node-content">
+                        <span class="expand-icon ${hasChildren ? (isExpanded ? 'expanded' : 'collapsed') : 'leaf'}" 
+                              onclick="app.toggleTagNode('${inputId}', ${tagNode.id})">
+                        </span>
+                        
+                        <input 
+                            type="checkbox" 
+                            class="tag-checkbox" 
+                            data-tag-id="${tagNode.id}"
+                            data-tag-name="${tagName}"
+                            ${isSelected ? 'checked' : ''}
+                            onchange="app.toggleTagSelection('${inputId}', ${tagNode.id}, '${tagName}', this.checked)"
+                        >
+                        
+                        <span class="tag-label">
+                            ${tagName}
+                            ${tagNode.translations && tagNode.translations.kn ? `<span class="tag-translation">(${tagNode.translations.kn})</span>` : ''}
+                            <span class="tag-category-badge tag-category-${tagNode.category}">${tagNode.category}</span>
+                        </span>
+                    </div>
+                    
+                    ${hasChildren ? `
+                        <ul class="tag-tree-children ${isExpanded ? 'expanded' : 'collapsed'}">
+                            ${this.renderTagTree(inputId, tagNode.children, selectedTagIds, level + 1)}
+                        </ul>
+                    ` : ''}
+                </li>
+            `;
+        });
+        
+        return html;
+    }
+
+    /**
+     * Render selected tag pills
+     */
+    renderSelectedTagPills(inputId) {
+        if (!this._selectedTagIds || this._selectedTagIds.length === 0) {
+            return '<p class="text-gray-500 text-sm">No tags selected</p>';
+        }
+        
+        return this._selectedTagIds.map(tagId => {
+            const tagName = this.getTagNameById(tagId);
+            const translation = this.getTagTranslation(tagId, 'kn');
+            
+            return `
+                <span class="tag-pill">
+                    ${tagName}
+                    ${translation ? `<span class="tag-translation">(${translation})</span>` : ''}
+                    <button 
+                        type="button" 
+                        class="remove-tag-btn" 
+                        onclick="app.removeTagSelection('${inputId}', ${tagId})"
+                    >×</button>
+                </span>
+            `;
+        }).join('');
+    }
+
+    /**
+     * Toggle tag node expansion
+     */
+    toggleTagNode(inputId, tagId) {
+        if (!this._expandedNodes) {
+            this._expandedNodes = new Set();
+        }
+        
+        const nodeKey = `${inputId}_${tagId}`;
+        
+        if (this._expandedNodes.has(nodeKey)) {
+            this._expandedNodes.delete(nodeKey);
+        } else {
+            this._expandedNodes.add(nodeKey);
+        }
+        
+        // Re-render the tree
+        this.refreshTagTree(inputId);
+    }
+
+    /**
+     * Toggle tag selection (checkbox)
+     */
+    toggleTagSelection(inputId, tagId, tagName, isChecked) {
+        if (!this._selectedTagIds) {
+            this._selectedTagIds = [];
+        }
+        
+        if (isChecked && !this._selectedTagIds.includes(tagId)) {
+            this._selectedTagIds.push(tagId);
+        } else if (!isChecked && this._selectedTagIds.includes(tagId)) {
+            this._selectedTagIds = this._selectedTagIds.filter(id => id !== tagId);
+        }
+        
+        // Update pills and hidden input
+        this.refreshSelectedTags(inputId);
+    }
+
+    /**
+     * Remove tag from selection (via pill X button)
+     */
+    removeTagSelection(inputId, tagId) {
+        if (!this._selectedTagIds) return;
+        
+        this._selectedTagIds = this._selectedTagIds.filter(id => id !== tagId);
+        
+        // Update checkbox state
+        const checkbox = document.querySelector(`input[data-tag-id="${tagId}"]`);
+        if (checkbox) {
+            checkbox.checked = false;
+        }
+        
+        // Update pills and hidden input
+        this.refreshSelectedTags(inputId);
+    }
+
+    /**
+     * Filter tag tree by search query
+     */
+    filterTagTree(inputId, query) {
+        this._tagFilterQuery = query.toLowerCase().trim();
+        
+        const treeContainer = document.getElementById(`${inputId}_tree`);
+        if (!treeContainer) return;
+        
+        const allNodes = treeContainer.querySelectorAll('.tag-tree-node');
+        
+        if (!this._tagFilterQuery) {
+            // Show all nodes
+            allNodes.forEach(node => {
+                node.classList.remove('filtered-out', 'filtered-match', 'filtered-parent');
+            });
+            return;
+        }
+        
+        // Filter nodes
+        allNodes.forEach(node => {
+            const tagName = node.getAttribute('data-tag-name').toLowerCase();
+            const matches = tagName.includes(this._tagFilterQuery);
+            
+            if (matches) {
+                node.classList.add('filtered-match');
+                node.classList.remove('filtered-out');
+                
+                // Show all parent nodes
+                let parent = node.parentElement.closest('.tag-tree-node');
+                while (parent) {
+                    parent.classList.add('filtered-parent');
+                    parent.classList.remove('filtered-out');
+                    
+                    // Expand parent
+                    const children = parent.querySelector('.tag-tree-children');
+                    if (children) {
+                        children.classList.remove('collapsed');
+                        children.classList.add('expanded');
+                    }
+                    
+                    const expandIcon = parent.querySelector('.expand-icon');
+                    if (expandIcon) {
+                        expandIcon.classList.remove('collapsed');
+                        expandIcon.classList.add('expanded');
+                    }
+                    
+                    parent = parent.parentElement.closest('.tag-tree-node');
+                }
+            } else if (!node.classList.contains('filtered-parent')) {
+                node.classList.add('filtered-out');
+                node.classList.remove('filtered-match');
+            }
+        });
+    }
+
+    /**
+     * Refresh tag tree UI
+     */
+    refreshTagTree(inputId) {
+        const treeContainer = document.getElementById(`${inputId}_tree`);
+        if (!treeContainer) return;
+        
+        treeContainer.innerHTML = this.renderTagTree(inputId, this.tagTree, this._selectedTagIds);
+    }
+
+    /**
+     * Refresh selected tags pills and hidden input
+     */
+    refreshSelectedTags(inputId) {
+        // Update pills
+        const pillsContainer = document.getElementById(`${inputId}_pills`);
+        if (pillsContainer) {
+            pillsContainer.innerHTML = this.renderSelectedTagPills(inputId);
+        }
+        
+        // Update hidden input
+        const hiddenInput = document.getElementById('selected_tag_ids');
+        if (hiddenInput) {
+            hiddenInput.value = this._selectedTagIds.join(',');
+        }
+    }
+
+    /**
+     * Helper: Get tag name by ID
+     */
+    getTagNameById(tagId) {
+        const findInTree = (tree) => {
+            for (const [name, node] of Object.entries(tree)) {
+                if (node.id === tagId) return name;
+                if (node.children) {
+                    const found = findInTree(node.children);
+                    if (found) return found;
+                }
+            }
+            return null;
+        };
+        
+        return findInTree(this.tagTree) || `Tag ${tagId}`;
+    }
+
+    /**
+     * Helper: Get tag translation
+     */
+    getTagTranslation(tagId, language = 'kn') {
+        const findInTree = (tree) => {
+            for (const [name, node] of Object.entries(tree)) {
+                if (node.id === tagId) {
+                    return node.translations && node.translations[language] ? node.translations[language] : null;
+                }
+                if (node.children) {
+                    const found = findInTree(node.children);
+                    if (found) return found;
+                }
+            }
+            return null;
+        };
+        
+        return findInTree(this.tagTree);
     }
 
     // ===== TAG AUTOCOMPLETE COMPONENT =====
@@ -541,46 +1031,52 @@ class BelaGuruApp {
                                 >×</button>
                             ` : ""}
                         </div>
-                        <div class="space-y-2 overflow-y-auto" style="max-height: calc(60vh - 80px);">
-                            ${(() => {
-                                const filteredTags = this.allTags
-                                    .filter(t => this.showAllTags || t.count >= 5)
-                                    .filter(t => !this.tagSearchQuery || t.tag.toLowerCase().includes(this.tagSearchQuery));
-                                
-                                if (filteredTags.length === 0) {
-                                    return `
-                                        <div class="text-center py-8 text-gray-500">
-                                            <p class="text-sm">No tags found</p>
-                                            ${this.tagSearchQuery ? `<p class="text-xs mt-1">Try different keywords</p>` : ''}
-                                        </div>
-                                    `;
-                                }
-                                
-                                const hiddenBySearch = this.allTags.filter(t => 
-                                    (this.showAllTags || t.count >= 5) && 
-                                    this.tagSearchQuery && 
-                                    !t.tag.toLowerCase().includes(this.tagSearchQuery)
-                                ).length;
-                                const hiddenBySparse = !this.showAllTags ? this.allTags.filter(t => t.count < 5).length : 0;
-                                
-                                return filteredTags.map(tagObj => `
-                                    <button
-                                        onclick="app.filterByTag('${tagObj.tag}'); document.getElementById('mobile-tags-section').classList.add('hidden'); app.mobileTagsOpen = false;"
-                                        class="w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
-                                            this.selectedTag === tagObj.tag
-                                                ? 'bg-orange-100 hanuman-accent font-semibold'
-                                                : 'hover:bg-orange-50 text-gray-700'
-                                        }"
-                                    >
-                                        <span>${tagObj.tag}</span>
-                                        <span class="text-xs ${this.selectedTag === tagObj.tag ? 'text-orange-600' : 'text-gray-500'}">(${tagObj.count})</span>
-                                    </button>
-                                `).join('') + (hiddenBySearch + hiddenBySparse > 0 ? `
-                                    <p class="text-xs text-gray-500 mt-3 px-3">
-                                        +${hiddenBySearch + hiddenBySparse} hidden${hiddenBySearch && hiddenBySparse ? ` (${hiddenBySparse} sparse + ${hiddenBySearch} by search)` : hiddenBySearch ? ' by search' : ' sparse'}
-                                    </p>
-                                ` : '');
-                            })()}
+                        <div class="overflow-y-auto" style="max-height: calc(60vh - 80px);">
+                            ${!this.tagSearchQuery && Object.keys(this.tagsByCategory).length > 0 ? `
+                                <!-- Popular Tags -->
+                                <div class="mb-4">
+                                    <h4 class="text-xs font-semibold text-gray-600 mb-2">⭐ POPULAR</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        ${this.renderPopularTags().replace(/onclick="app\.filterByTag/g, 'onclick="app.filterByTag').replace(/">/g, '"); document.getElementById(\'mobile-tags-section\').classList.add(\'hidden\'); app.mobileTagsOpen = false;">')}
+                                    </div>
+                                </div>
+                                <div class="border-t border-gray-200 my-3"></div>
+                                <!-- By Category -->
+                                <h4 class="text-xs font-semibold text-gray-600 mb-2">📂 BY CATEGORY</h4>
+                                ${this.renderTagsByCategory().replace(/onclick="app\.filterByTag/g, 'onclick="app.filterByTag').replace(/"\)/g, '"); document.getElementById(\'mobile-tags-section\').classList.add(\'hidden\'); app.mobileTagsOpen = false;"')}
+                            ` : `
+                                <!-- Search Results -->
+                                <div class="space-y-1">
+                                    ${(() => {
+                                        const filteredTags = this.allTags
+                                            .filter(t => this.showAllTags || t.count >= 5)
+                                            .filter(t => !this.tagSearchQuery || t.tag.toLowerCase().includes(this.tagSearchQuery));
+                                        
+                                        if (filteredTags.length === 0) {
+                                            return `
+                                                <div class="text-center py-8 text-gray-500">
+                                                    <p class="text-sm">No tags found</p>
+                                                    ${this.tagSearchQuery ? `<p class="text-xs mt-1">Try different keywords</p>` : ''}
+                                                </div>
+                                            `;
+                                        }
+                                        
+                                        return filteredTags.map(tagObj => `
+                                            <button
+                                                onclick="app.filterByTag('${tagObj.tag}'); document.getElementById('mobile-tags-section').classList.add('hidden'); app.mobileTagsOpen = false;"
+                                                class="w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
+                                                    this.selectedTag === tagObj.tag
+                                                        ? 'bg-orange-100 hanuman-accent font-semibold'
+                                                        : 'hover:bg-orange-50 text-gray-700'
+                                                }"
+                                            >
+                                                <span>${tagObj.tag}</span>
+                                                <span class="text-xs ${this.selectedTag === tagObj.tag ? 'text-orange-600' : 'text-gray-500'}">(${tagObj.count})</span>
+                                            </button>
+                                        `).join('');
+                                    })()}
+                                </div>
+                            `}
                         </div>
                     </div>
 
@@ -613,46 +1109,52 @@ class BelaGuruApp {
                                         >×</button>
                                     ` : ""}
                                 </div>
-                                <div class="space-y-2 overflow-y-auto" style="max-height: calc(100vh - 290px);">
-                                    ${(() => {
-                                        const filteredTags = this.allTags
-                                            .filter(t => this.showAllTags || t.count >= 5)
-                                            .filter(t => !this.tagSearchQuery || t.tag.toLowerCase().includes(this.tagSearchQuery));
-                                        
-                                        if (filteredTags.length === 0) {
-                                            return `
-                                                <div class="text-center py-8 text-gray-500">
-                                                    <p class="text-sm">No tags found</p>
-                                                    ${this.tagSearchQuery ? `<p class="text-xs mt-1">Try different keywords</p>` : ''}
-                                                </div>
-                                            `;
-                                        }
-                                        
-                                        const hiddenBySearch = this.allTags.filter(t => 
-                                            (this.showAllTags || t.count >= 5) && 
-                                            this.tagSearchQuery && 
-                                            !t.tag.toLowerCase().includes(this.tagSearchQuery)
-                                        ).length;
-                                        const hiddenBySparse = !this.showAllTags ? this.allTags.filter(t => t.count < 5).length : 0;
-                                        
-                                        return filteredTags.map(tagObj => `
-                                            <button
-                                                onclick="app.filterByTag('${tagObj.tag}')"
-                                                class="w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
-                                                    this.selectedTag === tagObj.tag
-                                                        ? 'bg-orange-100 hanuman-accent font-semibold'
-                                                        : 'hover:bg-orange-50 text-gray-700'
-                                                }"
-                                            >
-                                                <span>${tagObj.tag}</span>
-                                                <span class="text-xs ${this.selectedTag === tagObj.tag ? 'text-orange-600' : 'text-gray-500'}">(${tagObj.count})</span>
-                                            </button>
-                                        `).join('') + (hiddenBySearch + hiddenBySparse > 0 ? `
-                                            <p class="text-xs text-gray-500 mt-3 px-3">
-                                                +${hiddenBySearch + hiddenBySparse} hidden${hiddenBySearch && hiddenBySparse ? ` (${hiddenBySparse} sparse + ${hiddenBySearch} by search)` : hiddenBySearch ? ' by search' : ' sparse'}
-                                            </p>
-                                        ` : '');
-                                    })()}
+                                <div class="overflow-y-auto" style="max-height: calc(100vh - 290px);">
+                                    ${!this.tagSearchQuery && Object.keys(this.tagsByCategory).length > 0 ? `
+                                        <!-- Popular Tags -->
+                                        <div class="mb-4">
+                                            <h4 class="text-xs font-semibold text-gray-600 mb-2 px-2">⭐ POPULAR</h4>
+                                            <div class="flex flex-wrap gap-2">
+                                                ${this.renderPopularTags()}
+                                            </div>
+                                        </div>
+                                        <div class="border-t border-gray-200 my-3"></div>
+                                        <!-- By Category -->
+                                        <h4 class="text-xs font-semibold text-gray-600 mb-2 px-2">📂 BY CATEGORY</h4>
+                                        ${this.renderTagsByCategory()}
+                                    ` : `
+                                        <!-- Search Results -->
+                                        <div class="space-y-1">
+                                            ${(() => {
+                                                const filteredTags = this.allTags
+                                                    .filter(t => this.showAllTags || t.count >= 5)
+                                                    .filter(t => !this.tagSearchQuery || t.tag.toLowerCase().includes(this.tagSearchQuery));
+                                                
+                                                if (filteredTags.length === 0) {
+                                                    return `
+                                                        <div class="text-center py-8 text-gray-500">
+                                                            <p class="text-sm">No tags found</p>
+                                                            ${this.tagSearchQuery ? `<p class="text-xs mt-1">Try different keywords</p>` : ''}
+                                                        </div>
+                                                    `;
+                                                }
+                                                
+                                                return filteredTags.map(tagObj => `
+                                                    <button
+                                                        onclick="app.filterByTag('${tagObj.tag}')"
+                                                        class="w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
+                                                            this.selectedTag === tagObj.tag
+                                                                ? 'bg-orange-100 hanuman-accent font-semibold'
+                                                                : 'hover:bg-orange-50 text-gray-700'
+                                                        }"
+                                                    >
+                                                        <span>${tagObj.tag}</span>
+                                                        <span class="text-xs ${this.selectedTag === tagObj.tag ? 'text-orange-600' : 'text-gray-500'}">(${tagObj.count})</span>
+                                                    </button>
+                                                `).join('');
+                                            })()}
+                                        </div>
+                                    `}
                                 </div>
                             </div>
                         </div>
@@ -821,7 +1323,7 @@ class BelaGuruApp {
                             <label class="block font-semibold hanuman-text mb-2">
                                 Tags
                             </label>
-                            ${this.renderTagInputHTML('tags', [])}
+                            ${this.renderHierarchicalTagSelector('tags', [])}
                         </div>
 
                         <div class="card">
@@ -869,8 +1371,8 @@ class BelaGuruApp {
 
         const title = document.getElementById("title").value.trim();
         const lyrics = document.getElementById("lyrics").value.trim();
-        const tagsValue = document.getElementById("tags_value").value;
-        const tags = tagsValue ? tagsValue.split(",").map(t => t.trim()).filter(t => t) : [];
+        const tagIdsValue = document.getElementById("selected_tag_ids").value;
+        const tagIds = tagIdsValue ? tagIdsValue.split(",").map(id => parseInt(id.trim())).filter(id => !isNaN(id)) : [];
         const uploader_name = document.getElementById("uploader_name").value.trim();
         const youtube_url = document.getElementById("youtube_url").value.trim();
 
@@ -879,7 +1381,7 @@ class BelaGuruApp {
             return;
         }
 
-        this.createBhajan({ title, lyrics, tags, uploader_name, youtube_url }).then(success => {
+        this.createBhajan({ title, lyrics, tagIds, uploader_name, youtube_url }).then(success => {
             if (success) {
                 alert("Bhajan uploaded successfully! 🎉");
                 this.setPage("home");
@@ -1040,7 +1542,7 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
                             <label class="block font-semibold hanuman-text mb-2">
                                 Tags
                             </label>
-                            ${this.renderTagInputHTML('edit_tags', [...bhajan.tags])}
+                            ${this.renderHierarchicalTagSelector('edit_tags', [])}
                         </div>
 
                         <div class="card">
