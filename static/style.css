@@ -315,7 +315,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 .floating-menu.visible {
-    max-height: 400px;
+    max-height: 500px;
     opacity: 1;
 }
 
@@ -699,7 +699,7 @@ body.font-size-large {
     border-radius: 8px;
     padding: 16px;
     background-color: #fff;
-    max-height: 400px;
+    max-height: 500px;
     overflow-y: auto;
 }
 
