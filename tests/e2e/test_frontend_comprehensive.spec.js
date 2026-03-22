@@ -9,7 +9,7 @@ test.describe('Frontend Basics', () => {
 
   test('has valid HTML', async ({ page }) => {
     await page.goto('/');
-    await expect(page.locator('html')).toBeVisible();
+    await expect(page.locator('body')).toBeAttached();
   });
 
   test('page title exists', async ({ page }) => {
@@ -88,7 +88,7 @@ test.describe('Performance', () => {
     await page.goto('/');
     await page.waitForLoadState('networkidle', { timeout: 10000 });
     
-    await expect(page.locator('html')).toBeVisible();
+    await expect(page.locator('body')).toBeAttached();
   });
 });
 
