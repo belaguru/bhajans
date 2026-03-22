@@ -3,7 +3,7 @@
  * Enables offline support and app-like experience
  */
 
-const CACHE_NAME = 'belaguru-v999';
+const CACHE_NAME = 'belaguru-v1000';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -52,6 +52,12 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   // Skip cross-origin requests
   if (!event.request.url.startsWith(self.location.origin)) {
+    return;
+  }
+
+  // Admin pages - always network (don't cache)
+  if (event.request.url.includes('/admin/')) {
+    event.respondWith(fetch(event.request));
     return;
   }
 
