@@ -24,6 +24,7 @@ class Bhajan(Base):
     tags = Column(Text, default="[]")  # JSON array as string
     uploader_name = Column(String(100), default="Anonymous")
     youtube_url = Column(String(500), default=None, nullable=True)  # YouTube video URL
+    mp3_file = Column(String(500), nullable=True, default=None)  # MP3 audio file path
     created_at = Column(DateTime, default=datetime.utcnow, index=True)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     deleted_at = Column(DateTime, default=None)  # Soft delete timestamp
@@ -48,6 +49,7 @@ class Bhajan(Base):
             "tags": self.get_tags(),
             "uploader_name": self.uploader_name,
             "youtube_url": self.youtube_url,
+            "mp3_file": self.mp3_file,
             "created_at": self.created_at.isoformat(),
             "updated_at": self.updated_at.isoformat()
         }
