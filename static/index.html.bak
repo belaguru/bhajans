@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Shree Kshetra Belaguru - Bhajana Maalika">
+    <meta name="theme-color" content="#FF6B35">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Belaguru">
+    
+    <title>Shree Kshetra Belaguru - Bhajana Maalika</title>
+    
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" type="image/png" href="/logo-hanuman.png">
+    <link rel="apple-touch-icon" href="/logo-hanuman.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/style.css?v=83">
+</head>
+<body class="bg-orange-50">
+    <div id="app"></div>
+    
+    <script src="/app.js?v=83"></script>
+    <script>
+        // PWA Install State - Optimized for Android
+        let deferredPrompt = null;
+        let installPromptShown = false;
+        let isAndroid = /Android/i.test(navigator.userAgent);
+        let isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+        console.log('📱 Device: ' + (isAndroid ? 'ANDROID' : isIOS ? 'iOS' : 'Desktop'));
+
+        // Register Service Worker for PWA support
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(reg => {
+                    console.log('✅ Service Worker registered:', reg);
+                })
+                .catch(err => console.log('❌ Service Worker registration failed:', err));
+        } else {
+            console.warn('⚠️ Service Worker not supported');
+        }
+
+        // Fallback: Enable button after 5 seconds if beforeinstallprompt doesn't fire
+        setTimeout(() => {
+            const btn = document.getElementById('install-btn-header');
+            if (btn && btn.disabled) {
+                console.log('⚠️ ANDROID: beforeinstallprompt should have fired. Enabling as fallback');
+                btn.disabled = false;
+                btn.style.opacity = '1';
+                btn.style.cursor = 'pointer';
+            }
+        }, 3000);
+
+        // PWA Install Prompt Handler
+        window.addEventListener('beforeinstallprompt', (e) => {
+            console.log('🎉🎉🎉 ANDROID: beforeinstallprompt FIRED!');
+            console.log('📱 Browser showing native install prompt - NO button needed!');
+            // DO NOT preventDefault - let browser show native UI automatically!
+            // User will see "Install" button in address bar or mini infobar
+            deferredPrompt = e;
+            
+            // Hide our install button (not needed)
+            const btn = document.getElementById('install-btn-header');
+            if (btn) {
+                btn.style.display = 'none';
+                console.log('✅ Native browser UI is handling installation');
+            }
+        });
+
+        // Global function to trigger install (MANUAL FALLBACK ONLY)
+        // Not used on modern Android - browser shows native UI automatically
+        window.triggerInstall = async function() {
+            console.log('📱 Manual install button clicked (fallback mode)');
+            
+            // Check if beforeinstallprompt event fired
+            if (deferredPrompt) {
+                console.log('✅ Showing browser install dialog via deferredPrompt');
+                try {
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    console.log('User response:', outcome);
+                    if (outcome === 'accepted') {
+                        console.log('✅ App installation accepted');
+                    }
+                    deferredPrompt = null;
+                } catch (err) {
+                    console.error('Install error:', err);
+                }
+            } else {
+                // Event never fired - show manual instructions based on browser
+                const userAgent = navigator.userAgent.toLowerCase();
+                let message = '';
+                
+                if (userAgent.includes('safari') && !userAgent.includes('chrome')) {
+                    message = '📱 Safari:\n1. Tap the Share button (box with arrow)\n2. Scroll down\n3. Tap "Add to Home Screen"\n4. Tap "Add"';
+                } else if (userAgent.includes('firefox')) {
+                    message = '📱 Firefox:\n1. Tap ⋯ (menu)\n2. Tap "Install"';
+                } else if (userAgent.includes('edg')) {
+                    message = '📱 Edge:\n1. Tap ⋯ (menu)\n2. Tap "Install app"';
+                } else {
+                    message = '📱 Your Browser:\n1. Open browser menu (⋮ or ≡)\n2. Look for "Install app" or "Add to Home Screen"\n3. Follow the prompts';
+                }
+                
+                console.log('⚠️ beforeinstallprompt never fired, showing manual instructions');
+                alert(message);
+            }
+        };
+
+        // App Installed Event
+        window.addEventListener('appinstalled', () => {
+            console.log('✅ App was installed successfully');
+            deferredPrompt = null;
+            installPromptShown = false;
+        });
+
+        // Global function to manually trigger install
+        window.triggerInstall = async function() {
+            if (!deferredPrompt) {
+                console.warn('❌ Install prompt not ready yet');
+                alert('Install not available yet. Please refresh the page and wait a few seconds.');
+                return;
+            }
+            try {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log(`User response: ${outcome}`);
+                deferredPrompt = null;
+            } catch (err) {
+                console.error('Install error:', err);
+            }
+        };
+
+        // Check if already installed
+        if (window.navigator.standalone) {
+            console.log('✅ Already running as standalone app');
+        }
+    </script>
+</body>
+</html>

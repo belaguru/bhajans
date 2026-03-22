@@ -1,0 +1,63 @@
+Category,Canonical Tag,Current Tag,Count,Action
+Deities,hanuman,Hanuman,26,MAP to hanuman
+Deities,hanuman,Anjaneya,25,MAP to hanuman
+Deities,hanuman,maruti,25,MAP to hanuman
+Deities,hanuman,Vijaya Maruti,1,MAP to hanuman
+Deities,hanuman,Mangala,8,MAP to hanuman
+Deities,narayana,Narayana,4,MAP to narayana
+Deities,narayana,narayana,1,MAP to narayana
+Deities,narayana,Hari naama,23,MAP to narayana
+Deities,narayana,vishnu,1,MAP to narayana
+Deities,rama,Rama,20,MAP to rama
+Deities,rama,rama,6,MAP to rama
+Deities,rama,Venkataramana,1,MAP to rama
+Deities,shiva,Shiva,18,MAP to shiva
+Deities,shiva,shiva,2,MAP to shiva
+Deities,shiva,ಶಿವಾ,1,MAP to shiva
+Deities,devi,Devi,13,MAP to devi
+Deities,devi,devi,1,MAP to devi
+Deities,saraswati,Sharade,6,MAP to saraswati
+Deities,saraswati,Saraswathi,1,MAP to saraswati
+Deities,krishna,Krishna,3,MAP to krishna
+Deities,krishna,krishna,1,MAP to krishna
+Deities,krishna,Radhe,1,MAP to krishna
+Deities,ganesha,Ganesha,5,MAP to ganesha
+Deities,dattatreya,Datta Bhajane,3,MAP to dattatreya
+Deities,ayyappa,ayyappa,2,MAP to ayyappa
+Deities,lakshmi,Lakshmi,1,MAP to lakshmi
+Type,bhajan,Daily Bhajan,4,MAP to bhajan
+Type,bhajan,devotional,5,MAP to bhajan
+Type,bhajan,Devotional,2,MAP to bhajan
+Type,chant,chant,5,MAP to chant
+Type,mantra,mantra,5,MAP to mantra
+Type,janapada,Janapada,2,MAP to janapada
+Type,chalisa,Chalisa,1,MAP to chalisa
+Type,chalisa,ಲೀಸಾ,1,MAP to chalisa
+Type,dandakam,Dandakam,1,MAP to dandakam
+Type,dandakam,ದಂಡಕಂ,1,MAP to dandakam
+Type,ashtotharam,Ashtothara,1,MAP to ashtotharam
+Composer,purandara,Purandara,30,MAP to purandara
+Composer,tatva_pada,Tatva Pada,18,MAP to tatva_pada
+Composer,shishunaala_sharifa,Shishunaala Sharifa,4,MAP to shishunaala_sharifa
+Temple/Guru,guru_stuti,gurustuti,16,MAP to guru_stuti
+Temple/Guru,guru_stuti,Sadguru,2,MAP to guru_stuti
+Temple/Guru,guru_stuti,sadguru,1,MAP to guru_stuti
+Temple/Guru,bindu_madhava,Bindu Madhava,13,MAP to bindu_madhava
+Temple/Guru,bindu_madhava,Bindu madhava,1,MAP to bindu_madhava
+Temple/Guru,belaguru,Belaguru,7,MAP to belaguru
+Temple/Guru,belaguru,belaguru,1,MAP to belaguru
+Day,monday,Monday Bhajans,13,MAP to monday
+Day,monday,ಸೋಮವಾರದ ಭಜನೆಗಳು,1,MAP to monday
+Day,friday,Friday,9,MAP to friday
+Day,friday,Friday Bhajans,4,MAP to friday
+Day,tuesday,Tuesday,11,MAP to tuesday
+Day,saturday,Saturday,3,MAP to saturday
+Day,thursday,Thursday,1,MAP to thursday
+Occasion,new_year,New year,1,MAP to new_year
+Occasion,new_year,Yugadi,1,MAP to new_year
+DELETE,meta_tags,Test,3,DELETE
+DELETE,meta_tags,YouTube,3,DELETE
+DELETE,meta_tags,Audio,1,DELETE
+DELETE,meta_tags,MP3,1,DELETE
+DELETE,meta_tags,English,1,DELETE
+DELETE,meta_tags,Kannada,1,DELETE

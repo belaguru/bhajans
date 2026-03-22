@@ -1,0 +1,161 @@
+═══════════════════════════════════════════════════════════════════════
+                    BELAGURU BHAJANS TAG HIERARCHY
+                          Proposed Taxonomy Tree
+═══════════════════════════════════════════════════════════════════════
+
+ROOT
+│
+├── 🕉️  DEITIES (189 tag instances, 50% of all tags)
+│   │
+│   ├── Trimurthi (Trinity)
+│   │   ├── Brahma
+│   │   ├── Vishnu ............................ [28 uses]
+│   │   │   ├── Narayana ...................... Synonyms: Hari naama
+│   │   │   ├── Rama .......................... [27 uses] → rama, Venkataramana
+│   │   │   ├── Krishna ....................... [5 uses] → krishna, Radhe
+│   │   │   └── Venkataramana
+│   │   └── Shiva ............................. [20 uses]
+│   │       ├── Rudra
+│   │       ├── Mahadeva
+│   │       └── Nataraja
+│   │
+│   ├── Devi (Divine Mother) .................. [14 uses]
+│   │   ├── Durga
+│   │   ├── Lakshmi ........................... [1 use]
+│   │   ├── Saraswati ......................... [7 uses] → Sharade, Saraswathi
+│   │   ├── Rajeshwari ........................ [1 use]
+│   │   └── Gayatri
+│   │
+│   ├── Ganesha ............................... [5 uses]
+│   │
+│   ├── Hanuman ............................... [85 uses] ⭐ MOST POPULAR DEITY
+│   │   ├── Anjaneya .......................... Synonym
+│   │   ├── Maruti ............................ Synonym
+│   │   └── Mangala Maruti .................... Synonym (Tuesday form)
+│   │
+│   ├── Dattatreya ............................ [3 uses] → Datta Bhajane
+│   │
+│   └── Ayyappa ............................... [2 uses]
+│
+│
+├── 📿 TYPE (25 tag instances, 7% of all tags)
+│   │
+│   ├── Bhajan ................................ [11 uses] → Daily Bhajan, devotional
+│   ├── Stotra (hymn of praise)
+│   ├── Mantra ................................ [5 uses]
+│   ├── Chant ................................. [5 uses]
+│   ├── Aarti (ritual of worship)
+│   ├── Chalisa (40-verse) .................... [1 use]
+│   ├── Dandakam (long poem) .................. [1 use]
+│   ├── Ashtotharam (108 names) ............... [1 use]
+│   ├── Janapada (folk songs) ................. [2 uses]
+│   └── Kirtan (call-and-response)
+│
+│
+├── 👤 COMPOSER/SOURCE (52 tag instances, 14% of all tags)
+│   │
+│   ├── Purandara Dasa ........................ [30 uses] ⭐ MOST TAGGED COMPOSER
+│   ├── Kanaka Dasa
+│   ├── Shishunaala Sharifa ................... [4 uses]
+│   ├── Tatva Pada (philosophical) ............ [18 uses]
+│   └── Traditional/Unknown
+│
+│
+├── 🏛️  TEMPLE/GURU (41 tag instances, 11% of all tags)
+│   │
+│   ├── Belaguru Temple ....................... [8 uses]
+│   ├── Bindu Madhava ......................... [14 uses]
+│   └── Guru Stuti (praise of guru) ........... [19 uses] → gurustuti, Sadguru
+│
+│
+├── 📅 DAY OF WEEK (41 tag instances, 11% of all tags)
+│   │   [Used for daily rotation schedules]
+│   │
+│   ├── Sunday (Surya - Sun God)
+│   ├── Monday (Shiva) ........................ [13 uses]
+│   ├── Tuesday (Hanuman) ..................... [11 uses]
+│   ├── Wednesday (Krishna/Ganesha)
+│   ├── Thursday (Guru/Vishnu)
+│   ├── Friday (Devi) ......................... [13 uses]
+│   └── Saturday (Hanuman) .................... [3 uses]
+│
+│
+├── 🎉 OCCASIONS (2 tag instances, 0.5% of all tags)
+│   │
+│   ├── Festivals
+│   │   ├── Yugadi (Kannada New Year) ......... [2 uses]
+│   │   ├── Deepavali (Festival of Lights)
+│   │   ├── Navaratri (Nine Nights)
+│   │   ├── Shivaratri (Night of Shiva)
+│   │   └── Rama Navami
+│   │
+│   ├── Daily Worship
+│   └── Special Events
+│
+│
+└── 🎨 THEMES (Future expansion)
+    │
+    ├── Devotion
+    ├── Peace
+    ├── Healing ................................ [1 use]
+    ├── Meditation
+    └── Celebration
+
+═══════════════════════════════════════════════════════════════════════
+                            STATISTICS SUMMARY
+═══════════════════════════════════════════════════════════════════════
+
+Total unique tags:           68
+Total tag instances:         380
+Bhajans with tags:           166/276 (60%)
+Average tags per bhajan:     2.3
+
+TOP 5 CATEGORIES BY USAGE:
+  1. Deities ................ 189 instances (50%)
+  2. Composer/Source ........ 52 instances (14%)
+  3. Day of Week ............ 41 instances (11%)
+  4. Temple/Guru ............ 41 instances (11%)
+  5. Type ................... 25 instances (7%)
+
+MOST FRAGMENTED DEITIES (variations):
+  1. Hanuman ................ 5 variations (Hanuman, Anjaneya, maruti, Vijaya Maruti, Mangala)
+  2. Devi ................... 4 variations (Devi, devi, Sharade, Saraswathi, Lakshmi)
+  3. Narayana ............... 4 variations (Narayana, narayana, Hari naama, vishnu)
+  4. Rama ................... 3 variations (Rama, rama, Venkataramana)
+  5. Krishna ................ 3 variations (Krishna, krishna, Radhe)
+
+TAGS TO DELETE (meta/technical):
+  - Test (3), YouTube (3), Audio (1), MP3 (1), English (1), Kannada (1)
+
+═══════════════════════════════════════════════════════════════════════
+                            HIERARCHY BENEFITS
+═══════════════════════════════════════════════════════════════════════
+
+1. SEARCH IMPROVEMENT
+   Before: User searches "Vishnu" → 5 results (only directly tagged)
+   After:  User searches "Vishnu" → 60+ results (includes Krishna, Rama, Narayana)
+   
+2. SMART FILTERING
+   User selects "Hanuman" + "Tuesday" → Automatically shows Mangala Maruti bhajans
+   
+3. TAG SUGGESTIONS
+   If bhajan has "Krishna" → Suggest "Vishnu" (parent), "Bhajan" (common type)
+   
+4. MULTILINGUAL
+   User types "ಹನುಮಾನ್" → Search finds all Hanuman/Anjaneya/maruti tagged bhajans
+   
+5. CONSISTENCY
+   Can't create duplicate tags → All variations map to canonical form
+
+═══════════════════════════════════════════════════════════════════════
+                              NEXT STEPS
+═══════════════════════════════════════════════════════════════════════
+
+1. Review and approve this hierarchy structure
+2. Implement Option C (Separate Taxonomy Table)
+3. Run migration scripts (see TAG-ANALYSIS-AND-HIERARCHY-PROPOSAL.md)
+4. Build tag management UI
+5. Train users on new system
+6. Tag the 110 untagged bhajans
+
+═══════════════════════════════════════════════════════════════════════
