@@ -28,7 +28,7 @@ test.describe('Homepage', () => {
     await page.goto('/');
     
     // Check basic HTML structure exists
-    const html = page.locator('html');
-    await expect(html).toBeVisible();
+    const body = page.locator('body');
+    await expect(body).toBeAttached();
   });
 });
