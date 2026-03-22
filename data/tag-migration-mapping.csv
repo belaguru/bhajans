@@ -1,0 +1,77 @@
+old_tag,canonical_tag,action,notes
+test,N/A,DELETE,Meta/testing tag - not deity/bhajan category
+Test,N/A,DELETE,Meta/testing tag - not deity/bhajan category
+test-audio,N/A,DELETE,Meta/testing tag - not deity/bhajan category
+YouTube,N/A,DELETE,Meta/testing tag - not deity/bhajan category
+ashtakam,ashtakam,KEEP,No changes needed
+Ashtothara,Ashtothara,KEEP,No changes needed
+ayyappa,ayyappa,KEEP,No changes needed
+Belaguru,Belaguru,KEEP,No changes needed
+bhajan,bhajan,KEEP,No changes needed
+Bindu Madhava,Bindu Madhava,KEEP,No changes needed
+Chalisa,Chalisa,KEEP,No changes needed
+chant,chant,KEEP,No changes needed
+chennabasava,chennabasava,KEEP,No changes needed
+Daily Bhajan,Daily Bhajan,KEEP,No changes needed
+Dandakam,Dandakam,KEEP,No changes needed
+Datta Bhajane,Datta Bhajane,KEEP,No changes needed
+Devi,Devi,KEEP,No changes needed
+devotional,devotional,KEEP,Generic devotional tag (more frequent than capitalized)
+durga,durga,KEEP,No changes needed
+English,English,KEEP,No changes needed
+Friday,Friday,KEEP,No changes needed
+Friday Bhajans,Friday Bhajans,KEEP,No changes needed
+Ganesha,Ganesha,KEEP,No changes needed
+gayatri,gayatri,KEEP,No changes needed
+gurustuti,gurustuti,KEEP,No changes needed
+Hanuman,Hanuman,KEEP,"Primary Hanuman tag (includes Anjaneya, Maruti synonyms)"
+Hari naama,Hari naama,KEEP,No changes needed
+healing,healing,KEEP,No changes needed
+Janapada,Janapada,KEEP,No changes needed
+Kannada,Kannada,KEEP,No changes needed
+Krishna,Krishna,KEEP,No changes needed
+Lakshmi,Lakshmi,KEEP,No changes needed
+mahamantra,mahamantra,KEEP,No changes needed
+Mangala,Mangala,KEEP,No changes needed
+mantra,mantra,KEEP,No changes needed
+Monday Bhajans,Monday Bhajans,KEEP,No changes needed
+Narayana,Narayana,KEEP,No changes needed
+New year,New year,KEEP,No changes needed
+Purandara,Purandara,KEEP,No changes needed
+Radhe,Radhe,KEEP,No changes needed
+rajeshwari,rajeshwari,KEEP,No changes needed
+Rama,Rama,KEEP,No changes needed
+Sadguru,Sadguru,KEEP,No changes needed
+Saraswathi,Saraswathi,KEEP,No changes needed
+Saturday,Saturday,KEEP,No changes needed
+Sharade,Sharade,KEEP,No changes needed
+Shishunaala Sharifa,Shishunaala Sharifa,KEEP,No changes needed
+Shiva,Shiva,KEEP,No changes needed
+stotram,stotram,KEEP,No changes needed
+stuti,stuti,KEEP,No changes needed
+Tatva Pada,Tatva Pada,KEEP,No changes needed
+Thursday,Thursday,KEEP,No changes needed
+Tuesday,Tuesday,KEEP,No changes needed
+Venkataramana,Venkataramana,KEEP,No changes needed
+vishnu,vishnu,KEEP,No changes needed
+Yugadi,Yugadi,KEEP,No changes needed
+ಆಂಜನೇಯ,ಆಂಜನೇಯ,KEEP,No changes needed
+ದಂಡಕಂ,ದಂಡಕಂ,KEEP,No changes needed
+ಲೀಸಾ,ಲೀಸಾ,KEEP,No changes needed
+ಶಿವಾ,ಶಿವಾ,KEEP,No changes needed
+ಸೋಮವಾರದ ಭಜನೆಗಳು,ಸೋಮವಾರದ ಭಜನೆಗಳು,KEEP,No changes needed
+ಹನುಮಾನ್ಚಾ,ಹನುಮಾನ್ಚಾ,KEEP,No changes needed
+Anjaneya,Hanuman,MERGE,Alternative name for Hanuman (Telugu/Kannada)
+belaguru,Belaguru,MERGE,Case duplicate - merge to capitalized
+Bindu madhava,Bindu Madhava,MERGE,Case inconsistency - merge to proper capitalization
+chalisa,Chalisa,MERGE,Case duplicate - merge to capitalized
+devi,Devi,MERGE,Case duplicate - merge to capitalized
+Devotional,devotional,MERGE,Case duplicate - merge to lowercase (more common)
+hanuman,Hanuman,MERGE,Case duplicate - merge to Hanuman
+krishna,Krishna,MERGE,Case duplicate - merge to capitalized
+maruti,Hanuman,MERGE,Alternative name for Hanuman (Marathi)
+narayana,Narayana,MERGE,Case duplicate - merge to capitalized
+rama,Rama,MERGE,Case duplicate - merge to capitalized
+sadguru,Sadguru,MERGE,Case duplicate - merge to capitalized
+shiva,Shiva,MERGE,Case duplicate - merge to capitalized
+Vijaya Maruti,Hanuman,MERGE,Epithet of Hanuman - merge to main tag
