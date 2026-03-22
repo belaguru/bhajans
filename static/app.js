@@ -596,7 +596,7 @@ class BelaGuruApp {
                     </div>
                     
                     ${hasChildren ? `
-                        <ul class="tag-tree-children ${isExpanded ? 'expanded' : 'collapsed'}">
+                        <ul class="tag-tree-children" style="display: ${isExpanded ? 'block' : 'none'}; list-style: none; padding: 0; margin: 0;">
                             ${this.renderTagTree(inputId, tagNode.children, selectedTagIds, level + 1)}
                         </ul>
                     ` : ''}
