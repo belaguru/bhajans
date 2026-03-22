@@ -576,9 +576,9 @@ class BelaGuruApp {
             html += `
                 <li class="tag-tree-node" data-tag-id="${tagNode.id}" data-tag-name="${tagName}" data-level="${level}" style="margin-left: ${level * 20}px;">
                     <div style="display: flex; flex-direction: row; align-items: center; gap: 8px; padding: 6px 4px;">
-                        <span class="expand-icon ${hasChildren ? (isExpanded ? 'expanded' : 'collapsed') : 'leaf'}" 
-                              onclick="app.toggleTagNode('${inputId}', ${tagNode.id})"
-                              style="width: 20px; flex-shrink: 0; cursor: pointer;">
+                        <span onclick="app.toggleTagNode('${inputId}', ${tagNode.id})"
+                              style="width: 20px; flex-shrink: 0; cursor: pointer; font-size: 12px; color: #666; text-align: center;">
+                            ${hasChildren ? (isExpanded ? '▼' : '▶') : ''}
                         </span>
                         <input 
                             type="checkbox" 
