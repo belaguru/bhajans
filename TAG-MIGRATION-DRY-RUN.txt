@@ -1,0 +1,20 @@
+⚠️  Install tqdm for progress bars: pip install tqdm
+
+🔍 DRY RUN MODE - No changes will be made
+✓ Loaded 76 tag mappings from ./data/tag-migration-mapping.csv
+
+[DRY RUN] Migrating tags for 285 bhajans...
+
+[DRY RUN] No changes made to database
+
+============================================================
+MIGRATION SUMMARY
+============================================================
+Status:            SUCCESS
+Mode:              DRY RUN
+Bhajans processed: 285
+Tags migrated:     153
+Tags deleted:      0
+Tags skipped:      216
+Tags duplicates:   0
+============================================================
