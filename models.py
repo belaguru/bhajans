@@ -76,18 +76,28 @@ class BhajanTag(Base):
 
 
 class Bhajan(Base):
-    """Bhajan model"""
+    """Bhajan model - ALL columns must match database schema exactly"""
     __tablename__ = "bhajans"
     
+    # Column order matches database schema from PRAGMA table_info
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String(255), nullable=False, index=True)
     lyrics = Column(Text, nullable=False)
+    manual_tags = Column(Text, nullable=True)  # Legacy column
+    auto_tags = Column(Text, nullable=True)  # Legacy column
+    language = Column(String(50), nullable=True)
+    tone = Column(String(255), nullable=True)
+    detected_raga = Column(String(255), nullable=True)
+    related_deities = Column(Text, nullable=True)
+    pdf_filename = Column(String(255), nullable=True)
+    uploaded_at = Column(DateTime, nullable=True)
     tags = Column(Text, default="[]")  # JSON array as string (backward compatibility)
     uploader_name = Column(String(100), default="Anonymous")
-    youtube_url = Column(String(500), default=None, nullable=True)  # YouTube video URL
     created_at = Column(DateTime, default=datetime.utcnow, index=True)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     deleted_at = Column(DateTime, default=None)  # Soft delete timestamp
+    youtube_url = Column(String(500), default=None, nullable=True)  # YouTube video URL
+    mp3_file = Column(Text, nullable=True)  # MP3 audio file path
     
     # Relationship to taxonomy tags
     taxonomy_tags = relationship("BhajanTag", back_populates="bhajan")
@@ -131,8 +141,9 @@ class Bhajan(Base):
             "tags": self.get_tags(),
             "uploader_name": self.uploader_name,
             "youtube_url": self.youtube_url,
-            "created_at": self.created_at.isoformat(),
-            "updated_at": self.updated_at.isoformat()
+            "mp3_file": self.mp3_file,  # Now works correctly with full column mapping
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+            "updated_at": self.updated_at.isoformat() if self.updated_at else None
         }
 
 

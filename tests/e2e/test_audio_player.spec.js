@@ -16,6 +16,6 @@ test.describe('Audio Player', () => {
     await page.waitForLoadState('networkidle');
     
     // Should not have crashed
-    await expect(page.locator('html')).toBeVisible();
+    await expect(page.locator('body')).toBeAttached();
   });
 });

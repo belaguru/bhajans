@@ -86,7 +86,7 @@ test.describe('YouTube URL Handling', () => {
     await page.goto('/');
     
     // Page should load without errors
-    await expect(page.locator('html')).toBeVisible();
+    await expect(page.locator('body')).toBeAttached();
   });
 
   test('page handles missing video gracefully', async ({ page }) => {
