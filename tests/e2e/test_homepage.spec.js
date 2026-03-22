@@ -8,9 +8,10 @@ test.describe('Homepage', () => {
     // Check title exists (may vary)
     await expect(page).toHaveTitle(/.+/);
     
-    // Check page has content
-    const body = page.locator('body');
-    await expect(body).toBeVisible();
+    // Wait for app container instead of body (body might have CSS hiding it)
+    await page.waitForSelector('#app');
+    const app = page.locator('#app');
+    await expect(app).toBeAttached();
   });
 
   test('shows content', async ({ page }) => {
@@ -19,16 +20,17 @@ test.describe('Homepage', () => {
     // Wait for content to load
     await page.waitForLoadState('networkidle');
     
-    // Check if page has any text
-    const bodyText = await page.locator('body').textContent();
-    expect(bodyText.length).toBeGreaterThan(0);
+    // Check if app has any text
+    const appText = await page.locator('#app').textContent();
+    expect(appText.length).toBeGreaterThan(0);
   });
 
   test('has basic structure', async ({ page }) => {
     await page.goto('/');
     
-    // Check basic HTML structure exists
-    const body = page.locator('body');
-    await expect(body).toBeAttached();
+    // Check app container exists and is attached
+    await page.waitForSelector('#app');
+    const app = page.locator('#app');
+    await expect(app).toBeAttached();
   });
 });

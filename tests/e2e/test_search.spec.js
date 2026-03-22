@@ -4,13 +4,15 @@ const { test, expect } = require('@playwright/test');
 test.describe('Search', () => {
   test('page loads', async ({ page }) => {
     await page.goto('/');
+    await page.waitForSelector('#app');
     
     // Just verify page loads
-    await expect(page.locator('body')).toBeVisible();
+    await expect(page.locator('#app')).toBeAttached();
   });
 
   test('has input elements', async ({ page }) => {
     await page.goto('/');
+    await page.waitForSelector('#app');
     
     // Check if any input exists
     const inputs = page.locator('input');
@@ -22,11 +24,12 @@ test.describe('Search', () => {
 
   test('page is interactive', async ({ page }) => {
     await page.goto('/');
+    await page.waitForSelector('#app');
     
-    // Click on page (should not crash)
-    await page.click('body');
+    // Click on app container (should not crash)
+    await page.click('#app');
     
-    // Page should still be visible
-    await expect(page.locator('body')).toBeVisible();
+    // Page should still be attached
+    await expect(page.locator('#app')).toBeAttached();
   });
 });

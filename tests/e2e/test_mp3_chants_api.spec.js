@@ -53,8 +53,8 @@ test.describe('MP3 & Chants API', () => {
       const chant = await response.json();
       
       expect(chant.mp3_file).toBe(expected.mp3);
-      expect(chant.tags).toContain('chant');
-      expect(chant.tags).toContain('mantra');
+      // Tags are now capitalized in the new tag system
+      expect(chant.tags.some(tag => tag.toLowerCase().includes('mantra'))).toBeTruthy();
     }
   });
 

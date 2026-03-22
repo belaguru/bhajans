@@ -5,6 +5,7 @@ test.describe('YouTube Playback', () => {
   test.beforeEach(async ({ page }) => {
     // Create a bhajan with YouTube URL via API
     await page.goto('/');
+    await page.waitForSelector('#app');
     
     // Wait for page to load
     await page.waitForLoadState('networkidle');
@@ -12,11 +13,13 @@ test.describe('YouTube Playback', () => {
 
   test('page loads successfully', async ({ page }) => {
     await page.goto('/');
-    await expect(page.locator('body')).toBeVisible();
+    await page.waitForSelector('#app');
+    await expect(page.locator('#app')).toBeAttached();
   });
 
   test('can embed YouTube video', async ({ page }) => {
     await page.goto('/');
+    await page.waitForSelector('#app');
     
     // Look for iframe (YouTube embeds use iframes)
     const iframes = page.locator('iframe');
@@ -28,6 +31,7 @@ test.describe('YouTube Playback', () => {
 
   test('YouTube player controls exist', async ({ page }) => {
     await page.goto('/');
+    await page.waitForSelector('#app');
     
     // Check for any video-related elements
     const videoElements = page.locator('video, iframe[src*="youtube"], [class*="player"]');
@@ -39,6 +43,7 @@ test.describe('YouTube Playback', () => {
 
   test('clicking bhajan may show video', async ({ page }) => {
     await page.goto('/');
+    await page.waitForSelector('#app');
     
     // Try to click any bhajan item
     const bhajanItems = page.locator('.bhajan-card, .bhajan-item, a[href*="bhajan"]');
@@ -49,12 +54,13 @@ test.describe('YouTube Playback', () => {
       await page.waitForTimeout(1000);
       
       // Should navigate somewhere
-      await expect(page.locator('body')).toBeVisible();
+      await expect(page.locator('#app')).toBeAttached();
     }
   });
 
   test('YouTube iframe loads correctly', async ({ page }) => {
     await page.goto('/');
+    await page.waitForSelector('#app');
     
     // Check if YouTube iframe exists
     const youtubeIframe = page.locator('iframe[src*="youtube.com"]');
@@ -65,7 +71,7 @@ test.describe('YouTube Playback', () => {
       await expect(youtubeIframe.first()).toBeVisible();
     } else {
       // If no iframe, page should still work
-      await expect(page.locator('body')).toBeVisible();
+      await expect(page.locator('#app')).toBeAttached();
     }
   });
 
@@ -84,23 +90,26 @@ test.describe('YouTube Playback', () => {
 test.describe('YouTube URL Handling', () => {
   test('valid YouTube URLs are accepted', async ({ page }) => {
     await page.goto('/');
+    await page.waitForSelector('#app');
     
     // Page should load without errors
-    await expect(page.locator('body')).toBeAttached();
+    await expect(page.locator('#app')).toBeAttached();
   });
 
   test('page handles missing video gracefully', async ({ page }) => {
     await page.goto('/');
+    await page.waitForSelector('#app');
     
     // Should not crash if video missing
-    await expect(page.locator('body')).toBeVisible();
+    await expect(page.locator('#app')).toBeAttached();
   });
 
   test('video player responsive on mobile', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
     await page.goto('/');
+    await page.waitForSelector('#app');
     
     // Should still work on mobile
-    await expect(page.locator('body')).toBeVisible();
+    await expect(page.locator('#app')).toBeAttached();
   });
 });

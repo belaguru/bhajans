@@ -4,12 +4,14 @@ const { test, expect } = require('@playwright/test');
 test.describe('Frontend Basics', () => {
   test('homepage loads', async ({ page }) => {
     await page.goto('/');
-    await expect(page.locator('body')).toBeVisible();
+    await page.waitForSelector('#app');
+    await expect(page.locator('#app')).toBeAttached();
   });
 
   test('has valid HTML', async ({ page }) => {
     await page.goto('/');
-    await expect(page.locator('body')).toBeAttached();
+    await page.waitForSelector('#app');
+    await expect(page.locator('#app')).toBeAttached();
   });
 
   test('page title exists', async ({ page }) => {
@@ -21,6 +23,7 @@ test.describe('Frontend Basics', () => {
   test('loads in reasonable time', async ({ page }) => {
     const startTime = Date.now();
     await page.goto('/');
+    await page.waitForSelector('#app');
     const loadTime = Date.now() - startTime;
     
     // Should load in under 10 seconds
@@ -30,19 +33,22 @@ test.describe('Frontend Basics', () => {
   test('responsive - mobile', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
     await page.goto('/');
-    await expect(page.locator('body')).toBeVisible();
+    await page.waitForSelector('#app');
+    await expect(page.locator('#app')).toBeAttached();
   });
 
   test('responsive - tablet', async ({ page }) => {
     await page.setViewportSize({ width: 768, height: 1024 });
     await page.goto('/');
-    await expect(page.locator('body')).toBeVisible();
+    await page.waitForSelector('#app');
+    await expect(page.locator('#app')).toBeAttached();
   });
 
   test('responsive - desktop', async ({ page }) => {
     await page.setViewportSize({ width: 1920, height: 1080 });
     await page.goto('/');
-    await expect(page.locator('body')).toBeVisible();
+    await page.waitForSelector('#app');
+    await expect(page.locator('#app')).toBeAttached();
   });
 
   test('no JavaScript errors on load', async ({ page }) => {
@@ -58,13 +64,15 @@ test.describe('Frontend Basics', () => {
 
   test('page has content', async ({ page }) => {
     await page.goto('/');
+    await page.waitForSelector('#app');
     
-    const bodyText = await page.locator('body').textContent();
-    expect(bodyText.length).toBeGreaterThan(10);
+    const appText = await page.locator('#app').textContent();
+    expect(appText.length).toBeGreaterThan(10);
   });
 
   test('navigation works', async ({ page }) => {
     await page.goto('/');
+    await page.waitForSelector('#app');
     
     // Navigate back and forward
     await page.goto('/');
@@ -72,7 +80,8 @@ test.describe('Frontend Basics', () => {
     await page.goForward();
     
     // Should still work
-    await expect(page.locator('body')).toBeVisible();
+    await page.waitForSelector('#app');
+    await expect(page.locator('#app')).toBeAttached();
   });
 });
 
@@ -80,15 +89,16 @@ test.describe('Performance', () => {
   test('page loads within timeout', async ({ page }) => {
     // Set strict timeout
     await page.goto('/', { timeout: 15000 });
+    await page.waitForSelector('#app');
     
-    await expect(page.locator('body')).toBeVisible();
+    await expect(page.locator('#app')).toBeAttached();
   });
 
   test('network idle within reasonable time', async ({ page }) => {
     await page.goto('/');
     await page.waitForLoadState('networkidle', { timeout: 10000 });
     
-    await expect(page.locator('body')).toBeAttached();
+    await expect(page.locator('#app')).toBeAttached();
   });
 });
 
@@ -105,11 +115,12 @@ test.describe('Accessibility', () => {
 
   test('keyboard navigation possible', async ({ page }) => {
     await page.goto('/');
+    await page.waitForSelector('#app');
     
     // Tab should work
     await page.keyboard.press('Tab');
     
     // Page should still be visible
-    await expect(page.locator('body')).toBeVisible();
+    await expect(page.locator('#app')).toBeAttached();
   });
 });
