@@ -12,7 +12,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import or_, desc
 from pydantic import BaseModel
 from typing import List, Optional
-from models import Bhajan, init_db, get_db
+from models import Bhajan, init_db, get_db, get_database_path
 from dual_write import dual_write_tags, read_bhajan_tags, get_bhajan_with_unified_tags
 
 # Configure comprehensive logging
@@ -180,7 +180,7 @@ def get_bhajans(
         
         # If tag filtering requested, use taxonomy search
         if tag:
-            conn = sqlite3.connect("./data/portal.db")
+            conn = sqlite3.connect(get_database_path())
             conn.row_factory = sqlite3.Row
             cursor = conn.cursor()
             
@@ -469,7 +469,7 @@ def get_all_tags(
     """
     import sqlite3
     
-    conn = sqlite3.connect("./data/portal.db")
+    conn = sqlite3.connect(get_database_path())
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     
@@ -537,7 +537,7 @@ def get_tags_tree(db: Session = Depends(get_db)):
     """
     import sqlite3
     
-    conn = sqlite3.connect("./data/portal.db")
+    conn = sqlite3.connect(get_database_path())
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     
@@ -594,7 +594,7 @@ def get_tag_details(tag_id: int, db: Session = Depends(get_db)):
     """
     import sqlite3
     
-    conn = sqlite3.connect("./data/portal.db")
+    conn = sqlite3.connect(get_database_path())
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     
@@ -660,7 +660,7 @@ def get_bhajans_by_tag_id(
     """
     import sqlite3
     
-    conn = sqlite3.connect("./data/portal.db")
+    conn = sqlite3.connect(get_database_path())
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     
@@ -752,7 +752,7 @@ def enhanced_search(q: str, db: Session = Depends(get_db)):
     
     query = q.strip()
     
-    conn = sqlite3.connect("./data/portal.db")
+    conn = sqlite3.connect(get_database_path())
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     
@@ -890,7 +890,7 @@ def create_tag(tag: TagCreate, db: Session = Depends(get_db)):
     """Create a new tag in the taxonomy"""
     import sqlite3
     
-    conn = sqlite3.connect("./data/portal.db")
+    conn = sqlite3.connect(get_database_path())
     cursor = conn.cursor()
     
     try:
@@ -953,7 +953,7 @@ def update_tag(tag_id: int, tag: TagUpdate, db: Session = Depends(get_db)):
     """Update an existing tag"""
     import sqlite3
     
-    conn = sqlite3.connect("./data/portal.db")
+    conn = sqlite3.connect(get_database_path())
     cursor = conn.cursor()
     
     try:
@@ -1039,7 +1039,7 @@ def delete_tag(tag_id: int, db: Session = Depends(get_db)):
     """Delete a tag (only if not used by any bhajans)"""
     import sqlite3
     
-    conn = sqlite3.connect("./data/portal.db")
+    conn = sqlite3.connect(get_database_path())
     cursor = conn.cursor()
     
     try:

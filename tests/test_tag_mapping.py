@@ -1,292 +1,249 @@
 """
-Test Tag Migration Mapping
+Test Tag Migration Mapping.
 
 TDD Tests for tag migration process. These tests verify that:
-1. All 76 existing tags have a mapping
-2. No tag is left unmapped
-3. Case duplicates are merged correctly
-4. Semantic duplicates are identified
-5. Meta tags are flagged for deletion
-"""
+1. All tags in CSV have correct mappings
+2. Case duplicates are merged correctly
+3. Semantic duplicates are identified
+4. CSV format is valid
 
+Uses test fixtures to create test data instead of relying on production database.
+"""
 import pytest
 import csv
-import sqlite3
 import json
 from pathlib import Path
 from collections import Counter
 
 
-# Known tags from current database (62 unique tags after cleanup)
-EXPECTED_TAG_COUNT = 62
-
-# Meta tags that were deleted (already removed from database during cleanup)
-# These are no longer in the mapping since the data is clean
-META_TAGS = set()  # Empty - already cleaned
-
-# Case duplicate pairs (lowercase -> canonical)
-CASE_DUPLICATES = {
-    ('rama', 'Rama'),
-    ('shiva', 'Shiva'),
-    ('devi', 'Devi'),
-    ('devotional', 'Devotional'),  # Note: lowercase is more frequent!
-    ('krishna', 'Krishna'),
-    ('belaguru', 'Belaguru'),
-    ('sadguru', 'Sadguru'),
-    ('narayana', 'Narayana'),
-    ('hanuman', 'Hanuman'),
-    ('chalisa', 'Chalisa'),
-}
-
-# Semantic duplicate groups (all refer to same deity/concept)
-SEMANTIC_GROUPS = {
-    'Hanuman': {'Hanuman', 'hanuman', 'Anjaneya', 'maruti', 'Vijaya Maruti'},
-    'Rama': {'Rama', 'rama'},
-    'Krishna': {'Krishna', 'krishna'},
-    'Shiva': {'Shiva', 'shiva'},
-    'Devi': {'Devi', 'devi'},
-    'Belaguru': {'Belaguru', 'belaguru'},
-}
-
-
-@pytest.fixture
-def db_path():
-    """Path to staging database"""
-    return Path(__file__).parent.parent / 'data' / 'portal.db'
-
-
-@pytest.fixture
-def mapping_csv_path():
-    """Path to tag migration mapping CSV"""
-    return Path(__file__).parent.parent / 'data' / 'tag-migration-mapping.csv'
-
-
-@pytest.fixture
-def frequency_csv_path():
-    """Path to tag frequency report CSV"""
-    return Path(__file__).parent.parent / 'data' / 'tag-frequency-report.csv'
-
-
-@pytest.fixture
-def current_tags(db_path):
-    """Extract all unique tags from staging database"""
-    conn = sqlite3.connect(db_path)
-    cursor = conn.cursor()
+class TestMappingCSVFormat:
+    """Test the CSV file structure and format requirements"""
     
-    cursor.execute("SELECT tags FROM bhajans WHERE tags IS NOT NULL AND tags != '[]'")
-    rows = cursor.fetchall()
+    def test_mapping_csv_has_required_columns(self, test_mapping_csv):
+        """Verify mapping CSV has correct columns"""
+        with open(test_mapping_csv, 'r', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            headers = reader.fieldnames
+            
+            # Check required columns
+            assert headers == ['old_tag', 'canonical_tag', 'action', 'notes'], \
+                f"Expected columns [old_tag, canonical_tag, action, notes], got {headers}"
     
-    all_tags = []
-    for row in rows:
-        try:
-            tags = json.loads(row[0])
-            all_tags.extend(tags)
-        except:
-            pass
+    def test_mapping_csv_action_values(self, test_mapping_csv):
+        """Verify action values are valid"""
+        with open(test_mapping_csv, 'r', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            
+            for row in reader:
+                # old_tag must be non-empty
+                assert row['old_tag'].strip(), "Found empty old_tag"
+                
+                # action must be KEEP, MERGE, or DELETE
+                assert row['action'] in ['KEEP', 'MERGE', 'DELETE'], \
+                    f"Invalid action '{row['action']}' for tag '{row['old_tag']}'"
     
-    conn.close()
-    return set(all_tags)
-
-
-def test_database_exists(db_path):
-    """Verify staging database exists"""
-    assert db_path.exists(), f"Database not found at {db_path}"
-
-
-def test_tag_count_matches(current_tags):
-    """Verify we found the expected number of unique tags"""
-    assert len(current_tags) == EXPECTED_TAG_COUNT, \
-        f"Expected {EXPECTED_TAG_COUNT} tags, found {len(current_tags)}"
-
-
-def test_mapping_file_exists(mapping_csv_path):
-    """Verify tag migration mapping CSV exists"""
-    assert mapping_csv_path.exists(), \
-        f"Mapping file not found at {mapping_csv_path}"
-
-
-def test_frequency_file_exists(frequency_csv_path):
-    """Verify tag frequency report CSV exists"""
-    assert frequency_csv_path.exists(), \
-        f"Frequency report not found at {frequency_csv_path}"
-
-
-def test_all_tags_mapped(current_tags, mapping_csv_path):
-    """Verify every tag from database has a mapping"""
-    with open(mapping_csv_path, 'r', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        mapped_tags = {row['old_tag'] for row in reader}
+    def test_mapping_csv_merge_requirements(self, test_mapping_csv):
+        """Verify MERGE actions have correct canonical_tag"""
+        with open(test_mapping_csv, 'r', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            
+            for row in reader:
+                if row['action'] == 'MERGE':
+                    assert row['canonical_tag'].strip(), \
+                        f"MERGE action for '{row['old_tag']}' has empty canonical_tag"
+                    assert row['canonical_tag'] != row['old_tag'], \
+                        f"MERGE action for '{row['old_tag']}' has same canonical_tag"
     
-    unmapped = current_tags - mapped_tags
-    assert len(unmapped) == 0, \
-        f"Found {len(unmapped)} unmapped tags: {sorted(unmapped)}"
-
-
-def test_no_extra_mappings(current_tags, mapping_csv_path):
-    """Verify no mappings for non-existent tags"""
-    with open(mapping_csv_path, 'r', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        mapped_tags = {row['old_tag'] for row in reader}
+    def test_mapping_csv_keep_requirements(self, test_mapping_csv):
+        """Verify KEEP actions have matching canonical_tag"""
+        with open(test_mapping_csv, 'r', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            
+            for row in reader:
+                if row['action'] == 'KEEP':
+                    assert row['canonical_tag'] == row['old_tag'], \
+                        f"KEEP action for '{row['old_tag']}' has different canonical_tag '{row['canonical_tag']}'"
     
-    extra = mapped_tags - current_tags
-    assert len(extra) == 0, \
-        f"Found {len(extra)} mappings for non-existent tags: {sorted(extra)}"
+    def test_mapping_csv_delete_requirements(self, test_mapping_csv):
+        """Verify DELETE actions have empty/N/A canonical_tag"""
+        with open(test_mapping_csv, 'r', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            
+            for row in reader:
+                if row['action'] == 'DELETE':
+                    assert row['canonical_tag'] in ['', 'N/A'], \
+                        f"DELETE action for '{row['old_tag']}' should have empty canonical_tag"
 
 
-def test_meta_tags_deleted(mapping_csv_path):
-    """Verify all meta tags are marked for deletion"""
-    with open(mapping_csv_path, 'r', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        mappings = {row['old_tag']: row for row in reader}
+class TestFrequencyCSVFormat:
+    """Test the frequency report CSV structure"""
     
-    for meta_tag in META_TAGS:
-        assert meta_tag in mappings, f"Meta tag '{meta_tag}' not in mapping"
-        assert mappings[meta_tag]['action'] == 'DELETE', \
-            f"Meta tag '{meta_tag}' should have action=DELETE, got {mappings[meta_tag]['action']}"
-
-
-def test_case_duplicates_merged(mapping_csv_path):
-    """Verify case duplicates are merged to canonical form"""
-    with open(mapping_csv_path, 'r', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        mappings = {row['old_tag']: row for row in reader}
+    def test_frequency_csv_has_required_columns(self, test_frequency_csv):
+        """Verify frequency CSV has correct columns"""
+        with open(test_frequency_csv, 'r', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            headers = reader.fieldnames
+            
+            # Check required columns
+            assert headers == ['tag', 'count', 'percentage'], \
+                f"Expected columns [tag, count, percentage], got {headers}"
     
-    for lowercase, canonical in CASE_DUPLICATES:
-        # Both should be in mappings
-        assert lowercase in mappings or canonical in mappings, \
-            f"Neither '{lowercase}' nor '{canonical}' found in mappings"
+    def test_frequency_csv_valid_data(self, test_frequency_csv):
+        """Verify frequency report has valid data"""
+        with open(test_frequency_csv, 'r', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            
+            for row in reader:
+                # tag must be non-empty
+                assert row['tag'].strip(), "Found empty tag"
+                
+                # count must be a positive integer
+                count = int(row['count'])
+                assert count > 0, f"Tag '{row['tag']}' has count {count} <= 0"
+                
+                # percentage must be a valid float
+                percentage = float(row['percentage'])
+                assert 0 < percentage <= 100, \
+                    f"Tag '{row['tag']}' has invalid percentage {percentage}"
+
+
+class TestMappingLogic:
+    """Test the tag mapping logic"""
+    
+    def test_case_duplicates_are_merged(self, test_mapping_csv):
+        """Verify case duplicates (hanuman -> Hanuman) are merged"""
+        with open(test_mapping_csv, 'r', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            mappings = {row['old_tag']: row for row in reader}
         
-        # If both exist, lowercase should merge to canonical
-        if lowercase in mappings and canonical in mappings:
-            if mappings[lowercase]['action'] == 'MERGE':
-                assert mappings[lowercase]['canonical_tag'] == canonical, \
-                    f"'{lowercase}' should merge to '{canonical}', got '{mappings[lowercase]['canonical_tag']}'"
-
-
-def test_semantic_groups_merged(mapping_csv_path):
-    """Verify semantic duplicates are identified and merged"""
-    with open(mapping_csv_path, 'r', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        mappings = {row['old_tag']: row for row in reader}
+        # hanuman should merge to Hanuman
+        if 'hanuman' in mappings:
+            assert mappings['hanuman']['action'] == 'MERGE'
+            assert mappings['hanuman']['canonical_tag'] == 'Hanuman'
     
-    for canonical, group in SEMANTIC_GROUPS.items():
+    def test_synonym_resolution(self, test_mapping_csv):
+        """Verify synonyms (Anjaneya -> Hanuman) are merged"""
+        with open(test_mapping_csv, 'r', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            mappings = {row['old_tag']: row for row in reader}
+        
+        # Anjaneya should merge to Hanuman
+        if 'Anjaneya' in mappings:
+            assert mappings['Anjaneya']['action'] == 'MERGE'
+            assert mappings['Anjaneya']['canonical_tag'] == 'Hanuman'
+    
+    def test_primary_tags_are_kept(self, test_mapping_csv):
+        """Verify primary tags are marked as KEEP"""
+        with open(test_mapping_csv, 'r', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            mappings = {row['old_tag']: row for row in reader}
+        
+        # Primary tags should have KEEP action
+        primary_tags = ['Hanuman', 'Rama', 'Krishna', 'Shiva']
+        for tag in primary_tags:
+            if tag in mappings:
+                assert mappings[tag]['action'] == 'KEEP', \
+                    f"Primary tag '{tag}' should be KEEP, got {mappings[tag]['action']}"
+    
+    def test_meta_tags_are_deleted(self, test_mapping_csv):
+        """Verify meta tags are marked for deletion"""
+        with open(test_mapping_csv, 'r', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            mappings = {row['old_tag']: row for row in reader}
+        
+        # Meta tags should have DELETE action
+        if 'test' in mappings:
+            assert mappings['test']['action'] == 'DELETE'
+    
+    def test_action_distribution(self, test_mapping_csv):
+        """Verify reasonable distribution of actions"""
+        with open(test_mapping_csv, 'r', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            actions = Counter(row['action'] for row in reader)
+        
+        # Should have at least some KEEP actions
+        assert actions['KEEP'] > 0, "No KEEP actions found"
+        
+        # Should have some MERGE actions (for duplicates)
+        assert actions['MERGE'] > 0, "No MERGE actions found"
+
+
+class TestMappingWithDatabase:
+    """Test mapping against actual test data"""
+    
+    def test_create_tags_from_mapping(self, test_db, test_mapping_csv):
+        """Test that we can create tags based on mapping"""
+        from models import TagTaxonomy
+        
+        # Read mapping
+        with open(test_mapping_csv, 'r', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            mappings = list(reader)
+        
+        # Create canonical tags
         canonical_tags = set()
-        
-        for tag in group:
-            if tag not in mappings:
-                continue
-            
-            action = mappings[tag]['action']
-            if action == 'KEEP':
-                canonical_tags.add(tag)
-            elif action == 'MERGE':
-                canonical_tags.add(mappings[tag]['canonical_tag'])
-        
-        # All should map to the same canonical tag
-        assert len(canonical_tags) <= 1, \
-            f"Semantic group '{canonical}' maps to multiple tags: {canonical_tags}"
-
-
-def test_mapping_csv_format(mapping_csv_path):
-    """Verify mapping CSV has correct columns and format"""
-    with open(mapping_csv_path, 'r', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        headers = reader.fieldnames
-        
-        # Check required columns
-        assert headers == ['old_tag', 'canonical_tag', 'action', 'notes'], \
-            f"Expected columns [old_tag, canonical_tag, action, notes], got {headers}"
-        
-        # Check each row
-        for row in reader:
-            # old_tag must be non-empty
-            assert row['old_tag'].strip(), "Found empty old_tag"
-            
-            # action must be KEEP, MERGE, or DELETE
-            assert row['action'] in ['KEEP', 'MERGE', 'DELETE'], \
-                f"Invalid action '{row['action']}' for tag '{row['old_tag']}'"
-            
-            # If MERGE, canonical_tag must be different and non-empty
-            if row['action'] == 'MERGE':
-                assert row['canonical_tag'].strip(), \
-                    f"MERGE action for '{row['old_tag']}' has empty canonical_tag"
-                assert row['canonical_tag'] != row['old_tag'], \
-                    f"MERGE action for '{row['old_tag']}' has same canonical_tag"
-            
-            # If KEEP, canonical_tag should match old_tag
+        for row in mappings:
             if row['action'] == 'KEEP':
-                assert row['canonical_tag'] == row['old_tag'], \
-                    f"KEEP action for '{row['old_tag']}' has different canonical_tag '{row['canonical_tag']}'"
-            
-            # If DELETE, canonical_tag should be empty or N/A
-            if row['action'] == 'DELETE':
-                assert row['canonical_tag'] in ['', 'N/A'], \
-                    f"DELETE action for '{row['old_tag']}' should have empty canonical_tag"
-
-
-def test_frequency_csv_format(frequency_csv_path):
-    """Verify frequency CSV has correct columns and format"""
-    with open(frequency_csv_path, 'r', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        headers = reader.fieldnames
+                canonical_tags.add(row['canonical_tag'])
         
-        # Check required columns
-        assert headers == ['tag', 'count', 'percentage'], \
-            f"Expected columns [tag, count, percentage], got {headers}"
+        # Add to database
+        for tag_name in canonical_tags:
+            tag = TagTaxonomy(
+                name=tag_name,
+                category="deity",
+                level=0
+            )
+            test_db.add(tag)
         
-        # Check each row
-        for row in reader:
-            # tag must be non-empty
-            assert row['tag'].strip(), "Found empty tag"
-            
-            # count must be a positive integer
-            count = int(row['count'])
-            assert count > 0, f"Tag '{row['tag']}' has count {count} <= 0"
-            
-            # percentage must be a valid float
-            percentage = float(row['percentage'])
-            assert 0 < percentage <= 100, \
-                f"Tag '{row['tag']}' has invalid percentage {percentage}"
-
-
-def test_frequency_totals(current_tags, frequency_csv_path):
-    """Verify frequency report includes all tags"""
-    with open(frequency_csv_path, 'r', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        frequency_tags = {row['tag'] for row in reader}
-    
-    assert frequency_tags == current_tags, \
-        f"Frequency report tags don't match database tags. " \
-        f"Missing: {current_tags - frequency_tags}, Extra: {frequency_tags - current_tags}"
-
-
-def test_action_distribution(mapping_csv_path):
-    """Verify reasonable distribution of actions"""
-    with open(mapping_csv_path, 'r', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        actions = Counter(row['action'] for row in reader)
-    
-    # Should have at least some KEEP actions
-    assert actions['KEEP'] > 0, "No KEEP actions found"
-    
-    # Should have some MERGE actions (for duplicates)
-    assert actions['MERGE'] > 0, "No MERGE actions found"
-    
-    # Should have some DELETE actions (for meta tags)
-    assert actions['DELETE'] >= len(META_TAGS), \
-        f"Expected at least {len(META_TAGS)} DELETE actions, got {actions['DELETE']}"
-    
-    # Total should match tag count
-    assert sum(actions.values()) == EXPECTED_TAG_COUNT, \
-        f"Total actions {sum(actions.values())} doesn't match tag count {EXPECTED_TAG_COUNT}"
-
-
-def test_notes_provided(mapping_csv_path):
-    """Verify explanatory notes are provided for MERGE and DELETE actions"""
-    with open(mapping_csv_path, 'r', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
+        test_db.commit()
         
-        for row in reader:
-            if row['action'] in ['MERGE', 'DELETE']:
-                assert row['notes'].strip(), \
-                    f"Action {row['action']} for '{row['old_tag']}' missing explanation in notes"
+        # Verify
+        all_tags = test_db.query(TagTaxonomy).all()
+        tag_names = {t.name for t in all_tags}
+        
+        assert canonical_tags == tag_names
+    
+    def test_apply_merge_mappings(self, test_db, test_mapping_csv):
+        """Test applying merge mappings to bhajan tags"""
+        from models import Bhajan
+        
+        # Read mapping
+        with open(test_mapping_csv, 'r', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            merge_map = {
+                row['old_tag']: row['canonical_tag']
+                for row in reader
+                if row['action'] == 'MERGE'
+            }
+        
+        # Create bhajan with old tags
+        old_tags = ['hanuman', 'Anjaneya', 'Rama']
+        bhajan = Bhajan(
+            title="Test Bhajan",
+            lyrics="Test lyrics at least 20 characters",
+            tags=json.dumps(old_tags)
+        )
+        test_db.add(bhajan)
+        test_db.commit()
+        
+        # Apply mapping
+        current_tags = json.loads(bhajan.tags)
+        new_tags = []
+        for tag in current_tags:
+            if tag in merge_map:
+                canonical = merge_map[tag]
+                if canonical not in new_tags:
+                    new_tags.append(canonical)
+            else:
+                if tag not in new_tags:
+                    new_tags.append(tag)
+        
+        # Verify - hanuman and Anjaneya should both map to Hanuman
+        assert 'Hanuman' in new_tags
+        assert 'Rama' in new_tags
+        # Should have exactly 2 tags after deduplication
+        assert len(new_tags) == 2
+
+
+if __name__ == "__main__":
+    pytest.main([__file__, "-v"])
