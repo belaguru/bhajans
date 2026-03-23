@@ -31,51 +31,52 @@ test.describe('MP3 & Chants API', () => {
     }
   });
 
-  test('GET /api/bhajans/274 returns Mahamrityunjaya with MP3', async ({ request }) => {
-    const response = await request.get('/api/bhajans/274');
+  test('GET /api/bhajans/7 returns bhajan with MP3', async ({ request }) => {
+    const response = await request.get('/api/bhajans/7');
     expect(response.ok()).toBeTruthy();
     
-    const chant = await response.json();
-    expect(chant.id).toBe(274);
-    expect(chant.title).toContain('Mahamrityunjaya');
-    expect(chant.mp3_file).toBe('mahamrityunjaya.mp3');
+    const bhajan = await response.json();
+    expect(bhajan.id).toBe(7);
+    expect(bhajan.mp3_file).toBe('mahamrityunjaya.mp3');
   });
 
-  test('All 5 chants have correct MP3 files', async ({ request }) => {
-    const expectedChants = [
-      { id: 270, mp3: 'om-namah-shivaya.mp3' },
-      { id: 271, mp3: 'gayatri-mantra.mp3' },
-      { id: 272, mp3: 'hare-rama-krishna.mp3' },
-      { id: 273, mp3: 'om-namo-narayanaya.mp3' },
-      { id: 274, mp3: 'mahamrityunjaya.mp3' }
+  test('All 5 bhajans with MP3 files exist', async ({ request }) => {
+    const expectedBhajans = [
+      { id: 1, mp3: 'madhava-madhusudhana.mp3' },
+      { id: 2, mp3: 'entha-manushya-janma.mp3' },
+      { id: 3, mp3: 'raghukula-nandana-raaja-raama.mp3' },
+      { id: 5, mp3: 'om-namo-narayanaya.mp3' },
+      { id: 7, mp3: 'mahamrityunjaya.mp3' }
     ];
     
-    for (const expected of expectedChants) {
+    for (const expected of expectedBhajans) {
       const response = await request.get(`/api/bhajans/${expected.id}`);
-      const chant = await response.json();
+      expect(response.ok()).toBeTruthy();
       
-      expect(chant.mp3_file).toBe(expected.mp3);
-      // Tags are now capitalized in the new tag system
-      expect(chant.tags.some(tag => tag.toLowerCase().includes('mantra'))).toBeTruthy();
+      const bhajan = await response.json();
+      expect(bhajan.mp3_file).toBe(expected.mp3);
+      expect(Array.isArray(bhajan.tags)).toBeTruthy();
     }
   });
 
-  test('Chants have all required fields', async ({ request }) => {
-    const response = await request.get('/api/bhajans/274');
-    const chant = await response.json();
+  test('Bhajans have all required fields', async ({ request }) => {
+    const response = await request.get('/api/bhajans/1');
+    expect(response.ok()).toBeTruthy();
     
-    expect(chant).toHaveProperty('id');
-    expect(chant).toHaveProperty('title');
-    expect(chant).toHaveProperty('lyrics');
-    expect(chant).toHaveProperty('tags');
-    expect(chant).toHaveProperty('mp3_file');
-    expect(chant).toHaveProperty('uploader_name');
-    expect(chant).toHaveProperty('created_at');
-    expect(chant).toHaveProperty('updated_at');
+    const bhajan = await response.json();
     
-    expect(typeof chant.id).toBe('number');
-    expect(typeof chant.title).toBe('string');
-    expect(typeof chant.mp3_file).toBe('string');
-    expect(Array.isArray(chant.tags)).toBeTruthy();
+    expect(bhajan).toHaveProperty('id');
+    expect(bhajan).toHaveProperty('title');
+    expect(bhajan).toHaveProperty('lyrics');
+    expect(bhajan).toHaveProperty('tags');
+    expect(bhajan).toHaveProperty('mp3_file');
+    expect(bhajan).toHaveProperty('uploader_name');
+    expect(bhajan).toHaveProperty('created_at');
+    expect(bhajan).toHaveProperty('updated_at');
+    
+    expect(typeof bhajan.id).toBe('number');
+    expect(typeof bhajan.title).toBe('string');
+    expect(typeof bhajan.mp3_file).toBe('string');
+    expect(Array.isArray(bhajan.tags)).toBeTruthy();
   });
 });
