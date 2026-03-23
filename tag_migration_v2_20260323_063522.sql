@@ -1,0 +1,1541 @@
+-- Bhajan Tagging Migration V2 - PRIMARY SUBJECTS ONLY
+-- Generated: 2026-03-23 06:35:22
+-- Total bhajans: 208
+-- Avg tags/bhajan: 3.3
+-- Manual review needed: 59
+-- Rule: Tag PRIMARY subject only, maximum 3-5 tags
+
+BEGIN TRANSACTION;
+
+-- Step 1: Clear previous AI/migration tags
+DELETE FROM bhajan_tags WHERE source IN ('AI_ANALYSIS', 'ai', 'migration', 'auto');
+
+-- Step 2: Insert new PRIMARY subject tags
+
+-- Bhajan #1: ಹನುಮಾನ್ ಚಾಲೀಸಾ Hanuman Chalisa
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (1, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (1, 12, 'migration', 1.0); -- Chalisa
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (1, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (1, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #2: Anjaneya Dandakam ಆಂಜನೇಯ ದಂಡಕಂ
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (2, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (2, 10, 'migration', 1.0); -- Stotra
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (2, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (2, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #3: ವಂದಿಪೆ ನಿನಗೆ ಗಣನಾಥಾ Vandipe ninage Gananaatha
+-- Primary: Ganesha
+-- Reasoning: Ganesha in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (3, 5, 'migration', 1.0); -- Ganesha
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (3, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (3, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (3, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #4: ಶಾರದೆ ನಾನಿನ್ನ,  Sharade naa ninna
+-- Primary: Devi
+-- Reasoning: Devi in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (4, 4, 'migration', 1.0); -- Devi
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (4, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (4, 151, 'migration', 1.0); -- Friday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (4, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #5: ಬಂದು ನಿಂತಿಹನು ನೋಡಿ, Bandu ninthihanu nodi
+-- Primary: Bindu Madhava
+-- Reasoning: Bindu Madhava (subtitle/lyrics)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (5, 27, 'migration', 1.0); -- Bindu Madhava
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (5, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (5, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (5, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #6: ಗುರುದೇವ ನಿಮ್ಮಯ ಚರಣ, Gurudeva nimmaya charana
+-- Primary: Guru
+-- Reasoning: Guru-focused (not deity)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (6, 13, 'migration', 1.0); -- Gurustuti
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (6, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (6, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #7: ಲಿಂಗಾಷ್ಟಕ, ಬ್ರಹ್ಮ ಮುರಾರಿ , Lingaashtaka, Brahma murari
+-- Primary: Shiva
+-- Reasoning: Shiva in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (7, 2, 'migration', 1.0); -- Shiva
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (7, 10, 'migration', 1.0); -- Stotra
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (7, 147, 'migration', 1.0); -- Monday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (7, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #8: ಶಿವನೇ ಭಯಹರನೇ, Shivane Bhayaharane
+-- Primary: Shiva
+-- Reasoning: Shiva in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (8, 2, 'migration', 1.0); -- Shiva
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (8, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (8, 147, 'migration', 1.0); -- Monday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (8, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #12: ಶಿವ ಶಿವ ಎಂದರೆ ಭಯವಿಲ್ಲ Shiva Shiva endare
+-- Primary: Shiva
+-- Reasoning: Shiva in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (12, 2, 'migration', 1.0); -- Shiva
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (12, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (12, 147, 'migration', 1.0); -- Monday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (12, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #13: ಶಿವ ಶಿವ ಶಿವ ಶಿವಾಯ ನಮ ಓಂ, ಆ ಮನೆ ಈ ಮನೆ  ಎರಡಾದರೇನು aa mane ee mane
+-- Primary: Shiva
+-- Reasoning: Shiva in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (13, 2, 'migration', 1.0); -- Shiva
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (13, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (13, 147, 'migration', 1.0); -- Monday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (13, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #14: ಭಜನೆ ಮಾಡುವ ಬನ್ನಿರೋ ಸದಾಶಿವನಾ Bhajane maaduva banniro
+-- Primary: Shiva
+-- Reasoning: Shiva in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (14, 2, 'migration', 1.0); -- Shiva
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (14, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (14, 147, 'migration', 1.0); -- Monday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (14, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #15: ಶಂಭೋ ಜಗದಾನಂದ ಕರಾ ಶಿವ Shambho jagadaananda
+-- Primary: Shiva
+-- Reasoning: Shiva in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (15, 2, 'migration', 1.0); -- Shiva
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (15, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (15, 147, 'migration', 1.0); -- Monday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (15, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #16: ಶಂಕರಾ ಚಂದ್ರಶೇಖರಾ  ಗಂಗಾಧರ ಸುಮನೋಹರಾ Shankara chandrashekharaa
+-- Primary: Shiva
+-- Reasoning: Shiva in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (16, 2, 'migration', 1.0); -- Shiva
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (16, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (16, 147, 'migration', 1.0); -- Monday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (16, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #17: ಮಾತು ಮಾತಿಗೂ ಶಂಕರಾ Maatu maatigu Shankara
+-- Primary: Shiva
+-- Reasoning: Shiva in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (17, 2, 'migration', 1.0); -- Shiva
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (17, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (17, 147, 'migration', 1.0); -- Monday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (17, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #18: ಗಂಗಾಧರ  ಶಿವ ಗಂಗಾಧರಾ Gangadhara Shiva
+-- Primary: Shiva
+-- Reasoning: Shiva in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (18, 2, 'migration', 1.0); -- Shiva
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (18, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (18, 147, 'migration', 1.0); -- Monday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (18, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #19: ನಟವರ ಗಂಗಾಧರ  ಉಮಾಶಂಕರಾ Natavara Gangadhara
+-- Primary: Shiva
+-- Reasoning: Shiva in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (19, 2, 'migration', 1.0); -- Shiva
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (19, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (19, 147, 'migration', 1.0); -- Monday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (19, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #20: ಪಾಪಿಯ ಜೀವನ ಪಾವನಗೊಳಿಸುವ ಪರಶಿವ ಲಿಂಗ ನಮೋ Paapiya Jeevana
+-- Primary: Shiva
+-- Reasoning: Shiva in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (20, 2, 'migration', 1.0); -- Shiva
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (20, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (20, 147, 'migration', 1.0); -- Monday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (20, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #21: ಜಗದೀlಶನಾಳುವಾ ಜಗವೇ ನಾಟಕರಂಗ Jagadeeshanaaluva jagave
+-- Primary: Shiva
+-- Reasoning: Shiva in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (21, 2, 'migration', 1.0); -- Shiva
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (21, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (21, 147, 'migration', 1.0); -- Monday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (21, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #22: ಎಲ್ಲಿರುವೆ ತಂದೆ ಬಾರೋ ಮಾರುತಿ Elliruve Tande baaro
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (22, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (22, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (22, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (22, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #23: ಹನುಮ ವೀರಮಲ್ಲ | ಅವನಿಗೆ ಎದುರಾರಿಲ್ಲ Hanuma Veeramalla
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (23, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (23, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (23, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (23, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #24: ದೇಹಾವೆ ನಾನೆಂಬ | ಮೋಹಾವ ತೋರಿದೆ | ಆಹಾಮಾಯೆ Dehave naanemba
+-- Primary: Philosophical/Vairagya
+-- Reasoning: Philosophical content (Tatva pada)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (24, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (24, 19, 'migration', 1.0); -- Tatva pada
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (24, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #25: ಎಲ್ಲಾ ರೂಪವು ತಾನಂತೆ | ಶಿವ | ಎಲ್ಲೆಲ್ಲೂ ತುಂಬಿಹನಂತೆ Ellaa rupavu taanante
+-- Primary: Shiva
+-- Reasoning: Shiva in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (25, 2, 'migration', 1.0); -- Shiva
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (25, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (25, 147, 'migration', 1.0); -- Monday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (25, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #26: ಪಾಪಿಯ ಜೀವನ ಪಾವನಗೊಳಿಸುವ | ಪರಶಿವಲಿಂಗ ನಮೋ Paapiya Jeevana
+-- Primary: Shiva
+-- Reasoning: Shiva in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (26, 2, 'migration', 1.0); -- Shiva
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (26, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (26, 147, 'migration', 1.0); -- Monday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (26, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #27: ಮಂಗಳವಾಗಿದೆ | ಜಯಜಯ ಮಂಗಳವಾಗಿದೆ Mangalavaagide
+-- Primary: Mangala (General)
+-- Reasoning: Mangala (morning prayer)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (27, 23, 'migration', 1.0); -- Mangala
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (27, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (27, 24, 'migration', 1.0); -- Morning
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (27, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #28: ‘ಓಂ’ ಮಂಗಳo ಓಂಕಾರ ಮಂಗಳo Om mangalam Omkaara Mangalam
+-- Primary: Mangala (General)
+-- Reasoning: Mangala (morning prayer)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (28, 23, 'migration', 1.0); -- Mangala
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (28, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (28, 24, 'migration', 1.0); -- Morning
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (28, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #29: ಇವಳೇ ವೀಣಾಪಾಣಿ Ivale Veenapaani
+-- Primary: Devi
+-- Reasoning: Devi in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (29, 4, 'migration', 1.0); -- Devi
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (29, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (29, 151, 'migration', 1.0); -- Friday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (29, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #30: ವಾರೀಜಾಕ್ಷಿ ನೀ ಒಲವಿನೊಯ್ಯಾರಿ Vaarijaakshi nee
+-- Primary: Devi
+-- Reasoning: Devi in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (30, 4, 'migration', 1.0); -- Devi
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (30, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (30, 151, 'migration', 1.0); -- Friday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (30, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #31: ರಾಜ ರಾಜೇಶ್ವರಿಯೆ ಪಾಲಿಸು  Raja Rajeshwariye Paalisu
+-- Primary: Devi
+-- Reasoning: Devi in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (31, 4, 'migration', 1.0); -- Devi
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (31, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (31, 151, 'migration', 1.0); -- Friday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (31, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #32: ಶೃಂಗೇರಿ ಮಾತೆ | ಸದಾ ಪೂಜಿತೆ Shringeri maate sadaa poojithe
+-- Primary: Devi
+-- Reasoning: Devi in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (32, 4, 'migration', 1.0); -- Devi
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (32, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (32, 151, 'migration', 1.0); -- Friday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (32, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #33: ಸಣ್ಣ ಹುಡುಗಿಯೆ ನಿನ್ನ  Sanna Hudugiye ninna
+-- Primary: Devi
+-- Reasoning: Devi in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (33, 4, 'migration', 1.0); -- Devi
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (33, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (33, 151, 'migration', 1.0); -- Friday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (33, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #34: ಅಂಬಾ ನೀ ಜಾಣೆ  ನಂಬಿದೆನು ಕಾಣೆ Ambaa nee Jaane
+-- Primary: Devi
+-- Reasoning: Devi in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (34, 4, 'migration', 1.0); -- Devi
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (34, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (34, 151, 'migration', 1.0); -- Friday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (34, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #35: ಭಂಗವೇಕೆ ಪಡುವೆ ನೀ ನಿಸ್ಸಂಗಿಯಾಗು ಮನವೇ Bhangaveke Paduve
+-- Primary: Philosophical/Vairagya
+-- Reasoning: Philosophical content (Tatva pada)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (35, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (35, 19, 'migration', 1.0); -- Tatva pada
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (35, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #36: ಕೋಡಗನ ಕೋಳಿ ನುಂಗಿತ್ತಾ ನೋಡವ್ವ ತಂಗಿ Kodagana koli nungitha
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಕೋಡಗನ ಕೋಳಿ ನುಂಗಿತ್ತಾ ನೋಡವ್ವ ತಂಗಿ Kodagana koli nun", subtitle="ತತ್ವ ಪದ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (36, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (36, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #37: ಭಾರತಿದೇವಿ ತಾಯೆ ನೀ ಕಾಯೆ Bharathi Devi taaye
+-- Primary: Devi
+-- Reasoning: Devi in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (37, 4, 'migration', 1.0); -- Devi
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (37, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (37, 151, 'migration', 1.0); -- Friday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (37, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #38: ಹನುಮಾ ನಿನ್ನನು ನೆನೆಸಿದೆನು  Hanuma ninnanu nenesidenu
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (38, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (38, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (38, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (38, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #39: ಹನುಮ ವೀರಮಲ್ಲ  ಅವನಿಗೆ ಎದುರಾರಿಲ್ಲ Hanuma Veeramalla
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (39, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (39, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (39, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (39, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #40: ಬಂದು ಕೂತಿಹಳು ನೋಡಿ  ಗಾಯತ್ರಿ  bandu kutihalu nodi
+-- Primary: Devi
+-- Reasoning: Devi in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (40, 4, 'migration', 1.0); -- Devi
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (40, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (40, 151, 'migration', 1.0); -- Friday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (40, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #41: ಅಯ್ಯಗಿರಿ ನಂದಿನಿ  ನಂದಿತಮೇದಿನಿ Aigiri Nandini
+-- Primary: Devi
+-- Reasoning: Devi in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (41, 4, 'migration', 1.0); -- Devi
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (41, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (41, 151, 'migration', 1.0); -- Friday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (41, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #42: ಯಾಕೆ ಬಡಿದಾಡ್ತಿ ತಮ್ಮ  ಮಯಮೆಚ್ಚಿ  ಸಂಸಾರಮೆಚ್ಚಿ Yaake Badidaadthi tamma
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಯಾಕೆ ಬಡಿದಾಡ್ತಿ ತಮ್ಮ  ಮಯಮೆಚ್ಚಿ  ಸಂಸಾರಮೆಚ್ಚಿ Yaake B", subtitle="ತತ್ವ ಪದ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (42, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (42, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #43: ಆಂಜನೇಯ ಹನುಮಂತ  ಶ್ರೀರಾಮ ಚಂದ್ರರ ಸದ್ಭಕ್ತ Anjaneya Hanumantha
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (43, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (43, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (43, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (43, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #44: ಕೋಲು ಕೋಲೆನ್ನಿರೇ ಸದ್ಗುರುವಿನ ಕೀಲು ಮೇಲೆನ್ನಿರೇ Kolu Kolennire
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಕೋಲು ಕೋಲೆನ್ನಿರೇ ಸದ್ಗುರುವಿನ ಕೀಲು ಮೇಲೆನ್ನಿರೇ Kolu Ko", subtitle="ತತ್ವ ಪದ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (44, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (44, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #45: ಭಾಗ್ಯದ ಲಕ್ಷ್ಮಿ ಬಾರಮ್ಮಾ Bhagyada lakshmi
+-- Primary: Devi
+-- Reasoning: Devi in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (45, 4, 'migration', 1.0); -- Devi
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (45, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (45, 151, 'migration', 1.0); -- Friday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (45, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #46: ಕಾಳಿಕೆಯು ಎನಿಸುತಲಿ ಕೀಳು ಮಧುವೆಂಬುವನ Kalikeyu enisutali
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಕಾಳಿಕೆಯು ಎನಿಸುತಲಿ ಕೀಳು ಮಧುವೆಂಬುವನ Kalikeyu enisuta", subtitle=""
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (46, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (46, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #47: ಗಣಪತಿ ಗುಣಮಣಿ ನಮೋ ನಮೋ Ganapati Gunamani namo namo
+-- Primary: Ganesha
+-- Reasoning: Ganesha in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (47, 5, 'migration', 1.0); -- Ganesha
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (47, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (47, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (47, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #48: ಶಾರದೇ ದಯತೋರಿದೇ Sharade Daye toride
+-- Primary: Devi
+-- Reasoning: Devi in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (48, 4, 'migration', 1.0); -- Devi
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (48, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (48, 151, 'migration', 1.0); -- Friday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (48, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #49: ಶ್ರೀಗುರುಮಾಂಪಾಹಿ  Shree Gurumaampaahi
+-- Primary: Guru
+-- Reasoning: Guru-focused (not deity)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (49, 13, 'migration', 1.0); -- Gurustuti
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (49, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (49, 18, 'migration', 1.0); -- Kannada
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (49, 19, 'migration', 1.0); -- Tatva pada
+
+-- Bhajan #50: ಹರಿನಾಮ ಕೀರ್ತನೆ  ಅನುದಿನ ಮಾಳ್ಪಗೆ Hari naama keerthane anudina maalpage
+-- Primary: Vishnu
+-- Reasoning: Vishnu in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (50, 3, 'migration', 1.0); -- Vishnu
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (50, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (50, 152, 'migration', 1.0); -- Saturday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (50, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #51: ಪೋಗಾದಿರಲೋ  ರಂಗ Pogaadiralo rangaa
+-- Primary: Vishnu
+-- Reasoning: Vishnu in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (51, 3, 'migration', 1.0); -- Vishnu
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (51, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (51, 152, 'migration', 1.0); -- Saturday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (51, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #52: ಶೃಂಗಾರವಾಗಿಹುದು ಶ್ರೀಹರಿಯ ಮಂಚ Shringaaravaagihudu Shree hariya mancha
+-- Primary: Vishnu
+-- Reasoning: Vishnu in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (52, 3, 'migration', 1.0); -- Vishnu
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (52, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (52, 152, 'migration', 1.0); -- Saturday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (52, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #54: ರಾಮ ಮಂತ್ರವ ಜಪಿಸೋ Rama mantrava japiso
+-- Primary: Rama
+-- Reasoning: Rama in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (54, 8, 'migration', 1.0); -- Rama
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (54, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (54, 152, 'migration', 1.0); -- Saturday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (54, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #55: ಯಾರೇ ರಂಗನ  ಯಾರೇ ಕೃಷ್ಣನ Yaare Rangana yaare krishnana
+-- Primary: Krishna
+-- Reasoning: Krishna in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (55, 7, 'migration', 1.0); -- Krishna
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (55, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (55, 149, 'migration', 1.0); -- Wednesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (55, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #56: ಶ್ರೀಪತಿಯು ನಮಗೆ ಸಂಪದವೀಯಲಿ Shreepatiyu namage
+-- Primary: Vishnu
+-- Reasoning: Vishnu in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (56, 3, 'migration', 1.0); -- Vishnu
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (56, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (56, 152, 'migration', 1.0); -- Saturday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (56, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #57: ನೀ ಮಾಯೆಯೊಳಗೋ ನಿನ್ನೋಳು ಮಾಯೆಯೋ Nee maayeyologo
+-- Primary: Vishnu
+-- Reasoning: Vishnu in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (57, 3, 'migration', 1.0); -- Vishnu
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (57, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (57, 152, 'migration', 1.0); -- Saturday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (57, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #58: ಬೆಟ್ಟವಿಳಿದು ಬೇಗ ಬಾರೋ Bettavilidu bega baaro
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (58, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (58, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (58, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (58, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #59: ತಿರುಪತಿ ವೆಂಕಟ ರಮಣ Tirupati Venkataramana
+-- Primary: Rama
+-- Reasoning: Rama in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (59, 8, 'migration', 1.0); -- Rama
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (59, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (59, 152, 'migration', 1.0); -- Saturday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (59, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #60: ಸದಾ ಎನ್ನ ಹೃದಯದಲ್ಲಿ ವಾಸಮಾಡೋ ಶ್ರೀಹರಿ sada enna hrudayadalli
+-- Primary: Vishnu
+-- Reasoning: Vishnu in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (60, 3, 'migration', 1.0); -- Vishnu
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (60, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (60, 152, 'migration', 1.0); -- Saturday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (60, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #61: ಚಂದವಾದ ಬೃಂದಾವನದಿ Chendavaada Brindavanadi
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಚಂದವಾದ ಬೃಂದಾವನದಿ Chendavaada Brindavanadi", subtitle="ತತ್ವಪದ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (61, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (61, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #62: ಸಾರಿ ಚೆಲ್ಲಿದೆ ಮುಕ್ತಿ Saari Chellide Mukthi
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಸಾರಿ ಚೆಲ್ಲಿದೆ ಮುಕ್ತಿ Saari Chellide Mukthi", subtitle="ತತ್ವಪದ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (62, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (62, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #63: ಕಲಿಯುಗದೊಳು ಹರಿ ನಾಮವ ನೆನೆದರೆ Kaliyugadolu hari naamava
+-- Primary: Vishnu
+-- Reasoning: Vishnu in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (63, 3, 'migration', 1.0); -- Vishnu
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (63, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (63, 152, 'migration', 1.0); -- Saturday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (63, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #64: ಅಂಜಿಕೆನ್ಯಾತಕಯ್ಯಾ ಸಜ್ಜನರಿಗೆ Anjike inyaatakayya sajjanarige
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (64, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (64, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (64, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (64, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #65: ಎಲ್ಲಾರು ಸೇರಿ ಮಾಡೋಣ ಬನ್ನಿ  ಹನುಮನ ಗುರುಧ್ಯಾನ Ellaru seri
+-- Primary: Bindu Madhava
+-- Reasoning: Bindu Madhava (subtitle/lyrics)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (65, 27, 'migration', 1.0); -- Bindu Madhava
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (65, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (65, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (65, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #66: ಏನು ಮಾಡ್ತಾನೋ ಹನುಮ Enu maadthano hanuma
+-- Primary: Bindu Madhava
+-- Reasoning: Bindu Madhava (subtitle/lyrics)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (66, 27, 'migration', 1.0); -- Bindu Madhava
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (66, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (66, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (66, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #67: ಮಂಗಳವಾಗಿದೆ ಜಯ ಜಯ ಮಂಗಳವಾಗಿದೆ Mangalavaagide jaya jaya
+-- Primary: Mangala (General)
+-- Reasoning: Mangala (morning prayer)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (67, 23, 'migration', 1.0); -- Mangala
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (67, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (67, 24, 'migration', 1.0); -- Morning
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (67, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #68: ಧಿಮಿಕಿಟ ಧಿಮಿಕಿಟ ತಾಳಮೃದಂಗ Dhimikita Dhimikiti taala mrudanga
+-- Primary: Ganesha
+-- Reasoning: Ganesha in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (68, 5, 'migration', 1.0); -- Ganesha
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (68, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (68, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (68, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #69: ಪೊರೆಯೆನ್ನ ಪ್ರಭುವೇ  ಶ್ರೀ ಗುರುವೆಂಬೊ  ವರಕಲ್ಪತರುವೇ Poreyenna Prabhuve
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಪೊರೆಯೆನ್ನ ಪ್ರಭುವೇ  ಶ್ರೀ ಗುರುವೆಂಬೊ  ವರಕಲ್ಪತರುವೇ Por", subtitle="ಗುರು ಸ್ತುತಿ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (69, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (69, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #70: ಯೋಗಿ ಮನೆಗೆ ಬಂದಾ  ಶ್ರೀಗುರು  ದೇವಮನೆಗೆ ಬಂದ Yogi manege bandaa
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಯೋಗಿ ಮನೆಗೆ ಬಂದಾ  ಶ್ರೀಗುರು  ದೇವಮನೆಗೆ ಬಂದ Yogi maneg", subtitle="ಗುರು ಸ್ತುತಿ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (70, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (70, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #71: ಶ್ರೀಗುರುರಾಯ ನಿತ್ಯ ನಿಮ್ಮಯ Shree guru raaya nitya nimmaya
+-- Primary: Guru
+-- Reasoning: Guru-focused (not deity)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (71, 13, 'migration', 1.0); -- Gurustuti
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (71, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (71, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #72: ವಂದಿಪೆ ನಿಮಗೆ ಗುರುನಾಥ Vandipe nimage Gurunaatha
+-- Primary: Guru
+-- Reasoning: Guru-focused (not deity)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (72, 13, 'migration', 1.0); -- Gurustuti
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (72, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (72, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #73: ದತ್ತಾತ್ರೇಯ ತವಶರಣಂ ದತ್ತನ್ನಾಥ ತವಶರಣಂ Dattatreya tava sharanam
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ದತ್ತಾತ್ರೇಯ ತವಶರಣಂ ದತ್ತನ್ನಾಥ ತವಶರಣಂ Dattatreya tava", subtitle="ದತ್ತ ಭಜನೆ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (73, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (73, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #74: ಗುರುವಿನ ಮುಖದಿಂದ  ಗುರುತು ಕಂಡವರಿOದ Guruvina mukhadinda
+-- Primary: Guru
+-- Reasoning: Guru-focused (not deity)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (74, 13, 'migration', 1.0); -- Gurustuti
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (74, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (74, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #75: ಗುರುವಿನ ಗುಲಾಮನಾಗುವ ತನಕ Guruvina Gulaamanaaguva tanaka
+-- Primary: Guru
+-- Reasoning: Guru-focused (not deity)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (75, 13, 'migration', 1.0); -- Gurustuti
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (75, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (75, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #76: ಮೊರೆಹೊಕ್ಕೆ ಸದ್ಗುರುರಾಯ Morehokke sadguru raaya
+-- Primary: Guru
+-- Reasoning: Guru-focused (not deity)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (76, 13, 'migration', 1.0); -- Gurustuti
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (76, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (76, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #77: ಗುಡಿಯ ನೋಡಿರಣ್ಣಾ ದೇಹದ  Gudiya Nodiranna
+-- Primary: Philosophical/Vairagya
+-- Reasoning: Philosophical content (Tatva pada)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (77, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (77, 19, 'migration', 1.0); -- Tatva pada
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (77, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #78: ಸೋರುತಿಹುದು ಮನೆಯ ಮಾಳಿಗೆ Sorutihudu maneya maalige
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಸೋರುತಿಹುದು ಮನೆಯ ಮಾಳಿಗೆ Sorutihudu maneya maalige", subtitle="ಗುರುಭಜನೆ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (78, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (78, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #79: ಹಾವು ತುಳಿದೇನೆ haavu thulidene
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಹಾವು ತುಳಿದೇನೆ haavu thulidene", subtitle="ತತ್ವಪದ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (79, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (79, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #80: ಹಾಕಿದ ಜನಿವಾರವಾ ಸದ್ಗುರುನಾಥ Haakida janivaaravaa sadgurunatha
+-- Primary: Guru
+-- Reasoning: Guru-focused (not deity)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (80, 13, 'migration', 1.0); -- Gurustuti
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (80, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (80, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #81: ನಿಂದಿಸುವರು ನಮ್ಮ ಬಂಧುಕುಲ Nindhisuvaru namma bandhu kula
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ನಿಂದಿಸುವರು ನಮ್ಮ ಬಂಧುಕುಲ Nindhisuvaru namma bandhu ", subtitle="ತತ್ವಪದ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (81, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (81, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #82: ಬಿಡು ಬಿಡಿನ್ಯಾತರ  ಜ್ಞಾನ Bidu bidinyatara gnaana
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಬಿಡು ಬಿಡಿನ್ಯಾತರ  ಜ್ಞಾನ Bidu bidinyatara gnaana", subtitle="ತತ್ವಪದ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (82, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (82, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #83: ಭ್ರಾಂತನಾಗಬೇಡ ನಿಜದೊಳು Bhrantanaagabeda nijadolu
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಭ್ರಾಂತನಾಗಬೇಡ ನಿಜದೊಳು Bhrantanaagabeda nijadolu", subtitle="ತತ್ವಪದ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (83, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (83, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #84: ಎಂಥಾ ಮನುಷ್ಯ ಜನ್ಮ Entha Manushya janma
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಎಂಥಾ ಮನುಷ್ಯ ಜನ್ಮ Entha Manushya janma", subtitle="ತತ್ವಪದ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (84, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (84, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #85: ಭಜನೆ ಬ್ರಹ್ಮಾನಂದ ರಸವೋ Bhajane Bramhananda rasavo
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಭಜನೆ ಬ್ರಹ್ಮಾನಂದ ರಸವೋ Bhajane Bramhananda rasavo", subtitle="ತತ್ವಪದ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (85, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (85, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #86: ಮುತ್ತಿನಾರುತಿ ಎತ್ತಿ ಬೆಳಗುವೆನು Muttinaarati etti belaguvenu
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಮುತ್ತಿನಾರುತಿ ಎತ್ತಿ ಬೆಳಗುವೆನು Muttinaarati etti bel", subtitle="ದತ್ತಾತ್ರೇಯ ಮಂಗಳ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (86, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (86, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #87: ನಿಂದಿಸುವರು ನಮ್ಮ ಬಂಧುಕುಲ Nindisuvaru namma
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ನಿಂದಿಸುವರು ನಮ್ಮ ಬಂಧುಕುಲ Nindisuvaru namma", subtitle="ತತ್ವಪದ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (87, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (87, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #88: ಶರಣು ಸಿದ್ದಿ ವಿನಾಯಕ Sharanu sidhi vinayaka
+-- Primary: Ganesha
+-- Reasoning: Ganesha in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (88, 5, 'migration', 1.0); -- Ganesha
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (88, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (88, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (88, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #89: ಶೃಂಗೇರಿ ಮಾತೆ ಸದಾ ಪೂಜಿತೆ Shringeri maate
+-- Primary: Devi
+-- Reasoning: Devi in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (89, 4, 'migration', 1.0); -- Devi
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (89, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (89, 151, 'migration', 1.0); -- Friday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (89, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #90: ಹಿಂದಿನ ರಾತ್ರಿ ಎನಗೆ ಒಂದು Hindina raatri enage ondu
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಹಿಂದಿನ ರಾತ್ರಿ ಎನಗೆ ಒಂದು Hindina raatri enage ondu", subtitle="ಗುರು ಸ್ತುತಿ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (90, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (90, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #91: ಅಂಜಿಕೆನ್ಯಾತಕಯ್ಯಾ  ಸಜ್ಜನರಿಗೆ Anjike inyatakayya sajjanarige
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (91, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (91, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (91, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (91, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #92: ಆಂಜನೇಯವೀರ ಹನುಮಂತಶೂರ Anjaneya veera hanumantha shoora
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (92, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (92, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (92, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (92, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #93: ಆಂಜನೇಯ ಹನುಮಂತ ಶ್ರೀರಾಮ ಚಂದ್ರರ ಸದ್ಭಕ್ತ Anjaneya hanumantha
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (93, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (93, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (93, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (93, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #94: ಓಡಿ ಬಾರೈ ಮಾರುತಿ ಪಾಡುತ ಬಾರೈ Odi baarai maaruti
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (94, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (94, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (94, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (94, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #95: ರಾಮಾ ಎಂಬೋ ಎರಡಕ್ಷರದ ಮಹಿಮೆಯನು Raama embo eradaksharada
+-- Primary: Rama
+-- Reasoning: Rama in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (95, 8, 'migration', 1.0); -- Rama
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (95, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (95, 152, 'migration', 1.0); -- Saturday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (95, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #96: ಹನುಮನ ಪ್ರಾಣ  ಪ್ರಭೋ ರಘುರಾಮ Hanumana Praana
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (96, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (96, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (96, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (96, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #97: ರಾಮಾ ರಾಮಾ ಪಾಲಿಸೋ ಜಗದಭಿ rama rama paaliso
+-- Primary: Rama
+-- Reasoning: Rama in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (97, 8, 'migration', 1.0); -- Rama
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (97, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (97, 152, 'migration', 1.0); -- Saturday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (97, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #98: ರಾಮನ ಪಾದ ಹಿಡಿದು  ಭಜಿಸಿರೋ Ramana paada hididu bhajisiro
+-- Primary: Rama
+-- Reasoning: Rama in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (98, 8, 'migration', 1.0); -- Rama
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (98, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (98, 152, 'migration', 1.0); -- Saturday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (98, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #99: ಹನುಮಂತನೇ | ಗುಣವಂತನೇ  Hanumanthane gunavantane
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (99, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (99, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (99, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (99, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #100: ಪಾವನ ಗುಣ ರಾಮ | ಹರೇ Paavana guna rama
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (100, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (100, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (100, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (100, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #101: ರಾಮ ರಾಮ  ಎಂಬೆರಡಕ್ಷರ Rama Rama emba eradakshara
+-- Primary: Rama
+-- Reasoning: Rama in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (101, 8, 'migration', 1.0); -- Rama
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (101, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (101, 152, 'migration', 1.0); -- Saturday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (101, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #102: ರಾಮಾ ರಾಮಾ ಎನ್ನಿರೋ Rama Rama Enniro
+-- Primary: Rama
+-- Reasoning: Rama in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (102, 8, 'migration', 1.0); -- Rama
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (102, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (102, 152, 'migration', 1.0); -- Saturday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (102, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #103: ಜಯ ಜಯ ರಾಮ  ಜಯ ಘನಶ್ಯಾಮ Jaya jaya rama Jaya ghana shyama
+-- Primary: Rama
+-- Reasoning: Rama in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (103, 8, 'migration', 1.0); -- Rama
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (103, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (103, 152, 'migration', 1.0); -- Saturday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (103, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #104: ಯಮನೆಲ್ಲೂ ಕಾಣಿಸೆಂದು Yamanellu kaanisendu
+-- Primary: Rama
+-- Reasoning: Rama in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (104, 8, 'migration', 1.0); -- Rama
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (104, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (104, 152, 'migration', 1.0); -- Saturday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (104, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #105: ನೀನ್ಯಾಕೋ ನಿನ್ನ  ಹಂಗ್ಯಾಕೋ Neenyaako ninna hangyaako
+-- Primary: Vishnu
+-- Reasoning: Vishnu in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (105, 3, 'migration', 1.0); -- Vishnu
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (105, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (105, 152, 'migration', 1.0); -- Saturday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (105, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #106: ಹರಿಯ ನೆನೆಯದಾ ನರಜನ್ಮವೇಕೆ Hariya neneyadaa narajanmaveke
+-- Primary: Vishnu
+-- Reasoning: Vishnu in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (106, 3, 'migration', 1.0); -- Vishnu
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (106, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (106, 152, 'migration', 1.0); -- Saturday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (106, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #107: ಪೋಗಾದಿರಲೋ ರಂಗಾ  Pogaadirelo Rangaa
+-- Primary: Vishnu
+-- Reasoning: Vishnu in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (107, 3, 'migration', 1.0); -- Vishnu
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (107, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (107, 152, 'migration', 1.0); -- Saturday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (107, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #108: ಶಂಕರ ದೇವನ ಡಮರುಗ ನುಡಿಯಿತು Shankara Devana Damaruga
+-- Primary: Shiva
+-- Reasoning: Shiva in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (108, 2, 'migration', 1.0); -- Shiva
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (108, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (108, 147, 'migration', 1.0); -- Monday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (108, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #109: ರಾಧೆ ರಾಧೆ ರಾಧೆ ರಾಧೆ ರಾಧೆ ಗೋವಿಂದಾ Raadhe Raadhe govinda
+-- Primary: Krishna
+-- Reasoning: Krishna in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (109, 7, 'migration', 1.0); -- Krishna
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (109, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (109, 149, 'migration', 1.0); -- Wednesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (109, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #110: ಬರಿಮೋಹದಿ ಬಳಲಿತು ಜೀವ Bari mohadi balalitu jeeva
+-- Primary: Vishnu
+-- Reasoning: Vishnu in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (110, 3, 'migration', 1.0); -- Vishnu
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (110, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (110, 152, 'migration', 1.0); -- Saturday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (110, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #111: ರಾಮ ಜಯತು ಶ್ರೀ ರಾಮ ಸುನಾಮ Rama jayatu Shree rama sunaama
+-- Primary: Rama
+-- Reasoning: Rama in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (111, 8, 'migration', 1.0); -- Rama
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (111, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (111, 152, 'migration', 1.0); -- Saturday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (111, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #112: ರಾಮ ಪಾವನ ನಾಮ ಇನಕುಲ Rama paavana naama inakula
+-- Primary: Rama
+-- Reasoning: Rama in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (112, 8, 'migration', 1.0); -- Rama
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (112, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (112, 152, 'migration', 1.0); -- Saturday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (112, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #113: ಆಂಜನೇಯನಿಗೆ ವಂದನೆ ವೀರಾಂಜನೇಯನಿಗೆ ವಂದನೆ Anjaneyanige vandane
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (113, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (113, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (113, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (113, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #114: ಗಜವದನಾ ಬೇಡುವೆ  ಗೌರಿತನಯ Gajavadanaa beduve
+-- Primary: Ganesha
+-- Reasoning: Ganesha in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (114, 5, 'migration', 1.0); -- Ganesha
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (114, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (114, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (114, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #115: ಎಂಥ ಅಂದ ಎಂಥ ಚೆಂದ ಶಾರದಮ್ಮ Entha anda entha chenda sharadamma
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಎಂಥ ಅಂದ ಎಂಥ ಚೆಂದ ಶಾರದಮ್ಮ Entha anda entha chenda s", subtitle="ಶಾರದಾ ಸ್ತುತಿ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (115, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (115, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #116: ಇಲ್ಲೇ ಸುಕ್ಷೇತ್ರ ಕಾಣಿರೋ Ille sukshetra kaaniro
+-- Primary: Guru
+-- Reasoning: Guru-focused (not deity)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (116, 13, 'migration', 1.0); -- Gurustuti
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (116, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (116, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #117: ಆಂಜನೇಯ ನಿನ್ನ ದರ್ಶನ ನೀಡಲಾರೆಯಾ Anjaneya ninna darshana
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (117, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (117, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (117, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (117, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #118: ದೇವರಾಜ ಸೇವ್ಯಮಾನ Devaraja sevyamaana
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ದೇವರಾಜ ಸೇವ್ಯಮಾನ Devaraja sevyamaana", subtitle="ಕಾಲಭೈರವಾಷ್ಟಕ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (118, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (118, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #119: ಚೆಲ್ಲಿದರು ಮಲ್ಲಿಗೆಯಾ Chellidaru malligeyaa
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಚೆಲ್ಲಿದರು ಮಲ್ಲಿಗೆಯಾ Chellidaru malligeyaa", subtitle="ಜಾನಪದ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (119, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (119, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #120: ತಿಂಗಳು ಮುಳುಗಿದವೋ Tingalu mulugidavo
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ತಿಂಗಳು ಮುಳುಗಿದವೋ Tingalu mulugidavo", subtitle="ಅಯ್ಯಪ್ಪ ಭಕ್ತಿಗೀತೆ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (120, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (120, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #121: ನಾಳೆ ಎಂಬನ ಮನೆಹಾಳು  Naale embana mane haalu
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ನಾಳೆ ಎಂಬನ ಮನೆಹಾಳು  Naale embana mane haalu", subtitle="ತತ್ವಪದ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (121, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (121, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #122: ಹಿಮಗಿರಿ ತನಯೆ ಹೇಮಲತೆ Himagiri tanaye hemalathe
+-- Primary: Devi
+-- Reasoning: Devi in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (122, 4, 'migration', 1.0); -- Devi
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (122, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (122, 151, 'migration', 1.0); -- Friday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (122, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #123: ಎನ್ನ ಕಂದಾ ಹಳ್ಳಿಯ ಹನುಮ enna kandaa halli hanuma
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (123, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (123, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (123, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (123, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #124: ಒಂದೇ ನಾಮವು ಸಾಲದೇ ಶ್ರೀಹರಿಯೆಂಬ onde naamavu saalade
+-- Primary: Vishnu
+-- Reasoning: Vishnu in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (124, 3, 'migration', 1.0); -- Vishnu
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (124, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (124, 152, 'migration', 1.0); -- Saturday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (124, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #125: ಹುಡುಗಾಟ ಆಡಬೇಡಿರೋ  ಭಜನೆಯಲ್ಲಿ Hudugaata Adabediro
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಹುಡುಗಾಟ ಆಡಬೇಡಿರೋ  ಭಜನೆಯಲ್ಲಿ Hudugaata Adabediro", subtitle="ಭಕ್ತಿಗೀತೆ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (125, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (125, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #126: ಕೇಳಬೇಕು ಕೇಳಬೇಕು Kelabeku kelabeku
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಕೇಳಬೇಕು ಕೇಳಬೇಕು Kelabeku kelabeku", subtitle="ತತ್ವಪದ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (126, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (126, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #127: ಹಿಗ್ಗುವೆ ಯಾಕೋ ಈ ದೇಹಕ್ಕೆ Higguve yaako ee Dehake
+-- Primary: Philosophical/Vairagya
+-- Reasoning: Philosophical content (Tatva pada)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (127, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (127, 19, 'migration', 1.0); -- Tatva pada
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (127, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #128: ವಾಣಿ ಪಾಣಿ ಮಾಣಿಮೂರ ಕಟ್ಟಿದವನು Vani paani maani mura kattidavanu
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ವಾಣಿ ಪಾಣಿ ಮಾಣಿಮೂರ ಕಟ್ಟಿದವನು Vani paani maani mura ", subtitle="ತತ್ವಪದ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (128, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (128, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #129: ರಂಗಾನಭಜಿಸೋ  Rangana Bhajiso
+-- Primary: Vishnu
+-- Reasoning: Vishnu in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (129, 3, 'migration', 1.0); -- Vishnu
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (129, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (129, 152, 'migration', 1.0); -- Saturday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (129, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #130: ಎನಗೂ ಆಣೆರಂಗಾ ನಿನಗೂ ಆಣೆ enagu aane ranga ninagu aane
+-- Primary: Vishnu
+-- Reasoning: Vishnu in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (130, 3, 'migration', 1.0); -- Vishnu
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (130, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (130, 152, 'migration', 1.0); -- Saturday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (130, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #131: ಜ್ಞಾನಪೂರ್ಣಂ | ಜಗಂಜ್ಯೋತಿ Gnana purnam jagamjyoti
+-- Primary: Philosophical/Vairagya
+-- Reasoning: Philosophical content (Tatva pada)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (131, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (131, 19, 'migration', 1.0); -- Tatva pada
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (131, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #132: ಶಿವನಾಮವ ಸ್ಮರಿಸಲೋ ಮನವೇ Shiva naamava smarisalo manave
+-- Primary: Shiva
+-- Reasoning: Shiva in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (132, 2, 'migration', 1.0); -- Shiva
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (132, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (132, 147, 'migration', 1.0); -- Monday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (132, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #133: ಗೋವಿಂದಾ ನಿನ್ನ ನಾಮವೆ ಚೆಂದ Govinda ninna naamave chenda
+-- Primary: Krishna
+-- Reasoning: Krishna in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (133, 7, 'migration', 1.0); -- Krishna
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (133, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (133, 149, 'migration', 1.0); -- Wednesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (133, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #134: ರಾಮ ರಾಮ ರಾಮ ರಾಮ ಎನ್ನಿರಿ Rama rama rama enniri
+-- Primary: Rama
+-- Reasoning: Rama in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (134, 8, 'migration', 1.0); -- Rama
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (134, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (134, 152, 'migration', 1.0); -- Saturday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (134, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #135: ಪವಮಾನ ಪವಮಾನ ಜಗದಾಪ್ರಾಣ Pavamana Pavamana Jagadaa praana
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (135, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (135, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (135, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (135, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #136: ರಾಮನಾಮವನು | ಸಾರಿಹೇಳುವ | ವೀರಹನುಮನ ನೆನೆ ನೆನೆ Rama naamavanu saari heluva
+-- Primary: Bindu Madhava
+-- Reasoning: Bindu Madhava (subtitle/lyrics)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (136, 27, 'migration', 1.0); -- Bindu Madhava
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (136, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (136, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (136, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #137: ಅಕ್ಕರೆಯಿಲ್ಲದ ಸಕ್ಕರೆತುಪ್ಪ | ತಿನ್ನಬೇಡಿರೋ Akkareyillada sakkare tuppa tinnabediro
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಅಕ್ಕರೆಯಿಲ್ಲದ ಸಕ್ಕರೆತುಪ್ಪ | ತಿನ್ನಬೇಡಿರೋ Akkareyilla", subtitle="ಸದ್ಗುರು ಬಿಂಧುಮಾಧವರ ಕೃತಿ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (137, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (137, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #138: ಚೆನ್ನಬಸವ ಸನ್ನುತಾಂಗ Chenna basava sannutaanga
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಚೆನ್ನಬಸವ ಸನ್ನುತಾಂಗ Chenna basava sannutaanga", subtitle="ಚೆನ್ನಬಸವ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (138, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (138, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #139: ಪಾವನ ರಾಮ ಪತಿತ ಪಾವನ ರಾಮ pavana rama
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (139, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (139, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (139, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (139, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #140: ಕರುಣಿಸೋ ರಂಗ Karuniso Ranga
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಕರುಣಿಸೋ ರಂಗ Karuniso Ranga", subtitle="ಪ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (140, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (140, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #141: ಬಿಂದು ಮಾಧವ ನಮ್ಮ ಕಾಯುವ Bindu Madhava namma kayuva
+-- Primary: Bindu Madhava
+-- Reasoning: Bindu Madhava (subtitle/lyrics)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (141, 27, 'migration', 1.0); -- Bindu Madhava
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (141, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (141, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (141, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #142: ರಾಮ ಪಾವನ ನಾಮ  ಇನಕುಲ Rama Pavana naama
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (142, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (142, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (142, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (142, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #143: ಹರಿವರಾಸನಂ ಸ್ವಾಮಿ ವಿಶ್ವಮೋಹನಂ Harivarasanam swami
+-- Primary: Vishnu
+-- Reasoning: Vishnu in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (143, 3, 'migration', 1.0); -- Vishnu
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (143, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (143, 152, 'migration', 1.0); -- Saturday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (143, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #144: ದೇವ ಬಂದ ನಮ್ಮ ಸ್ವಾಮಿ ಬಂದನೊ Deva banda namma svami bandano
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ದೇವ ಬಂದ ನಮ್ಮ ಸ್ವಾಮಿ ಬಂದನೊ Deva banda namma svami b", subtitle="pa"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (144, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (144, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #145: ಬಿಂದು ಮಾಧವ ಪಾಹಿಮಾಂ  Bindu madhava paahimam
+-- Primary: Bindu Madhava
+-- Reasoning: Bindu Madhava (subtitle/lyrics)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (145, 27, 'migration', 1.0); -- Bindu Madhava
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (145, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (145, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (145, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #146: ಬೆಳಗಿನ ಜಾವ ನನಗೆ ಒಂದು ಕನಸು ಕಂಡಿತ್ತು  Belagina jaava nanage ondu
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಬೆಳಗಿನ ಜಾವ ನನಗೆ ಒಂದು ಕನಸು ಕಂಡಿತ್ತು  Belagina jaava", subtitle="ಪ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (146, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (146, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #147: ನಡಿ ನಡಿ ನಮ್ಮ ಮನೆಗೆ ಶ್ರೀಮದಾಂಜನೇಯ Nadi nadi namma manege
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (147, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (147, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (147, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (147, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #148: ಹುಚ್ಚು ಹಿಡಿಯಲಿ ಎನಗೆ ಹುಚ್ಚು ಹಿಡಿಯಲಿ  Huchchu hidiyali
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಹುಚ್ಚು ಹಿಡಿಯಲಿ ಎನಗೆ ಹುಚ್ಚು ಹಿಡಿಯಲಿ  Huchchu hidiya", subtitle="ಪ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (148, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (148, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #149: ಆಂಜನೇಯ ವಂದಿಪೆನಯ್ಯ Anjaneya vandipenayya
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (149, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (149, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (149, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (149, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #150: ಶ್ರೀರಾಮನೆಂಬೋ ನಾಮವ ನೆನೆದರೆ Shree ramanembo namava nenedare
+-- Primary: Rama
+-- Reasoning: Rama in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (150, 8, 'migration', 1.0); -- Rama
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (150, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (150, 152, 'migration', 1.0); -- Saturday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (150, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #151: ಇನ್ನಷ್ಟು ಬೇಕೆನ್ನ ಹೃದಯಕ್ಕೆ ರಾಮ Innashtu bekenna
+-- Primary: Rama
+-- Reasoning: Rama in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (151, 8, 'migration', 1.0); -- Rama
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (151, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (151, 152, 'migration', 1.0); -- Saturday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (151, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #152: ನಮೋ ನಮೋ ಗುರು ನಮೋ ನಮೋ Namo namo guru
+-- Primary: Guru
+-- Reasoning: Guru-focused (not deity)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (152, 13, 'migration', 1.0); -- Gurustuti
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (152, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (152, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #153: ಜಯ ಜಯ ಮಾರುತಿ ವಿಜಯ ಮಾರುತಿ Jaya jaya maruti Vijaya maruti
+-- Primary: Bindu Madhava
+-- Reasoning: Bindu Madhava (subtitle/lyrics)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (153, 27, 'migration', 1.0); -- Bindu Madhava
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (153, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (153, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (153, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #154: ಕದಂಬ ಗಿರಿಯ ಕದಳೀ ವನದೊಳು  Kadamba giriya kadali vanadolu
+-- Primary: Devi
+-- Reasoning: Devi in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (154, 4, 'migration', 1.0); -- Devi
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (154, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (154, 151, 'migration', 1.0); -- Friday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (154, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #155: ನೀನೆ ಅನಾಥಬಂಧು ಕಾರುಣ್ಯ ಸಿಂಧು Neene Anatha bandhu
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ನೀನೆ ಅನಾಥಬಂಧು ಕಾರುಣ್ಯ ಸಿಂಧು Neene Anatha bandhu", subtitle=""
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (155, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (155, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #156: ಎಷ್ಟು ಸಾಹಸವಂತ ನೀನೇ ಬಲವಂತ Eshtu Sahasavanta
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಎಷ್ಟು ಸಾಹಸವಂತ ನೀನೇ ಬಲವಂತ Eshtu Sahasavanta", subtitle=""
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (156, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (156, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #157: ಜ್ಞಾನರಾಶಿ ಗೂಡು ಉಂಟು ಇವನ ಒಳಗಡೆ
+-- Primary: Bindu Madhava
+-- Reasoning: Bindu Madhava (subtitle/lyrics)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (157, 27, 'migration', 1.0); -- Bindu Madhava
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (157, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (157, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (157, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #158: Raasa Kreede
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="Raasa Kreede", subtitle="ನಾರಾಯಣೀಯಮ್"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (158, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (158, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #159: ಏಳು ಗುರು ಮಾಧವನೆ ಏಳು ಲಕ್ಷ್ಮೀ ಕುವರ
+-- Primary: Bindu Madhava
+-- Reasoning: Bindu Madhava (subtitle/lyrics)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (159, 27, 'migration', 1.0); -- Bindu Madhava
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (159, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (159, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (159, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #160: ಧರೆಗೆ ಇಳಿದು ಬಂದ ಮಾರುತಿ
+-- Primary: Bindu Madhava
+-- Reasoning: Bindu Madhava (subtitle/lyrics)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (160, 27, 'migration', 1.0); -- Bindu Madhava
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (160, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (160, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (160, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #161: ದೇವಿ ದೇವಿ ಜಗದಾಂಬ
+-- Primary: Devi
+-- Reasoning: Devi in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (161, 4, 'migration', 1.0); -- Devi
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (161, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (161, 151, 'migration', 1.0); -- Friday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (161, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #162: ಮಹಾಕಪಿಂ ಮಹಾರವಂ
+-- Primary: Bindu Madhava
+-- Reasoning: Bindu Madhava (subtitle/lyrics)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (162, 27, 'migration', 1.0); -- Bindu Madhava
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (162, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (162, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (162, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #163: ವಂದನಂ ಗುರು ವೀರನೇ
+-- Primary: Guru
+-- Reasoning: Guru-focused (not deity)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (163, 13, 'migration', 1.0); -- Gurustuti
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (163, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (163, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #164: ಸಂಕಟ ಹರನ್ಯಾವ ನಮ್ಮ
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಸಂಕಟ ಹರನ್ಯಾವ ನಮ್ಮ", subtitle="ತತ್ವ ಪದ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (164, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (164, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #165: ಜಯದೇವ ಜಯದೇವ ಜಯ ದೀನ ಶರಣ್ಯ,
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಜಯದೇವ ಜಯದೇವ ಜಯ ದೀನ ಶರಣ್ಯ,", subtitle="ಶ್ರೀ ಶ್ರೀ ವಿಧುಶೇಖರ ಭಾರತಿ ಗುರುಗಳ ಸ್ತುತಿ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (165, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (165, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #166: ವೀರ ಹನುಮ ಬಹು ಪರಾಕ್ರಮ
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (166, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (166, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (166, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (166, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #167: ಆಕಾಶ ಭೂಮಿಗಳ ಒಂದು ಮಾಡಿ ನಿಂತ
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (167, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (167, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (167, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (167, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #168: ಅಮ್ಮ ಬಾರಮ್ಮ ನಮ್ಮ ತಾಯಿ ಬಾರಮ್ಮ
+-- Primary: Devi
+-- Reasoning: Devi in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (168, 4, 'migration', 1.0); -- Devi
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (168, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (168, 151, 'migration', 1.0); -- Friday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (168, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #169: ಗುರುಪಾದದೊಳು ಮನ ಬೆರೆಯಲಿಲ್ಲಾ
+-- Primary: Guru
+-- Reasoning: Guru-focused (not deity)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (169, 13, 'migration', 1.0); -- Gurustuti
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (169, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (169, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #170: ತಾನೆನ್ನಬಹುದೇ ಈ ದೇಹವ
+-- Primary: Philosophical/Vairagya
+-- Reasoning: Philosophical content (Tatva pada)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (170, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (170, 19, 'migration', 1.0); -- Tatva pada
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (170, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #171: ಭಜಿಸು ಬಿಡದೆ ಗುರುನಾಥನ
+-- Primary: Guru
+-- Reasoning: Guru-focused (not deity)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (171, 13, 'migration', 1.0); -- Gurustuti
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (171, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (171, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #172: ಜ್ಞಾನವೊಂದಿಲ್ಲದಿನ್ನಿರ್ದೊಡೇನು
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಜ್ಞಾನವೊಂದಿಲ್ಲದಿನ್ನಿರ್ದೊಡೇನು", subtitle="ತತ್ವಪದ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (172, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (172, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #173: ಸುಮ್ಮನೆ ಬ್ರಹ್ಮವಾಗುವನೆ
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಸುಮ್ಮನೆ ಬ್ರಹ್ಮವಾಗುವನೆ", subtitle="ತತ್ವ ಪದ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (173, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (173, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #174: ಪೋಗಿಬಾಳುವ ಬನ್ನಿರೋ ನಮ್ಮೂರೊಳು
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಪೋಗಿಬಾಳುವ ಬನ್ನಿರೋ ನಮ್ಮೂರೊಳು", subtitle="ತತ್ವ ಪದ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (174, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (174, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #175: ಶಿವರಾತ್ರಿ ಸಾಂಗವಾಯ್ತು
+-- Primary: Shiva
+-- Reasoning: Shiva in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (175, 2, 'migration', 1.0); -- Shiva
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (175, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (175, 147, 'migration', 1.0); -- Monday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (175, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #176: ಗಳಿಸಿದ್ದ ಯಾರೇನೂ ಒಯ್ಯೋಲ್ಲ ಮನವೇ
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಗಳಿಸಿದ್ದ ಯಾರೇನೂ ಒಯ್ಯೋಲ್ಲ ಮನವೇ", subtitle="ತತ್ವಪದ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (176, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (176, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #177: ಮಂಗಳಂ ಗುರುಶಂಕರ
+-- Primary: Shiva
+-- Reasoning: Shiva in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (177, 2, 'migration', 1.0); -- Shiva
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (177, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (177, 147, 'migration', 1.0); -- Monday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (177, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #178: ಗುರುವೇ ಗತಿಯೆನ್ನು ಮನವೇ
+-- Primary: Guru
+-- Reasoning: Guru-focused (not deity)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (178, 13, 'migration', 1.0); -- Gurustuti
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (178, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (178, 18, 'migration', 1.0); -- Kannada
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (178, 19, 'migration', 1.0); -- Tatva pada
+
+-- Bhajan #179: ಗುರುದೇವ ನೀನೋರ್ವ ನಿಜದೇವನೈ
+-- Primary: Guru
+-- Reasoning: Guru-focused (not deity)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (179, 13, 'migration', 1.0); -- Gurustuti
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (179, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (179, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #180: ಮಾತೆ ಮಂಗಳ ದೇವತೆ
+-- Primary: Devi
+-- Reasoning: Devi in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (180, 4, 'migration', 1.0); -- Devi
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (180, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (180, 151, 'migration', 1.0); -- Friday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (180, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #181: ಎಂತು ಮುಕ್ತನಾಗಬೇಕಣ್ಣ
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಎಂತು ಮುಕ್ತನಾಗಬೇಕಣ್ಣ", subtitle="ತತ್ವಪದ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (181, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (181, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #182: ಎಲ್ಲಾ ಪರಬ್ರಹ್ಮವೆನ್ನಬೇಕು
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಎಲ್ಲಾ ಪರಬ್ರಹ್ಮವೆನ್ನಬೇಕು", subtitle="ತತ್ವಪದ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (182, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (182, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #183: ಇವನಾರೊ ನೋಡು ಬಾರಮ್ಮ
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಇವನಾರೊ ನೋಡು ಬಾರಮ್ಮ", subtitle="ತತ್ವಪದ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (183, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (183, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #184: ಗುರು ಪಾದದೊಳು ಮನವಿಂಗಿ
+-- Primary: Guru
+-- Reasoning: Guru-focused (not deity)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (184, 13, 'migration', 1.0); -- Gurustuti
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (184, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (184, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #185: ಎಲ್ಲಾ ರೂಪವು ತಾನಂತೆ
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ಎಲ್ಲಾ ರೂಪವು ತಾನಂತೆ", subtitle="ತತ್ವಪದ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (185, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (185, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #193: ನೋಡಬಾರದೆ ಬ್ರಹ್ಮವ ನೋಡಬಾರದೆ
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ನೋಡಬಾರದೆ ಬ್ರಹ್ಮವ ನೋಡಬಾರದೆ", subtitle="ತತ್ವಪದ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (193, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (193, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #194: ಹರ ಹರ ಶಂಕರ ಜಯ ಜಯ ಶಂಕರ
+-- Primary: Shiva
+-- Reasoning: Shiva in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (194, 2, 'migration', 1.0); -- Shiva
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (194, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (194, 147, 'migration', 1.0); -- Monday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (194, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #195: ಜಯಬಿಂದು ಜಯಬಿಂದು ಜಯ ಪಾವನ ಬಿಂದು|
+-- Primary: Bindu Madhava
+-- Reasoning: Bindu Madhava (subtitle/lyrics)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (195, 27, 'migration', 1.0); -- Bindu Madhava
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (195, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (195, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (195, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #196: ಶಂಭೋ ಸ್ವಯಂಭುಸಂಭವ ನಂಬಿದೆ
+-- Primary: Shiva
+-- Reasoning: Shiva in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (196, 2, 'migration', 1.0); -- Shiva
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (196, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (196, 147, 'migration', 1.0); -- Monday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (196, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #197: ಏನು ಮರುಳನಾದೆ   ಶಿವ ಶಿವ
+-- Primary: Bindu Madhava
+-- Reasoning: Bindu Madhava (subtitle/lyrics)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (197, 27, 'migration', 1.0); -- Bindu Madhava
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (197, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (197, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (197, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #198: ಹನುಮನ ಪ್ರಾಣ ಪ್ರಭು ರಘು ರಾಮ
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (198, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (198, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (198, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (198, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #199: ನಿನ್ನಂತೆ ನಾನಾಗಲಾರೆ ಏನು ಮಾಡಲಿ ಹನುಮ |
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (199, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (199, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (199, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (199, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #200: ವಂದೇ ಸಂತಂ ಶ್ರೀ ಹನುಮಂತಮ್
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (200, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (200, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (200, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (200, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #201: ಭಜರೇ ಹನುಮಂತಂ ಮಾನಸ
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (201, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (201, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (201, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (201, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #202: ವಂದೇ ಸಂತ ಹನುಮಂತಂ
+-- Primary: Hanuman
+-- Reasoning: Hanuman in title/subtitle
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (202, 6, 'migration', 1.0); -- Hanuman
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (202, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (202, 148, 'migration', 1.0); -- Tuesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (202, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #203: ತೋಟಕಾಷ್ಟಕಂ
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="ತೋಟಕಾಷ್ಟಕಂ", subtitle="ತೋಟಕಾಷ್ಟಕಂ"
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (203, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (203, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #204: ಗಗನದಿಂದ ದರಣಿಗಿಳಿದ ಬಿಂದುಮಾಧವ
+-- Primary: Bindu Madhava
+-- Reasoning: Bindu Madhava (subtitle/lyrics)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (204, 27, 'migration', 1.0); -- Bindu Madhava
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (204, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (204, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (204, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #205: ಸದ್ಗುರು ಶ್ರೀ ಶ್ರೀ ಬಿಂದುಮಾಧವ ಅಷ್ಟೋತ್ತರ  Shree Bindu Madhava Ashtothara
+-- Primary: Bindu Madhava
+-- Reasoning: Bindu Madhava (subtitle/lyrics)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (205, 27, 'migration', 1.0); -- Bindu Madhava
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (205, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (205, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (205, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #206: Laali laali ಲಾಲಿ ಲಾಲಿ
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="Laali laali ಲಾಲಿ ಲಾಲಿ", subtitle=""
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (206, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (206, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #208: ಗುರುವೇ ಗತಿ ಎನ್ನುವ ಮನವೇ Guruve gati ennu manave
+-- Primary: Guru
+-- Reasoning: Guru-focused (not deity)
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (208, 13, 'migration', 1.0); -- Gurustuti
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (208, 150, 'migration', 1.0); -- Thursday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (208, 18, 'migration', 1.0); -- Kannada
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (208, 19, 'migration', 1.0); -- Tatva pada
+
+-- Bhajan #270: Om Namah Shivaya
+-- Primary: Shiva
+-- Reasoning: Shiva in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (270, 2, 'migration', 1.0); -- Shiva
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (270, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (270, 147, 'migration', 1.0); -- Monday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (270, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #271: Gayatri Mantra
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="Gayatri Mantra", subtitle=""
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (271, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (271, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #272: Hare Krishna Mahamantra
+-- Primary: Krishna
+-- Reasoning: Krishna in title
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (272, 7, 'migration', 1.0); -- Krishna
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (272, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (272, 149, 'migration', 1.0); -- Wednesday
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (272, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #273: Om Namo Narayanaya
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="Om Namo Narayanaya", subtitle=""
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (273, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (273, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #274: Mahamrityunjaya Mantra
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="Mahamrityunjaya Mantra", subtitle=""
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (274, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (274, 18, 'migration', 1.0); -- Kannada
+
+-- Bhajan #275: Test Bhajan for Debug
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="Test Bhajan for Debug", subtitle=""
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (275, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (275, 20, 'migration', 1.0); -- Sanskrit
+
+-- Bhajan #276: Test With MP3 Upload
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="Test With MP3 Upload", subtitle=""
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (276, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (276, 20, 'migration', 1.0); -- Sanskrit
+
+-- Bhajan #277: Permission Test Bhajan
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="Permission Test Bhajan", subtitle=""
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (277, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (277, 20, 'migration', 1.0); -- Sanskrit
+
+-- Bhajan #278: MP3 Final Test
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="MP3 Final Test", subtitle=""
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (278, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (278, 20, 'migration', 1.0); -- Sanskrit
+
+-- Bhajan #279: Current Test 202018
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="Current Test 202018", subtitle=""
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (279, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (279, 20, 'migration', 1.0); -- Sanskrit
+
+-- Bhajan #280: Entha Manusha Janma
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="Entha Manusha Janma", subtitle=""
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (280, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (280, 20, 'migration', 1.0); -- Sanskrit
+
+-- Bhajan #281: Entha
+-- Primary: Unknown
+-- Reasoning: MANUAL REVIEW: title="Entha", subtitle=""
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (281, 9, 'migration', 1.0); -- Bhajan
+INSERT OR IGNORE INTO bhajan_tags (bhajan_id, tag_id, source, confidence) VALUES (281, 20, 'migration', 1.0); -- Sanskrit
+
+COMMIT;

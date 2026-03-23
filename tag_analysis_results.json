@@ -1,0 +1,3724 @@
+[
+  {
+    "id": 1,
+    "title": "ಹನುಮಾನ್ ಚಾಲೀಸಾ Hanuman Chalisa",
+    "tags": [
+      2,
+      3,
+      6,
+      8,
+      9,
+      17,
+      18,
+      19,
+      22,
+      23
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಂಕರ')",
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Hanuman (found 'hanuman')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Theme: Mangala (found 'ಮಂಗಳ')",
+      "Theme: Tatva pada (found 'ಜ್ಞಾನ')",
+      "Composer: Daasapada (found 'ದಾಸ')"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Anjaneya Dandakam ಆಂಜನೇಯ ದಂಡಕಂ",
+    "tags": [
+      2,
+      4,
+      6,
+      8,
+      14,
+      17,
+      18,
+      21,
+      22,
+      146
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'rudra')",
+      "Deity: Devi (found 'ದೇವಿ')",
+      "Deity: Hanuman (found 'hanuman')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Deity: Narasimha (found 'ನರಸಿಂಹ')",
+      "Type: Mantra (found 'mantra')",
+      "Theme: Kannada (script detection)",
+      "Theme: Chants (found 'ಓಂ')",
+      "Theme: Namasmarane (found 'nama')",
+      "Composer: Daasapada (found 'ದಾಸ')"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "ವಂದಿಪೆ ನಿನಗೆ ಗಣನಾಥಾ Vandipe ninage Gananaatha",
+    "tags": [
+      3,
+      5,
+      10,
+      17,
+      18,
+      23
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Ganesha (found 'ಗಣಪತಿ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Mangala (found 'ಮಂಗಳ')",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "ಶಾರದೆ ನಾನಿನ್ನ,  Sharade naa ninna",
+    "tags": [
+      4,
+      10,
+      18
+    ],
+    "reasoning": [
+      "Deity: Devi (found 'ದೇವಿ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "ಬಂದು ನಿಂತಿಹನು ನೋಡಿ, Bandu ninthihanu nodi",
+    "tags": [
+      2,
+      6,
+      7,
+      8,
+      9,
+      18,
+      22,
+      27
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ರುದ್ರ')",
+      "Deity: Hanuman (found 'ಆಂಜನೇಯ')",
+      "Deity: Krishna (found 'ಮಾಧವ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Occasion: Bindu Madhava (found 'ಬಿಂದು ಮಾಧವ')"
+    ]
+  },
+  {
+    "id": 6,
+    "title": "ಗುರುದೇವ ನಿಮ್ಮಯ ಚರಣ, Gurudeva nimmaya charana",
+    "tags": [
+      3,
+      6,
+      10,
+      17,
+      18
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Hanuman (found 'ಮಾರುತಿ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Composer: Daasapada (found 'ದಾಸ')"
+    ]
+  },
+  {
+    "id": 7,
+    "title": "ಲಿಂಗಾಷ್ಟಕ, ಬ್ರಹ್ಮ ಮುರಾರಿ , Lingaashtaka, Brahma murari",
+    "tags": [
+      2,
+      10,
+      18
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Type: Stotra (found 'ashtaka')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 8,
+    "title": "ಶಿವನೇ ಭಯಹರನೇ, Shivane Bhayaharane",
+    "tags": [
+      2,
+      10,
+      18
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'shiva')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 12,
+    "title": "ಶಿವ ಶಿವ ಎಂದರೆ ಭಯವಿಲ್ಲ Shiva Shiva endare",
+    "tags": [
+      2,
+      10,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'shiva')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')"
+    ]
+  },
+  {
+    "id": 13,
+    "title": "ಶಿವ ಶಿವ ಶಿವ ಶಿವಾಯ ನಮ ಓಂ, ಆ ಮನೆ ಈ ಮನೆ  ಎರಡಾದರೇನು aa mane ee mane",
+    "tags": [
+      2,
+      9,
+      18,
+      21
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Chants (found 'ಓಂ')"
+    ]
+  },
+  {
+    "id": 14,
+    "title": "ಭಜನೆ ಮಾಡುವ ಬನ್ನಿರೋ ಸದಾಶಿವನಾ Bhajane maaduva banniro",
+    "tags": [
+      2,
+      6,
+      9,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Hanuman (found 'ಪವನ')",
+      "Type: Bhajan (found 'bhajan')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 15,
+    "title": "ಶಂಭೋ ಜಗದಾನಂದ ಕರಾ ಶಿವ Shambho jagadaananda",
+    "tags": [
+      2,
+      8,
+      10,
+      18,
+      19,
+      21,
+      23
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Chants (found 'ಓಂ')",
+      "Theme: Mangala (found 'ಮಂಗಳ')",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 16,
+    "title": "ಶಂಕರಾ ಚಂದ್ರಶೇಖರಾ  ಗಂಗಾಧರ ಸುಮನೋಹರಾ Shankara chandrashekharaa",
+    "tags": [
+      2,
+      10,
+      18
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 17,
+    "title": "ಮಾತು ಮಾತಿಗೂ ಶಂಕರಾ Maatu maatigu Shankara",
+    "tags": [
+      2,
+      10,
+      18
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 18,
+    "title": "ಗಂಗಾಧರ  ಶಿವ ಗಂಗಾಧರಾ Gangadhara Shiva",
+    "tags": [
+      2,
+      8,
+      10,
+      18,
+      21
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'shiva')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Chants (found 'ಓಂ')"
+    ]
+  },
+  {
+    "id": 19,
+    "title": "ನಟವರ ಗಂಗಾಧರ  ಉಮಾಶಂಕರಾ Natavara Gangadhara",
+    "tags": [
+      2,
+      3,
+      10,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ಜ್ಞಾನ')"
+    ]
+  },
+  {
+    "id": 20,
+    "title": "ಪಾಪಿಯ ಜೀವನ ಪಾವನಗೊಳಿಸುವ ಪರಶಿವ ಲಿಂಗ ನಮೋ Paapiya Jeevana",
+    "tags": [
+      2,
+      10,
+      18
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 21,
+    "title": "ಜಗದೀlಶನಾಳುವಾ ಜಗವೇ ನಾಟಕರಂಗ Jagadeeshanaaluva jagave",
+    "tags": [
+      2,
+      3,
+      10,
+      18
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 22,
+    "title": "ಎಲ್ಲಿರುವೆ ತಂದೆ ಬಾರೋ ಮಾರುತಿ Elliruve Tande baaro",
+    "tags": [
+      3,
+      6,
+      10,
+      17,
+      18
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Hanuman (found 'ಮಾರುತಿ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Composer: Daasapada (found 'ದಾಸ')"
+    ]
+  },
+  {
+    "id": 23,
+    "title": "ಹನುಮ ವೀರಮಲ್ಲ | ಅವನಿಗೆ ಎದುರಾರಿಲ್ಲ Hanuma Veeramalla",
+    "tags": [
+      6,
+      8,
+      10,
+      17,
+      18
+    ],
+    "reasoning": [
+      "Deity: Hanuman (found 'ಮಾರುತಿ')",
+      "Deity: Rama (found 'rama')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Composer: Daasapada (found 'ದಾಸ')"
+    ]
+  },
+  {
+    "id": 24,
+    "title": "ದೇಹಾವೆ ನಾನೆಂಬ | ಮೋಹಾವ ತೋರಿದೆ | ಆಹಾಮಾಯೆ Dehave naanemba",
+    "tags": [
+      2,
+      9,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಂಕರ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 25,
+    "title": "ಎಲ್ಲಾ ರೂಪವು ತಾನಂತೆ | ಶಿವ | ಎಲ್ಲೆಲ್ಲೂ ತುಂಬಿಹನಂತೆ Ellaa rupavu taanante",
+    "tags": [
+      2,
+      10,
+      18
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 26,
+    "title": "ಪಾಪಿಯ ಜೀವನ ಪಾವನಗೊಳಿಸುವ | ಪರಶಿವಲಿಂಗ ನಮೋ Paapiya Jeevana",
+    "tags": [
+      2,
+      8,
+      10,
+      18
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 27,
+    "title": "ಮಂಗಳವಾಗಿದೆ | ಜಯಜಯ ಮಂಗಳವಾಗಿದೆ Mangalavaagide",
+    "tags": [
+      9,
+      18,
+      23
+    ],
+    "reasoning": [
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Mangala (found 'mangala')"
+    ]
+  },
+  {
+    "id": 28,
+    "title": "‘ಓಂ’ ಮಂಗಳo ಓಂಕಾರ ಮಂಗಳo Om mangalam Omkaara Mangalam",
+    "tags": [
+      2,
+      8,
+      13,
+      18,
+      21,
+      23
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Rama (found 'ರಘು')",
+      "Type: Gurustuti (found 'ಗುರು')",
+      "Theme: Kannada (script detection)",
+      "Theme: Chants (found 'om')",
+      "Theme: Mangala (found 'mangala')"
+    ]
+  },
+  {
+    "id": 29,
+    "title": "ಇವಳೇ ವೀಣಾಪಾಣಿ Ivale Veenapaani",
+    "tags": [
+      2,
+      10,
+      18,
+      23
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಂಕರ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Mangala (found 'ಮಂಗಳ')"
+    ]
+  },
+  {
+    "id": 30,
+    "title": "ವಾರೀಜಾಕ್ಷಿ ನೀ ಒಲವಿನೊಯ್ಯಾರಿ Vaarijaakshi nee",
+    "tags": [
+      2,
+      4,
+      7,
+      10,
+      18
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಂಕರ')",
+      "Deity: Devi (found 'ದೇವಿ')",
+      "Deity: Krishna (found 'ಗೋವಿಂದ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 31,
+    "title": "ರಾಜ ರಾಜೇಶ್ವರಿಯೆ ಪಾಲಿಸು  Raja Rajeshwariye Paalisu",
+    "tags": [
+      4,
+      10,
+      18
+    ],
+    "reasoning": [
+      "Deity: Devi (found 'ದೇವಿ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 32,
+    "title": "ಶೃಂಗೇರಿ ಮಾತೆ | ಸದಾ ಪೂಜಿತೆ Shringeri maate sadaa poojithe",
+    "tags": [
+      2,
+      4,
+      10,
+      18
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಂಕರ')",
+      "Deity: Devi (found 'ಶಾರದೆ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 33,
+    "title": "ಸಣ್ಣ ಹುಡುಗಿಯೆ ನಿನ್ನ  Sanna Hudugiye ninna",
+    "tags": [
+      2,
+      3,
+      4,
+      9,
+      18
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Vishnu (found 'ನಾರಾಯಣ')",
+      "Deity: Devi (found 'ದೇವಿ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 34,
+    "title": "ಅಂಬಾ ನೀ ಜಾಣೆ  ನಂಬಿದೆನು ಕಾಣೆ Ambaa nee Jaane",
+    "tags": [
+      4,
+      10,
+      18
+    ],
+    "reasoning": [
+      "Deity: Devi (found 'ದೇವಿ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 35,
+    "title": "ಭಂಗವೇಕೆ ಪಡುವೆ ನೀ ನಿಸ್ಸಂಗಿಯಾಗು ಮನವೇ Bhangaveke Paduve",
+    "tags": [
+      2,
+      9,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಂಕರ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 36,
+    "title": "ಕೋಡಗನ ಕೋಳಿ ನುಂಗಿತ್ತಾ ನೋಡವ್ವ ತಂಗಿ Kodagana koli nungitha",
+    "tags": [
+      7,
+      9,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Krishna (found 'ಗೋವಿಂದ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 37,
+    "title": "ಭಾರತಿದೇವಿ ತಾಯೆ ನೀ ಕಾಯೆ Bharathi Devi taaye",
+    "tags": [
+      4,
+      10,
+      15,
+      17,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Devi (found 'devi')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ತತ್ವ')",
+      "Composer: Purandara Dasa (found 'ಪುರಂದರ')",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 38,
+    "title": "ಹನುಮಾ ನಿನ್ನನು ನೆನೆಸಿದೆನು  Hanuma ninnanu nenesidenu",
+    "tags": [
+      7,
+      9,
+      16,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Krishna (found 'ಮಾಧವ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ಜ್ಞಾನ')",
+      "Composer: Belaguru (found 'ಬೆಲಗೂರು')"
+    ]
+  },
+  {
+    "id": 39,
+    "title": "ಹನುಮ ವೀರಮಲ್ಲ  ಅವನಿಗೆ ಎದುರಾರಿಲ್ಲ Hanuma Veeramalla",
+    "tags": [
+      6,
+      8,
+      10,
+      17,
+      18
+    ],
+    "reasoning": [
+      "Deity: Hanuman (found 'ಮಾರುತಿ')",
+      "Deity: Rama (found 'rama')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Composer: Daasapada (found 'ದಾಸ')"
+    ]
+  },
+  {
+    "id": 40,
+    "title": "ಬಂದು ಕೂತಿಹಳು ನೋಡಿ  ಗಾಯತ್ರಿ  bandu kutihalu nodi",
+    "tags": [
+      4,
+      9,
+      18
+    ],
+    "reasoning": [
+      "Deity: Devi (found 'ದೇವಿ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 41,
+    "title": "ಅಯ್ಯಗಿರಿ ನಂದಿನಿ  ನಂದಿತಮೇದಿನಿ Aigiri Nandini",
+    "tags": [
+      2,
+      3,
+      4,
+      8,
+      9,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Vishnu (found 'ವಿಷ್ಣು')",
+      "Deity: Devi (found 'ದೇವಿ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')"
+    ]
+  },
+  {
+    "id": 42,
+    "title": "ಯಾಕೆ ಬಡಿದಾಡ್ತಿ ತಮ್ಮ  ಮಯಮೆಚ್ಚಿ  ಸಂಸಾರಮೆಚ್ಚಿ Yaake Badidaadthi tamma",
+    "tags": [
+      9,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 43,
+    "title": "ಆಂಜನೇಯ ಹನುಮಂತ  ಶ್ರೀರಾಮ ಚಂದ್ರರ ಸದ್ಭಕ್ತ Anjaneya Hanumantha",
+    "tags": [
+      3,
+      6,
+      8,
+      10,
+      17,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Hanuman (found 'hanuman')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Composer: Daasapada (found 'ದಾಸ')"
+    ]
+  },
+  {
+    "id": 44,
+    "title": "ಕೋಲು ಕೋಲೆನ್ನಿರೇ ಸದ್ಗುರುವಿನ ಕೀಲು ಮೇಲೆನ್ನಿರೇ Kolu Kolennire",
+    "tags": [
+      2,
+      3,
+      4,
+      9,
+      18,
+      19,
+      21
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Devi (found 'ದೇವಿ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Chants (found 'ಓಂ')",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 45,
+    "title": "ಭಾಗ್ಯದ ಲಕ್ಷ್ಮಿ ಬಾರಮ್ಮಾ Bhagyada lakshmi",
+    "tags": [
+      3,
+      4,
+      9,
+      15,
+      17,
+      18
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Devi (found 'ದೇವಿ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Composer: Purandara Dasa (found 'ಪುರಂದರ')",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 46,
+    "title": "ಕಾಳಿಕೆಯು ಎನಿಸುತಲಿ ಕೀಳು ಮಧುವೆಂಬುವನ Kalikeyu enisutali",
+    "tags": [
+      3,
+      4,
+      8,
+      13,
+      18,
+      23
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Devi (found 'ದೇವಿ')",
+      "Deity: Rama (found 'ರಘು')",
+      "Type: Gurustuti (found 'ಗುರು')",
+      "Theme: Kannada (script detection)",
+      "Theme: Mangala (found 'ಮಂಗಳ')"
+    ]
+  },
+  {
+    "id": 47,
+    "title": "ಗಣಪತಿ ಗುಣಮಣಿ ನಮೋ ನಮೋ Ganapati Gunamani namo namo",
+    "tags": [
+      5,
+      10,
+      18,
+      19,
+      22,
+      23
+    ],
+    "reasoning": [
+      "Deity: Ganesha (found 'ಗಣೇಶ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'nama')",
+      "Theme: Mangala (found 'ಮಂಗಳ')",
+      "Theme: Tatva pada (found 'ಜ್ಞಾನ')"
+    ]
+  },
+  {
+    "id": 48,
+    "title": "ಶಾರದೇ ದಯತೋರಿದೇ Sharade Daye toride",
+    "tags": [
+      2,
+      4,
+      10,
+      18
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Devi (found 'sharade')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 49,
+    "title": "ಶ್ರೀಗುರುಮಾಂಪಾಹಿ  Shree Gurumaampaahi",
+    "tags": [
+      2,
+      10,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ರುದ್ರ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 50,
+    "title": "ಹರಿನಾಮ ಕೀರ್ತನೆ  ಅನುದಿನ ಮಾಳ್ಪಗೆ Hari naama keerthane anudina maalpage",
+    "tags": [
+      3,
+      7,
+      9,
+      15,
+      17,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ನಾರಾಯಣ')",
+      "Deity: Krishna (found 'ಕೃಷ್ಣ')",
+      "Type: Bhajan (default)",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Composer: Purandara Dasa (found 'ಪುರಂದರ')",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 51,
+    "title": "ಪೋಗಾದಿರಲೋ  ರಂಗ Pogaadiralo rangaa",
+    "tags": [
+      2,
+      3,
+      7,
+      10,
+      17,
+      18
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಂಕರ')",
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Krishna (found 'ಗೋಪಾಲ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 52,
+    "title": "ಶೃಂಗಾರವಾಗಿಹುದು ಶ್ರೀಹರಿಯ ಮಂಚ Shringaaravaagihudu Shree hariya mancha",
+    "tags": [
+      2,
+      3,
+      9,
+      15,
+      17,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಂಕರ')",
+      "Deity: Vishnu (found 'hari')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Composer: Purandara Dasa (found 'ಪುರಂದರ')",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 54,
+    "title": "ರಾಮ ಮಂತ್ರವ ಜಪಿಸೋ Rama mantrava japiso",
+    "tags": [
+      3,
+      8,
+      14,
+      17,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Rama (found 'rama')",
+      "Type: Mantra (found 'mantra')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ಜ್ಞಾನ')",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 55,
+    "title": "ಯಾರೇ ರಂಗನ  ಯಾರೇ ಕೃಷ್ಣನ Yaare Rangana yaare krishnana",
+    "tags": [
+      3,
+      7,
+      9,
+      15,
+      17,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Krishna (found 'krishna')",
+      "Type: Bhajan (default)",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Composer: Purandara Dasa (found 'ಪುರಂದರ')",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 56,
+    "title": "ಶ್ರೀಪತಿಯು ನಮಗೆ ಸಂಪದವೀಯಲಿ Shreepatiyu namage",
+    "tags": [
+      3,
+      9,
+      15,
+      17,
+      18,
+      19,
+      22
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'nama')",
+      "Theme: Tatva pada (found 'ಜ್ಞಾನ')",
+      "Composer: Purandara Dasa (found 'ಪುರಂದರ')",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 57,
+    "title": "ನೀ ಮಾಯೆಯೊಳಗೋ ನಿನ್ನೋಳು ಮಾಯೆಯೋ Nee maayeyologo",
+    "tags": [
+      3,
+      9,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Type: Bhajan (default)",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')"
+    ]
+  },
+  {
+    "id": 58,
+    "title": "ಬೆಟ್ಟವಿಳಿದು ಬೇಗ ಬಾರೋ Bettavilidu bega baaro",
+    "tags": [
+      8,
+      10,
+      17,
+      18,
+      146
+    ],
+    "reasoning": [
+      "Deity: Rama (found 'ರಾಮ')",
+      "Deity: Narasimha (found 'ನರಸಿಂಹ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 59,
+    "title": "ತಿರುಪತಿ ವೆಂಕಟ ರಮಣ Tirupati Venkataramana",
+    "tags": [
+      2,
+      3,
+      7,
+      8,
+      10,
+      15,
+      17,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Krishna (found 'ಗೋವಿಂದ')",
+      "Deity: Rama (found 'rama')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Composer: Purandara Dasa (found 'ಪುರಂದರ')",
+      "Composer: Daasapada (found 'ದಾಸ')"
+    ]
+  },
+  {
+    "id": 60,
+    "title": "ಸದಾ ಎನ್ನ ಹೃದಯದಲ್ಲಿ ವಾಸಮಾಡೋ ಶ್ರೀಹರಿ sada enna hrudayadalli",
+    "tags": [
+      3,
+      9,
+      15,
+      17,
+      18,
+      19,
+      22
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Theme: Tatva pada (found 'ಜ್ಞಾನ')",
+      "Composer: Purandara Dasa (found 'ಪುರಂದರ')",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 61,
+    "title": "ಚಂದವಾದ ಬೃಂದಾವನದಿ Chendavaada Brindavanadi",
+    "tags": [
+      9,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 62,
+    "title": "ಸಾರಿ ಚೆಲ್ಲಿದೆ ಮುಕ್ತಿ Saari Chellide Mukthi",
+    "tags": [
+      2,
+      9,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಂಕರ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 63,
+    "title": "ಕಲಿಯುಗದೊಳು ಹರಿ ನಾಮವ ನೆನೆದರೆ Kaliyugadolu hari naamava",
+    "tags": [
+      3,
+      7,
+      9,
+      15,
+      17,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'hari')",
+      "Deity: Krishna (found 'ಗೋವಿಂದ')",
+      "Type: Bhajan (default)",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Composer: Purandara Dasa (found 'ಪುರಂದರ')",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 64,
+    "title": "ಅಂಜಿಕೆನ್ಯಾತಕಯ್ಯಾ ಸಜ್ಜನರಿಗೆ Anjike inyaatakayya sajjanarige",
+    "tags": [
+      3,
+      10,
+      15,
+      17,
+      18
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Composer: Purandara Dasa (found 'ಪುರಂದರ')",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 65,
+    "title": "ಎಲ್ಲಾರು ಸೇರಿ ಮಾಡೋಣ ಬನ್ನಿ  ಹನುಮನ ಗುರುಧ್ಯಾನ Ellaru seri",
+    "tags": [
+      7,
+      13,
+      18
+    ],
+    "reasoning": [
+      "Deity: Krishna (found 'ಮಾಧವ')",
+      "Type: Gurustuti (found 'ಗುರು')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 66,
+    "title": "ಏನು ಮಾಡ್ತಾನೋ ಹನುಮ Enu maadthano hanuma",
+    "tags": [
+      7,
+      8,
+      10,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Krishna (found 'ಮಾಧವ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')"
+    ]
+  },
+  {
+    "id": 67,
+    "title": "ಮಂಗಳವಾಗಿದೆ ಜಯ ಜಯ ಮಂಗಳವಾಗಿದೆ Mangalavaagide jaya jaya",
+    "tags": [
+      8,
+      9,
+      18,
+      23
+    ],
+    "reasoning": [
+      "Deity: Rama (found 'ರಘು')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Mangala (found 'mangala')"
+    ]
+  },
+  {
+    "id": 68,
+    "title": "ಧಿಮಿಕಿಟ ಧಿಮಿಕಿಟ ತಾಳಮೃದಂಗ Dhimikita Dhimikiti taala mrudanga",
+    "tags": [
+      2,
+      5,
+      10,
+      18
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Ganesha (found 'ಗಣಪತಿ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 69,
+    "title": "ಪೊರೆಯೆನ್ನ ಪ್ರಭುವೇ  ಶ್ರೀ ಗುರುವೆಂಬೊ  ವರಕಲ್ಪತರುವೇ Poreyenna Prabhuve",
+    "tags": [
+      2,
+      3,
+      10,
+      18
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Vishnu (found 'ವಿಷ್ಣು')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 70,
+    "title": "ಯೋಗಿ ಮನೆಗೆ ಬಂದಾ  ಶ್ರೀಗುರು  ದೇವಮನೆಗೆ ಬಂದ Yogi manege bandaa",
+    "tags": [
+      2,
+      3,
+      7,
+      9,
+      18
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ರುದ್ರ')",
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Krishna (found 'ಕೃಷ್ಣ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 71,
+    "title": "ಶ್ರೀಗುರುರಾಯ ನಿತ್ಯ ನಿಮ್ಮಯ Shree guru raaya nitya nimmaya",
+    "tags": [
+      10,
+      18
+    ],
+    "reasoning": [
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 72,
+    "title": "ವಂದಿಪೆ ನಿಮಗೆ ಗುರುನಾಥ Vandipe nimage Gurunaatha",
+    "tags": [
+      2,
+      3,
+      10,
+      17,
+      18
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಂಕರ')",
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Composer: Daasapada (found 'ದಾಸ')"
+    ]
+  },
+  {
+    "id": 73,
+    "title": "ದತ್ತಾತ್ರೇಯ ತವಶರಣಂ ದತ್ತನ್ನಾಥ ತವಶರಣಂ Dattatreya tava sharanam",
+    "tags": [
+      4,
+      7,
+      9,
+      18,
+      146
+    ],
+    "reasoning": [
+      "Deity: Devi (found 'ಸರಸ್ವತಿ')",
+      "Deity: Krishna (found 'ಕೃಷ್ಣ')",
+      "Deity: Narasimha (found 'ನರಸಿಂಹ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 74,
+    "title": "ಗುರುವಿನ ಮುಖದಿಂದ  ಗುರುತು ಕಂಡವರಿOದ Guruvina mukhadinda",
+    "tags": [
+      2,
+      13,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಂಕರ')",
+      "Type: Gurustuti (found 'guru')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ಜ್ಞಾನ')"
+    ]
+  },
+  {
+    "id": 75,
+    "title": "ಗುರುವಿನ ಗುಲಾಮನಾಗುವ ತನಕ Guruvina Gulaamanaaguva tanaka",
+    "tags": [
+      13,
+      15,
+      17,
+      18
+    ],
+    "reasoning": [
+      "Type: Gurustuti (found 'guru')",
+      "Theme: Kannada (script detection)",
+      "Composer: Purandara Dasa (found 'ಪುರಂದರ')",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 76,
+    "title": "ಮೊರೆಹೊಕ್ಕೆ ಸದ್ಗುರುರಾಯ Morehokke sadguru raaya",
+    "tags": [
+      13,
+      18
+    ],
+    "reasoning": [
+      "Type: Gurustuti (found 'guru')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 77,
+    "title": "ಗುಡಿಯ ನೋಡಿರಣ್ಣಾ ದೇಹದ  Gudiya Nodiranna",
+    "tags": [
+      13,
+      18
+    ],
+    "reasoning": [
+      "Type: Gurustuti (found 'ಗುರು')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 78,
+    "title": "ಸೋರುತಿಹುದು ಮನೆಯ ಮಾಳಿಗೆ Sorutihudu maneya maalige",
+    "tags": [
+      13,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Type: Gurustuti (found 'ಗುರು')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ಜ್ಞಾನ')"
+    ]
+  },
+  {
+    "id": 79,
+    "title": "ಹಾವು ತುಳಿದೇನೆ haavu thulidene",
+    "tags": [
+      2,
+      3,
+      9,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 80,
+    "title": "ಹಾಕಿದ ಜನಿವಾರವಾ ಸದ್ಗುರುನಾಥ Haakida janivaaravaa sadgurunatha",
+    "tags": [
+      10,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ಜ್ಞಾನ')"
+    ]
+  },
+  {
+    "id": 81,
+    "title": "ನಿಂದಿಸುವರು ನಮ್ಮ ಬಂಧುಕುಲ Nindhisuvaru namma bandhu kula",
+    "tags": [
+      2,
+      9,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 82,
+    "title": "ಬಿಡು ಬಿಡಿನ್ಯಾತರ  ಜ್ಞಾನ Bidu bidinyatara gnaana",
+    "tags": [
+      2,
+      9,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಂಕರ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 83,
+    "title": "ಭ್ರಾಂತನಾಗಬೇಡ ನಿಜದೊಳು Bhrantanaagabeda nijadolu",
+    "tags": [
+      2,
+      3,
+      9,
+      18,
+      19,
+      22
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ರುದ್ರ')",
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 84,
+    "title": "ಎಂಥಾ ಮನುಷ್ಯ ಜನ್ಮ Entha Manushya janma",
+    "tags": [
+      9,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 85,
+    "title": "ಭಜನೆ ಬ್ರಹ್ಮಾನಂದ ರಸವೋ Bhajane Bramhananda rasavo",
+    "tags": [
+      2,
+      4,
+      9,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Devi (found 'ಸರಸ್ವತಿ')",
+      "Type: Bhajan (found 'bhajan')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 86,
+    "title": "ಮುತ್ತಿನಾರುತಿ ಎತ್ತಿ ಬೆಳಗುವೆನು Muttinaarati etti belaguvenu",
+    "tags": [
+      4,
+      6,
+      8,
+      11,
+      18,
+      23,
+      146
+    ],
+    "reasoning": [
+      "Deity: Devi (found 'ಸರಸ್ವತಿ')",
+      "Deity: Hanuman (found 'ಪವನ')",
+      "Deity: Rama (found 'ರಘು')",
+      "Deity: Narasimha (found 'ನರಸಿಂಹ')",
+      "Type: Aarti (found 'arati')",
+      "Theme: Kannada (script detection)",
+      "Theme: Mangala (found 'ಮಂಗಳ')"
+    ]
+  },
+  {
+    "id": 87,
+    "title": "ನಿಂದಿಸುವರು ನಮ್ಮ ಬಂಧುಕುಲ Nindisuvaru namma",
+    "tags": [
+      2,
+      9,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 88,
+    "title": "ಶರಣು ಸಿದ್ದಿ ವಿನಾಯಕ Sharanu sidhi vinayaka",
+    "tags": [
+      4,
+      5,
+      9,
+      15,
+      17,
+      18
+    ],
+    "reasoning": [
+      "Deity: Devi (found 'ದೇವಿ')",
+      "Deity: Ganesha (found 'ಗಣಪತಿ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Composer: Purandara Dasa (found 'ಪುರಂದರ')",
+      "Composer: Daasapada (found 'ದಾಸ')"
+    ]
+  },
+  {
+    "id": 89,
+    "title": "ಶೃಂಗೇರಿ ಮಾತೆ ಸದಾ ಪೂಜಿತೆ Shringeri maate",
+    "tags": [
+      2,
+      4,
+      10,
+      18
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಂಕರ')",
+      "Deity: Devi (found 'ಶಾರದೆ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 90,
+    "title": "ಹಿಂದಿನ ರಾತ್ರಿ ಎನಗೆ ಒಂದು Hindina raatri enage ondu",
+    "tags": [
+      3,
+      10,
+      18
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 91,
+    "title": "ಅಂಜಿಕೆನ್ಯಾತಕಯ್ಯಾ  ಸಜ್ಜನರಿಗೆ Anjike inyatakayya sajjanarige",
+    "tags": [
+      10,
+      15,
+      17,
+      18
+    ],
+    "reasoning": [
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Composer: Purandara Dasa (found 'ಪುರಂದರ')",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 92,
+    "title": "ಆಂಜನೇಯವೀರ ಹನುಮಂತಶೂರ Anjaneya veera hanumantha shoora",
+    "tags": [
+      6,
+      8,
+      10,
+      18
+    ],
+    "reasoning": [
+      "Deity: Hanuman (found 'hanuman')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 93,
+    "title": "ಆಂಜನೇಯ ಹನುಮಂತ ಶ್ರೀರಾಮ ಚಂದ್ರರ ಸದ್ಭಕ್ತ Anjaneya hanumantha",
+    "tags": [
+      3,
+      6,
+      8,
+      10,
+      17,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Hanuman (found 'hanuman')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Composer: Daasapada (found 'ದಾಸ')"
+    ]
+  },
+  {
+    "id": 94,
+    "title": "ಓಡಿ ಬಾರೈ ಮಾರುತಿ ಪಾಡುತ ಬಾರೈ Odi baarai maaruti",
+    "tags": [
+      6,
+      8,
+      10,
+      16,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Hanuman (found 'ಮಾರುತಿ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Composer: Belaguru (found 'ಬೆಲಗೂರು')"
+    ]
+  },
+  {
+    "id": 95,
+    "title": "ರಾಮಾ ಎಂಬೋ ಎರಡಕ್ಷರದ ಮಹಿಮೆಯನು Raama embo eradaksharada",
+    "tags": [
+      2,
+      8,
+      10,
+      15,
+      17,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Composer: Purandara Dasa (found 'ಪುರಂದರ')",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 96,
+    "title": "ಹನುಮನ ಪ್ರಾಣ  ಪ್ರಭೋ ರಘುರಾಮ Hanumana Praana",
+    "tags": [
+      6,
+      8,
+      10,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Hanuman (found 'hanuman')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')"
+    ]
+  },
+  {
+    "id": 97,
+    "title": "ರಾಮಾ ರಾಮಾ ಪಾಲಿಸೋ ಜಗದಭಿ rama rama paaliso",
+    "tags": [
+      8,
+      10,
+      18
+    ],
+    "reasoning": [
+      "Deity: Rama (found 'rama')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 98,
+    "title": "ರಾಮನ ಪಾದ ಹಿಡಿದು  ಭಜಿಸಿರೋ Ramana paada hididu bhajisiro",
+    "tags": [
+      8,
+      10,
+      18
+    ],
+    "reasoning": [
+      "Deity: Rama (found 'rama')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 99,
+    "title": "ಹನುಮಂತನೇ | ಗುಣವಂತನೇ  Hanumanthane gunavantane",
+    "tags": [
+      6,
+      7,
+      8,
+      10,
+      18
+    ],
+    "reasoning": [
+      "Deity: Hanuman (found 'hanuman')",
+      "Deity: Krishna (found 'ಮಾಧವ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 100,
+    "title": "ಪಾವನ ಗುಣ ರಾಮ | ಹರೇ Paavana guna rama",
+    "tags": [
+      2,
+      3,
+      7,
+      8,
+      10,
+      18,
+      22,
+      23
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಂಕರ')",
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Krishna (found 'ಕೃಷ್ಣ')",
+      "Deity: Rama (found 'rama')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Theme: Mangala (found 'ಮಂಗಳ')"
+    ]
+  },
+  {
+    "id": 101,
+    "title": "ರಾಮ ರಾಮ  ಎಂಬೆರಡಕ್ಷರ Rama Rama emba eradakshara",
+    "tags": [
+      2,
+      3,
+      8,
+      10,
+      17,
+      18
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಂಕರ')",
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Rama (found 'rama')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 102,
+    "title": "ರಾಮಾ ರಾಮಾ ಎನ್ನಿರೋ Rama Rama Enniro",
+    "tags": [
+      3,
+      8,
+      10,
+      15,
+      17,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Rama (found 'rama')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Composer: Purandara Dasa (found 'ಪುರಂದರ')",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 103,
+    "title": "ಜಯ ಜಯ ರಾಮ  ಜಯ ಘನಶ್ಯಾಮ Jaya jaya rama Jaya ghana shyama",
+    "tags": [
+      2,
+      3,
+      8,
+      9,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Rama (found 'rama')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ಜ್ಞಾನ')"
+    ]
+  },
+  {
+    "id": 104,
+    "title": "ಯಮನೆಲ್ಲೂ ಕಾಣಿಸೆಂದು Yamanellu kaanisendu",
+    "tags": [
+      3,
+      8,
+      10,
+      15,
+      17,
+      18
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Composer: Purandara Dasa (found 'ಪುರಂದರ')",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 105,
+    "title": "ನೀನ್ಯಾಕೋ ನಿನ್ನ  ಹಂಗ್ಯಾಕೋ Neenyaako ninna hangyaako",
+    "tags": [
+      3,
+      7,
+      8,
+      10,
+      15,
+      17,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ನಾರಾಯಣ')",
+      "Deity: Krishna (found 'ಕೃಷ್ಣ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Composer: Purandara Dasa (found 'ಪುರಂದರ')",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 106,
+    "title": "ಹರಿಯ ನೆನೆಯದಾ ನರಜನ್ಮವೇಕೆ Hariya neneyadaa narajanmaveke",
+    "tags": [
+      3,
+      10,
+      15,
+      17,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'hari')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Composer: Purandara Dasa (found 'ಪುರಂದರ')",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 107,
+    "title": "ಪೋಗಾದಿರಲೋ ರಂಗಾ  Pogaadirelo Rangaa",
+    "tags": [
+      2,
+      3,
+      7,
+      9,
+      15,
+      17,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಂಕರ')",
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Krishna (found 'ಗೋಪಾಲ')",
+      "Type: Bhajan (default)",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Composer: Purandara Dasa (found 'ಪುರಂದರ')",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 108,
+    "title": "ಶಂಕರ ದೇವನ ಡಮರುಗ ನುಡಿಯಿತು Shankara Devana Damaruga",
+    "tags": [
+      2,
+      3,
+      4,
+      7,
+      8,
+      9,
+      16,
+      17,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'shankar')",
+      "Deity: Vishnu (found 'ನಾರಾಯಣ')",
+      "Deity: Devi (found 'ಶಾರದೆ')",
+      "Deity: Krishna (found 'ಮಾಧವ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Composer: Belaguru (found 'ಬೆಲಗೂರು')",
+      "Composer: Daasapada (found 'ದಾಸ')"
+    ]
+  },
+  {
+    "id": 109,
+    "title": "ರಾಧೆ ರಾಧೆ ರಾಧೆ ರಾಧೆ ರಾಧೆ ಗೋವಿಂದಾ Raadhe Raadhe govinda",
+    "tags": [
+      3,
+      7,
+      9,
+      17,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Krishna (found 'govinda')",
+      "Type: Bhajan (default)",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 110,
+    "title": "ಬರಿಮೋಹದಿ ಬಳಲಿತು ಜೀವ Bari mohadi balalitu jeeva",
+    "tags": [
+      3,
+      9,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Type: Bhajan (default)",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')"
+    ]
+  },
+  {
+    "id": 111,
+    "title": "ರಾಮ ಜಯತು ಶ್ರೀ ರಾಮ ಸುನಾಮ Rama jayatu Shree rama sunaama",
+    "tags": [
+      3,
+      8,
+      9,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Rama (found 'rama')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')"
+    ]
+  },
+  {
+    "id": 112,
+    "title": "ರಾಮ ಪಾವನ ನಾಮ ಇನಕುಲ Rama paavana naama inakula",
+    "tags": [
+      8,
+      11,
+      18,
+      22,
+      23
+    ],
+    "reasoning": [
+      "Deity: Rama (found 'rama')",
+      "Type: Aarti (found 'ಆರತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Theme: Mangala (found 'ಮಂಗಳ')"
+    ]
+  },
+  {
+    "id": 113,
+    "title": "ಆಂಜನೇಯನಿಗೆ ವಂದನೆ ವೀರಾಂಜನೇಯನಿಗೆ ವಂದನೆ Anjaneyanige vandane",
+    "tags": [
+      6,
+      8,
+      9,
+      18
+    ],
+    "reasoning": [
+      "Deity: Hanuman (found 'anjaneya')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (default)",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 114,
+    "title": "ಗಜವದನಾ ಬೇಡುವೆ  ಗೌರಿತನಯ Gajavadanaa beduve",
+    "tags": [
+      5,
+      10,
+      15,
+      17,
+      18
+    ],
+    "reasoning": [
+      "Deity: Ganesha (found 'ಗಣಪತಿ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Composer: Purandara Dasa (found 'ಪುರಂದರ')",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 115,
+    "title": "ಎಂಥ ಅಂದ ಎಂಥ ಚೆಂದ ಶಾರದಮ್ಮ Entha anda entha chenda sharadamma",
+    "tags": [
+      10,
+      18
+    ],
+    "reasoning": [
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 116,
+    "title": "ಇಲ್ಲೇ ಸುಕ್ಷೇತ್ರ ಕಾಣಿರೋ Ille sukshetra kaaniro",
+    "tags": [
+      2,
+      7,
+      10,
+      18,
+      27
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Krishna (found 'ಮಾಧವ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Occasion: Bindu Madhava (found 'ಬಿಂದು ಮಾಧವ')"
+    ]
+  },
+  {
+    "id": 117,
+    "title": "ಆಂಜನೇಯ ನಿನ್ನ ದರ್ಶನ ನೀಡಲಾರೆಯಾ Anjaneya ninna darshana",
+    "tags": [
+      6,
+      10,
+      18
+    ],
+    "reasoning": [
+      "Deity: Hanuman (found 'anjaneya')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 118,
+    "title": "ದೇವರಾಜ ಸೇವ್ಯಮಾನ Devaraja sevyamaana",
+    "tags": [
+      2,
+      8,
+      9,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಂಕರ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ಜ್ಞಾನ')"
+    ]
+  },
+  {
+    "id": 119,
+    "title": "ಚೆಲ್ಲಿದರು ಮಲ್ಲಿಗೆಯಾ Chellidaru malligeyaa",
+    "tags": [
+      9,
+      18
+    ],
+    "reasoning": [
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 120,
+    "title": "ತಿಂಗಳು ಮುಳುಗಿದವೋ Tingalu mulugidavo",
+    "tags": [
+      9,
+      18
+    ],
+    "reasoning": [
+      "Type: Bhajan (default)",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 121,
+    "title": "ನಾಳೆ ಎಂಬನ ಮನೆಹಾಳು  Naale embana mane haalu",
+    "tags": [
+      3,
+      9,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 122,
+    "title": "ಹಿಮಗಿರಿ ತನಯೆ ಹೇಮಲತೆ Himagiri tanaye hemalathe",
+    "tags": [
+      3,
+      4,
+      8,
+      10,
+      18
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Devi (found 'ದೇವಿ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 123,
+    "title": "ಎನ್ನ ಕಂದಾ ಹಳ್ಳಿಯ ಹನುಮ enna kandaa halli hanuma",
+    "tags": [
+      10,
+      18
+    ],
+    "reasoning": [
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 124,
+    "title": "ಒಂದೇ ನಾಮವು ಸಾಲದೇ ಶ್ರೀಹರಿಯೆಂಬ onde naamavu saalade",
+    "tags": [
+      3,
+      7,
+      8,
+      9,
+      15,
+      17,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Krishna (found 'ಕೃಷ್ಣ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Composer: Purandara Dasa (found 'ಪುರಂದರ')",
+      "Composer: Daasapada (found 'ದಾಸ')"
+    ]
+  },
+  {
+    "id": 125,
+    "title": "ಹುಡುಗಾಟ ಆಡಬೇಡಿರೋ  ಭಜನೆಯಲ್ಲಿ Hudugaata Adabediro",
+    "tags": [
+      3,
+      6,
+      7,
+      8,
+      13,
+      18,
+      19,
+      22
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ನಾರಾಯಣ')",
+      "Deity: Hanuman (found 'ಮಾರುತಿ')",
+      "Deity: Krishna (found 'ಮಾಧವ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Gurustuti (found 'ಗುರು')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Theme: Tatva pada (found 'ಜ್ಞಾನ')"
+    ]
+  },
+  {
+    "id": 126,
+    "title": "ಕೇಳಬೇಕು ಕೇಳಬೇಕು Kelabeku kelabeku",
+    "tags": [
+      2,
+      9,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 127,
+    "title": "ಹಿಗ್ಗುವೆ ಯಾಕೋ ಈ ದೇಹಕ್ಕೆ Higguve yaako ee Dehake",
+    "tags": [
+      9,
+      15,
+      17,
+      18
+    ],
+    "reasoning": [
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Composer: Purandara Dasa (found 'ಪುರಂದರ')",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 128,
+    "title": "ವಾಣಿ ಪಾಣಿ ಮಾಣಿಮೂರ ಕಟ್ಟಿದವನು Vani paani maani mura kattidavanu",
+    "tags": [
+      9,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 129,
+    "title": "ರಂಗಾನಭಜಿಸೋ  Rangana Bhajiso",
+    "tags": [
+      2,
+      3,
+      8,
+      9,
+      15,
+      18,
+      22,
+      23
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಂಕರ')",
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Theme: Mangala (found 'ಮಂಗಳ')",
+      "Composer: Purandara Dasa (found 'ಪುರಂದರ')"
+    ]
+  },
+  {
+    "id": 130,
+    "title": "ಎನಗೂ ಆಣೆರಂಗಾ ನಿನಗೂ ಆಣೆ enagu aane ranga ninagu aane",
+    "tags": [
+      3,
+      10,
+      17,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 131,
+    "title": "ಜ್ಞಾನಪೂರ್ಣಂ | ಜಗಂಜ್ಯೋತಿ Gnana purnam jagamjyoti",
+    "tags": [
+      13,
+      17,
+      18,
+      19,
+      23
+    ],
+    "reasoning": [
+      "Type: Gurustuti (found 'ಗುರು')",
+      "Theme: Kannada (script detection)",
+      "Theme: Mangala (found 'ಮಂಗಳ')",
+      "Theme: Tatva pada (found 'ಜ್ಞಾನ')",
+      "Composer: Daasapada (found 'ದಾಸ')"
+    ]
+  },
+  {
+    "id": 132,
+    "title": "ಶಿವನಾಮವ ಸ್ಮರಿಸಲೋ ಮನವೇ Shiva naamava smarisalo manave",
+    "tags": [
+      2,
+      10,
+      18,
+      19,
+      22
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'shiva')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Theme: Tatva pada (found 'ಜ್ಞಾನ')"
+    ]
+  },
+  {
+    "id": 133,
+    "title": "ಗೋವಿಂದಾ ನಿನ್ನ ನಾಮವೆ ಚೆಂದ Govinda ninna naamave chenda",
+    "tags": [
+      3,
+      7,
+      9,
+      15,
+      17,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Krishna (found 'govinda')",
+      "Type: Bhajan (default)",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Composer: Purandara Dasa (found 'ಪುರಂದರ')",
+      "Composer: Daasapada (found 'ದಾಸ')"
+    ]
+  },
+  {
+    "id": 134,
+    "title": "ರಾಮ ರಾಮ ರಾಮ ರಾಮ ಎನ್ನಿರಿ Rama rama rama enniri",
+    "tags": [
+      2,
+      8,
+      10,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಂಕರ')",
+      "Deity: Rama (found 'rama')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')"
+    ]
+  },
+  {
+    "id": 135,
+    "title": "ಪವಮಾನ ಪವಮಾನ ಜಗದಾಪ್ರಾಣ Pavamana Pavamana Jagadaa praana",
+    "tags": [
+      6,
+      8,
+      10,
+      17,
+      18
+    ],
+    "reasoning": [
+      "Deity: Hanuman (found 'ಪವನ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 136,
+    "title": "ರಾಮನಾಮವನು | ಸಾರಿಹೇಳುವ | ವೀರಹನುಮನ ನೆನೆ ನೆನೆ Rama naamavanu saari heluva",
+    "tags": [
+      6,
+      7,
+      8,
+      10,
+      16,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Hanuman (found 'ಮಾರುತಿ')",
+      "Deity: Krishna (found 'ಮಾಧವ')",
+      "Deity: Rama (found 'rama')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Composer: Belaguru (found 'ಬೆಲಗೂರು')"
+    ]
+  },
+  {
+    "id": 137,
+    "title": "ಅಕ್ಕರೆಯಿಲ್ಲದ ಸಕ್ಕರೆತುಪ್ಪ | ತಿನ್ನಬೇಡಿರೋ Akkareyillada sakkare tuppa tinnabediro",
+    "tags": [
+      7,
+      8,
+      9,
+      15,
+      17,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Krishna (found 'ಮಾಧವ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Composer: Purandara Dasa (found 'ಪುರಂದರ')",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 138,
+    "title": "ಚೆನ್ನಬಸವ ಸನ್ನುತಾಂಗ Chenna basava sannutaanga",
+    "tags": [
+      9,
+      18,
+      23
+    ],
+    "reasoning": [
+      "Type: Bhajan (default)",
+      "Theme: Kannada (script detection)",
+      "Theme: Mangala (found 'ಮಂಗಳ')"
+    ]
+  },
+  {
+    "id": 139,
+    "title": "ಪಾವನ ರಾಮ ಪತಿತ ಪಾವನ ರಾಮ pavana rama",
+    "tags": [
+      6,
+      8,
+      9,
+      18
+    ],
+    "reasoning": [
+      "Deity: Hanuman (found 'pavana')",
+      "Deity: Rama (found 'rama')",
+      "Type: Bhajan (default)",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 140,
+    "title": "ಕರುಣಿಸೋ ರಂಗ Karuniso Ranga",
+    "tags": [
+      10,
+      15,
+      17,
+      18
+    ],
+    "reasoning": [
+      "Type: Stotra (found 'stuti')",
+      "Theme: Kannada (script detection)",
+      "Composer: Purandara Dasa (found 'purandara')",
+      "Composer: Daasapada (found 'ದಾಸ')"
+    ]
+  },
+  {
+    "id": 141,
+    "title": "ಬಿಂದು ಮಾಧವ ನಮ್ಮ ಕಾಯುವ Bindu Madhava namma kayuva",
+    "tags": [
+      6,
+      7,
+      8,
+      9,
+      18,
+      22,
+      27
+    ],
+    "reasoning": [
+      "Deity: Hanuman (found 'ಮಾರುತಿ')",
+      "Deity: Krishna (found 'madhava')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Occasion: Bindu Madhava (found 'bindu madhava')"
+    ]
+  },
+  {
+    "id": 142,
+    "title": "ರಾಮ ಪಾವನ ನಾಮ  ಇನಕುಲ Rama Pavana naama",
+    "tags": [
+      6,
+      8,
+      9,
+      18,
+      22,
+      23
+    ],
+    "reasoning": [
+      "Deity: Hanuman (found 'pavana')",
+      "Deity: Rama (found 'rama')",
+      "Type: Bhajan (default)",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Theme: Mangala (found 'ಮಂಗಳ')"
+    ]
+  },
+  {
+    "id": 143,
+    "title": "ಹರಿವರಾಸನಂ ಸ್ವಾಮಿ ವಿಶ್ವಮೋಹನಂ Harivarasanam swami",
+    "tags": [
+      3,
+      10,
+      18
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'hari')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 144,
+    "title": "ದೇವ ಬಂದ ನಮ್ಮ ಸ್ವಾಮಿ ಬಂದನೊ Deva banda namma svami bandano",
+    "tags": [
+      2,
+      3,
+      4,
+      7,
+      8,
+      9,
+      15,
+      17,
+      18
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'shiva')",
+      "Deity: Vishnu (found 'narayana')",
+      "Deity: Devi (found 'lakshmi')",
+      "Deity: Krishna (found 'govinda')",
+      "Deity: Rama (found 'rama')",
+      "Type: Bhajan (default)",
+      "Theme: Kannada (script detection)",
+      "Composer: Purandara Dasa (found 'purandara')",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 145,
+    "title": "ಬಿಂದು ಮಾಧವ ಪಾಹಿಮಾಂ  Bindu madhava paahimam",
+    "tags": [
+      7,
+      9,
+      18,
+      19,
+      23,
+      27
+    ],
+    "reasoning": [
+      "Deity: Krishna (found 'madhava')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Mangala (found 'ಮಂಗಳ')",
+      "Theme: Tatva pada (found 'ತತ್ವ')",
+      "Occasion: Bindu Madhava (found 'bindu madhava')"
+    ]
+  },
+  {
+    "id": 146,
+    "title": "ಬೆಳಗಿನ ಜಾವ ನನಗೆ ಒಂದು ಕನಸು ಕಂಡಿತ್ತು  Belagina jaava nanage ondu",
+    "tags": [
+      8,
+      14,
+      18,
+      22,
+      23
+    ],
+    "reasoning": [
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Mantra (found 'ಮಂತ್ರ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Theme: Mangala (found 'ಮಂಗಳ')"
+    ]
+  },
+  {
+    "id": 147,
+    "title": "ನಡಿ ನಡಿ ನಮ್ಮ ಮನೆಗೆ ಶ್ರೀಮದಾಂಜನೇಯ Nadi nadi namma manege",
+    "tags": [
+      8,
+      10,
+      17,
+      18
+    ],
+    "reasoning": [
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Composer: Daasapada (found 'ದಾಸ')"
+    ]
+  },
+  {
+    "id": 148,
+    "title": "ಹುಚ್ಚು ಹಿಡಿಯಲಿ ಎನಗೆ ಹುಚ್ಚು ಹಿಡಿಯಲಿ  Huchchu hidiyali",
+    "tags": [
+      8,
+      9,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (default)",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')"
+    ]
+  },
+  {
+    "id": 149,
+    "title": "ಆಂಜನೇಯ ವಂದಿಪೆನಯ್ಯ Anjaneya vandipenayya",
+    "tags": [
+      3,
+      6,
+      8,
+      9,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Hanuman (found 'anjaneya')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (default)",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')"
+    ]
+  },
+  {
+    "id": 150,
+    "title": "ಶ್ರೀರಾಮನೆಂಬೋ ನಾಮವ ನೆನೆದರೆ Shree ramanembo namava nenedare",
+    "tags": [
+      3,
+      7,
+      8,
+      9,
+      15,
+      17,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ನಾರಾಯಣ')",
+      "Deity: Krishna (found 'ಕೃಷ್ಣ')",
+      "Deity: Rama (found 'rama')",
+      "Type: Bhajan (default)",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'nama')",
+      "Composer: Purandara Dasa (found 'ಪುರಂದರ')",
+      "Composer: Daasapada (found 'ವಿಠಲ')"
+    ]
+  },
+  {
+    "id": 151,
+    "title": "ಇನ್ನಷ್ಟು ಬೇಕೆನ್ನ ಹೃದಯಕ್ಕೆ ರಾಮ Innashtu bekenna",
+    "tags": [
+      3,
+      8,
+      13,
+      18
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Gurustuti (found 'ಗುರು')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 152,
+    "title": "ನಮೋ ನಮೋ ಗುರು ನಮೋ ನಮೋ Namo namo guru",
+    "tags": [
+      2,
+      3,
+      9,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ಅದ್ವೈತ')"
+    ]
+  },
+  {
+    "id": 153,
+    "title": "ಜಯ ಜಯ ಮಾರುತಿ ವಿಜಯ ಮಾರುತಿ Jaya jaya maruti Vijaya maruti",
+    "tags": [
+      6,
+      7,
+      8,
+      9,
+      18,
+      19,
+      22
+    ],
+    "reasoning": [
+      "Deity: Hanuman (found 'maruti')",
+      "Deity: Krishna (found 'ಮಾಧವ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 154,
+    "title": "ಕದಂಬ ಗಿರಿಯ ಕದಳೀ ವನದೊಳು  Kadamba giriya kadali vanadolu",
+    "tags": [
+      8,
+      9,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (default)",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')"
+    ]
+  },
+  {
+    "id": 155,
+    "title": "ನೀನೆ ಅನಾಥಬಂಧು ಕಾರುಣ್ಯ ಸಿಂಧು Neene Anatha bandhu",
+    "tags": [
+      7,
+      9,
+      15,
+      18
+    ],
+    "reasoning": [
+      "Deity: Krishna (found 'ಕೃಷ್ಣ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Composer: Purandara Dasa (found 'ಪುರಂದರ')"
+    ]
+  },
+  {
+    "id": 156,
+    "title": "ಎಷ್ಟು ಸಾಹಸವಂತ ನೀನೇ ಬಲವಂತ Eshtu Sahasavanta",
+    "tags": [
+      3,
+      4,
+      6,
+      8,
+      9,
+      18,
+      23
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'hari')",
+      "Deity: Devi (found 'devi')",
+      "Deity: Hanuman (found 'hanuman')",
+      "Deity: Rama (found 'rama')",
+      "Type: Bhajan (found 'pada')",
+      "Theme: Kannada (script detection)",
+      "Theme: Mangala (found 'mangala')"
+    ]
+  },
+  {
+    "id": 157,
+    "title": "ಜ್ಞಾನರಾಶಿ ಗೂಡು ಉಂಟು ಇವನ ಒಳಗಡೆ",
+    "tags": [
+      7,
+      9,
+      18,
+      19,
+      22
+    ],
+    "reasoning": [
+      "Deity: Krishna (found 'ಮಾಧವ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 158,
+    "title": "Raasa Kreede",
+    "tags": [
+      2,
+      3,
+      6,
+      7,
+      9,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಂಕರ')",
+      "Deity: Vishnu (found 'ನಾರಾಯಣ')",
+      "Deity: Hanuman (found 'ಪವನ')",
+      "Deity: Krishna (found 'ಕೃಷ್ಣ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')"
+    ]
+  },
+  {
+    "id": 159,
+    "title": "ಏಳು ಗುರು ಮಾಧವನೆ ಏಳು ಲಕ್ಷ್ಮೀ ಕುವರ",
+    "tags": [
+      3,
+      7,
+      13,
+      18,
+      24
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Krishna (found 'ಮಾಧವ')",
+      "Type: Gurustuti (found 'ಗುರು')",
+      "Theme: Kannada (script detection)",
+      "Occasion: Morning (found 'ಸುಪ್ರಭಾತ')"
+    ]
+  },
+  {
+    "id": 160,
+    "title": "ಧರೆಗೆ ಇಳಿದು ಬಂದ ಮಾರುತಿ",
+    "tags": [
+      2,
+      6,
+      7,
+      8,
+      10,
+      18,
+      19,
+      22
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ರುದ್ರ')",
+      "Deity: Hanuman (found 'ಮಾರುತಿ')",
+      "Deity: Krishna (found 'ಮಾಧವ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Theme: Tatva pada (found 'ಅದ್ವೈತ')"
+    ]
+  },
+  {
+    "id": 161,
+    "title": "ದೇವಿ ದೇವಿ ಜಗದಾಂಬ",
+    "tags": [
+      2,
+      4,
+      7,
+      8,
+      10,
+      18
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Devi (found 'ದೇವಿ')",
+      "Deity: Krishna (found 'ಮಾಧವ')",
+      "Deity: Rama (found 'ಸೀತಾ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 162,
+    "title": "ಮಹಾಕಪಿಂ ಮಹಾರವಂ",
+    "tags": [
+      7,
+      8,
+      10,
+      18,
+      27
+    ],
+    "reasoning": [
+      "Deity: Krishna (found 'ಮಾಧವ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Occasion: Bindu Madhava (found 'ಬಿಂದು ಮಾಧವ')"
+    ]
+  },
+  {
+    "id": 163,
+    "title": "ವಂದನಂ ಗುರು ವೀರನೇ",
+    "tags": [
+      2,
+      9,
+      18
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಂಕರ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 164,
+    "title": "ಸಂಕಟ ಹರನ್ಯಾವ ನಮ್ಮ",
+    "tags": [
+      2,
+      9,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಂಕರ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 165,
+    "title": "ಜಯದೇವ ಜಯದೇವ ಜಯ ದೀನ ಶರಣ್ಯ,",
+    "tags": [
+      10,
+      18
+    ],
+    "reasoning": [
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 166,
+    "title": "ವೀರ ಹನುಮ ಬಹು ಪರಾಕ್ರಮ",
+    "tags": [
+      3,
+      8,
+      9,
+      15,
+      17,
+      18,
+      19,
+      22
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Theme: Tatva pada (found 'ಜ್ಞಾನ')",
+      "Composer: Purandara Dasa (found 'ಪುರಂದರ')",
+      "Composer: Daasapada (found 'ದಾಸ')"
+    ]
+  },
+  {
+    "id": 167,
+    "title": "ಆಕಾಶ ಭೂಮಿಗಳ ಒಂದು ಮಾಡಿ ನಿಂತ",
+    "tags": [
+      6,
+      8,
+      9,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Hanuman (found 'ಮಾರುತಿ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')"
+    ]
+  },
+  {
+    "id": 168,
+    "title": "ಅಮ್ಮ ಬಾರಮ್ಮ ನಮ್ಮ ತಾಯಿ ಬಾರಮ್ಮ",
+    "tags": [
+      2,
+      4,
+      6,
+      9,
+      18,
+      23
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Devi (found 'ದೇವಿ')",
+      "Deity: Hanuman (found 'ಪವನ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Mangala (found 'ಮಂಗಳ')"
+    ]
+  },
+  {
+    "id": 169,
+    "title": "ಗುರುಪಾದದೊಳು ಮನ ಬೆರೆಯಲಿಲ್ಲಾ",
+    "tags": [
+      2,
+      3,
+      8,
+      10,
+      18,
+      19,
+      22
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Theme: Tatva pada (found 'ಜ್ಞಾನ')"
+    ]
+  },
+  {
+    "id": 170,
+    "title": "ತಾನೆನ್ನಬಹುದೇ ಈ ದೇಹವ",
+    "tags": [
+      2,
+      3,
+      8,
+      9,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 171,
+    "title": "ಭಜಿಸು ಬಿಡದೆ ಗುರುನಾಥನ",
+    "tags": [
+      2,
+      3,
+      7,
+      8,
+      10,
+      18
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Krishna (found 'ಕೃಷ್ಣ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 172,
+    "title": "ಜ್ಞಾನವೊಂದಿಲ್ಲದಿನ್ನಿರ್ದೊಡೇನು",
+    "tags": [
+      2,
+      8,
+      9,
+      18,
+      19,
+      22
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 173,
+    "title": "ಸುಮ್ಮನೆ ಬ್ರಹ್ಮವಾಗುವನೆ",
+    "tags": [
+      2,
+      8,
+      9,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 174,
+    "title": "ಪೋಗಿಬಾಳುವ ಬನ್ನಿರೋ ನಮ್ಮೂರೊಳು",
+    "tags": [
+      2,
+      7,
+      8,
+      9,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Krishna (found 'ಕೃಷ್ಣ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 175,
+    "title": "ಶಿವರಾತ್ರಿ ಸಾಂಗವಾಯ್ತು",
+    "tags": [
+      2,
+      3,
+      6,
+      8,
+      9,
+      18,
+      23
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Hanuman (found 'ಪವನ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Mangala (found 'ಮಂಗಳ')"
+    ]
+  },
+  {
+    "id": 176,
+    "title": "ಗಳಿಸಿದ್ದ ಯಾರೇನೂ ಒಯ್ಯೋಲ್ಲ ಮನವೇ",
+    "tags": [
+      3,
+      9,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 177,
+    "title": "ಮಂಗಳಂ ಗುರುಶಂಕರ",
+    "tags": [
+      2,
+      3,
+      8,
+      9,
+      18,
+      23
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Mangala (found 'ಮಂಗಳ')"
+    ]
+  },
+  {
+    "id": 178,
+    "title": "ಗುರುವೇ ಗತಿಯೆನ್ನು ಮನವೇ",
+    "tags": [
+      2,
+      9,
+      18
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಂಕರ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 179,
+    "title": "ಗುರುದೇವ ನೀನೋರ್ವ ನಿಜದೇವನೈ",
+    "tags": [
+      2,
+      8,
+      10,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')"
+    ]
+  },
+  {
+    "id": 180,
+    "title": "ಮಾತೆ ಮಂಗಳ ದೇವತೆ",
+    "tags": [
+      2,
+      4,
+      8,
+      10,
+      17,
+      18,
+      23
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Devi (found 'ದೇವಿ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Mangala (found 'ಮಂಗಳ')",
+      "Composer: Daasapada (found 'ದಾಸ')"
+    ]
+  },
+  {
+    "id": 181,
+    "title": "ಎಂತು ಮುಕ್ತನಾಗಬೇಕಣ್ಣ",
+    "tags": [
+      2,
+      8,
+      9,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 182,
+    "title": "ಎಲ್ಲಾ ಪರಬ್ರಹ್ಮವೆನ್ನಬೇಕು",
+    "tags": [
+      2,
+      8,
+      9,
+      18,
+      19,
+      22,
+      23
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Theme: Mangala (found 'ಮಂಗಳ')",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 183,
+    "title": "ಇವನಾರೊ ನೋಡು ಬಾರಮ್ಮ",
+    "tags": [
+      2,
+      8,
+      9,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 184,
+    "title": "ಗುರು ಪಾದದೊಳು ಮನವಿಂಗಿ",
+    "tags": [
+      2,
+      3,
+      8,
+      9,
+      18,
+      22,
+      23
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Theme: Mangala (found 'ಮಂಗಳ')"
+    ]
+  },
+  {
+    "id": 185,
+    "title": "ಎಲ್ಲಾ ರೂಪವು ತಾನಂತೆ",
+    "tags": [
+      2,
+      8,
+      9,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 193,
+    "title": "ನೋಡಬಾರದೆ ಬ್ರಹ್ಮವ ನೋಡಬಾರದೆ",
+    "tags": [
+      2,
+      3,
+      8,
+      9,
+      17,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Vishnu (found 'ಹರಿ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ತತ್ವ')",
+      "Composer: Daasapada (found 'ದಾಸ')"
+    ]
+  },
+  {
+    "id": 194,
+    "title": "ಹರ ಹರ ಶಂಕರ ಜಯ ಜಯ ಶಂಕರ",
+    "tags": [
+      2,
+      3,
+      4,
+      5,
+      10,
+      18,
+      23
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Vishnu (found 'ವಿಷ್ಣು')",
+      "Deity: Devi (found 'ಸರಸ್ವತಿ')",
+      "Deity: Ganesha (found 'ಗಣಪತಿ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Mangala (found 'ಮಂಗಳ')"
+    ]
+  },
+  {
+    "id": 195,
+    "title": "ಜಯಬಿಂದು ಜಯಬಿಂದು ಜಯ ಪಾವನ ಬಿಂದು|",
+    "tags": [
+      2,
+      6,
+      7,
+      8,
+      9,
+      17,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ರುದ್ರ')",
+      "Deity: Hanuman (found 'ಮಾರುತಿ')",
+      "Deity: Krishna (found 'ಮಾಧವ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ಅದ್ವೈತ')",
+      "Composer: Daasapada (found 'ದಾಸ')"
+    ]
+  },
+  {
+    "id": 196,
+    "title": "ಶಂಭೋ ಸ್ವಯಂಭುಸಂಭವ ನಂಬಿದೆ",
+    "tags": [
+      2,
+      9,
+      17,
+      18
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Composer: Daasapada (found 'ದಾಸ')"
+    ]
+  },
+  {
+    "id": 197,
+    "title": "ಏನು ಮರುಳನಾದೆ   ಶಿವ ಶಿವ",
+    "tags": [
+      2,
+      6,
+      7,
+      9,
+      16,
+      18,
+      19,
+      22
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Hanuman (found 'ಪವನ')",
+      "Deity: Krishna (found 'ಮಾಧವ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Theme: Tatva pada (found 'ತತ್ವ')",
+      "Composer: Belaguru (found 'ಬೆಲಗೂರು')"
+    ]
+  },
+  {
+    "id": 198,
+    "title": "ಹನುಮನ ಪ್ರಾಣ ಪ್ರಭು ರಘು ರಾಮ",
+    "tags": [
+      8,
+      10,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')"
+    ]
+  },
+  {
+    "id": 199,
+    "title": "ನಿನ್ನಂತೆ ನಾನಾಗಲಾರೆ ಏನು ಮಾಡಲಿ ಹನುಮ |",
+    "tags": [
+      8,
+      9,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (default)",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')"
+    ]
+  },
+  {
+    "id": 200,
+    "title": "ವಂದೇ ಸಂತಂ ಶ್ರೀ ಹನುಮಂತಮ್",
+    "tags": [
+      8,
+      9,
+      17,
+      18
+    ],
+    "reasoning": [
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Composer: Daasapada (found 'ದಾಸ')"
+    ]
+  },
+  {
+    "id": 201,
+    "title": "ಭಜರೇ ಹನುಮಂತಂ ಮಾನಸ",
+    "tags": [
+      8,
+      10,
+      18,
+      22
+    ],
+    "reasoning": [
+      "Deity: Rama (found 'ಸೀತಾ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Namasmarane (found 'ನಾಮ')"
+    ]
+  },
+  {
+    "id": 202,
+    "title": "ವಂದೇ ಸಂತ ಹನುಮಂತಂ",
+    "tags": [
+      8,
+      10,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ಜ್ಞಾನ')"
+    ]
+  },
+  {
+    "id": 203,
+    "title": "ತೋಟಕಾಷ್ಟಕಂ",
+    "tags": [
+      2,
+      8,
+      9,
+      18
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಂಕರ')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 204,
+    "title": "ಗಗನದಿಂದ ದರಣಿಗಿಳಿದ ಬಿಂದುಮಾಧವ",
+    "tags": [
+      2,
+      7,
+      10,
+      18,
+      27
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Krishna (found 'ಮಾಧವ')",
+      "Type: Stotra (found 'ಸ್ತುತಿ')",
+      "Theme: Kannada (script detection)",
+      "Occasion: Bindu Madhava (found 'ಬಿಂದು ಮಾಧವ')"
+    ]
+  },
+  {
+    "id": 205,
+    "title": "ಸದ್ಗುರು ಶ್ರೀ ಶ್ರೀ ಬಿಂದುಮಾಧವ ಅಷ್ಟೋತ್ತರ  Shree Bindu Madhava Ashtothara",
+    "tags": [
+      2,
+      3,
+      4,
+      6,
+      7,
+      8,
+      9,
+      18,
+      19,
+      21,
+      22,
+      27
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಿವ')",
+      "Deity: Vishnu (found 'ನಾರಾಯಣ')",
+      "Deity: Devi (found 'ದೇವಿ')",
+      "Deity: Hanuman (found 'ಆಂಜನೇಯ')",
+      "Deity: Krishna (found 'madhava')",
+      "Deity: Rama (found 'ರಾಮ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)",
+      "Theme: Chants (found 'ಓಂ')",
+      "Theme: Namasmarane (found 'ನಾಮ')",
+      "Theme: Tatva pada (found 'ಜ್ಞಾನ')",
+      "Occasion: Bindu Madhava (found 'bindu madhava')"
+    ]
+  },
+  {
+    "id": 206,
+    "title": "Laali laali ಲಾಲಿ ಲಾಲಿ",
+    "tags": [
+      2,
+      4,
+      13,
+      18,
+      19
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಂಕರ')",
+      "Deity: Devi (found 'ದೇವಿ')",
+      "Type: Gurustuti (found 'ಗುರು')",
+      "Theme: Kannada (script detection)",
+      "Theme: Tatva pada (found 'ತತ್ವ')"
+    ]
+  },
+  {
+    "id": 208,
+    "title": "ಗುರುವೇ ಗತಿ ಎನ್ನುವ ಮನವೇ Guruve gati ennu manave",
+    "tags": [
+      2,
+      9,
+      18
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'ಶಂಕರ')",
+      "Type: Bhajan (found 'ಪದ')",
+      "Theme: Kannada (script detection)"
+    ]
+  },
+  {
+    "id": 270,
+    "title": "Om Namah Shivaya",
+    "tags": [
+      2,
+      14,
+      21,
+      22
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'shiva')",
+      "Type: Mantra (found 'mantra')",
+      "Theme: Chants (found 'om')",
+      "Theme: Namasmarane (found 'nama')"
+    ]
+  },
+  {
+    "id": 271,
+    "title": "Gayatri Mantra",
+    "tags": [
+      14,
+      21
+    ],
+    "reasoning": [
+      "Type: Mantra (found 'mantra')",
+      "Theme: Chants (found 'om')"
+    ]
+  },
+  {
+    "id": 272,
+    "title": "Hare Krishna Mahamantra",
+    "tags": [
+      7,
+      8,
+      14
+    ],
+    "reasoning": [
+      "Deity: Krishna (found 'krishna')",
+      "Deity: Rama (found 'rama')",
+      "Type: Mantra (found 'mantra')"
+    ]
+  },
+  {
+    "id": 273,
+    "title": "Om Namo Narayanaya",
+    "tags": [
+      3,
+      14,
+      21
+    ],
+    "reasoning": [
+      "Deity: Vishnu (found 'vishnu')",
+      "Type: Mantra (found 'mantra')",
+      "Theme: Chants (found 'om')"
+    ]
+  },
+  {
+    "id": 274,
+    "title": "Mahamrityunjaya Mantra",
+    "tags": [
+      2,
+      14,
+      21
+    ],
+    "reasoning": [
+      "Deity: Shiva (found 'shiva')",
+      "Type: Mantra (found 'mantra')",
+      "Theme: Chants (found 'om')"
+    ]
+  },
+  {
+    "id": 275,
+    "title": "Test Bhajan for Debug",
+    "tags": [
+      9,
+      21
+    ],
+    "reasoning": [
+      "Type: Bhajan (found 'bhajan')",
+      "Theme: Chants (found 'om')"
+    ]
+  },
+  {
+    "id": 276,
+    "title": "Test With MP3 Upload",
+    "tags": [
+      9,
+      21
+    ],
+    "reasoning": [
+      "Type: Bhajan (found 'bhajan')",
+      "Theme: Chants (found 'om')"
+    ]
+  },
+  {
+    "id": 277,
+    "title": "Permission Test Bhajan",
+    "tags": [
+      9
+    ],
+    "reasoning": [
+      "Type: Bhajan (found 'bhajan')"
+    ]
+  },
+  {
+    "id": 278,
+    "title": "MP3 Final Test",
+    "tags": [
+      9
+    ],
+    "reasoning": [
+      "Type: Bhajan (default)"
+    ]
+  },
+  {
+    "id": 279,
+    "title": "Current Test 202018",
+    "tags": [
+      9
+    ],
+    "reasoning": [
+      "Type: Bhajan (default)"
+    ]
+  },
+  {
+    "id": 280,
+    "title": "Entha Manusha Janma",
+    "tags": [
+      9
+    ],
+    "reasoning": [
+      "Type: Bhajan (default)"
+    ]
+  },
+  {
+    "id": 281,
+    "title": "Entha",
+    "tags": [
+      9
+    ],
+    "reasoning": [
+      "Type: Bhajan (default)"
+    ]
+  }
+]

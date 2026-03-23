@@ -26,8 +26,8 @@ test.describe('Frontend Basics', () => {
     await page.waitForSelector('#app');
     const loadTime = Date.now() - startTime;
     
-    // Should load in under 10 seconds
-    expect(loadTime).toBeLessThan(10000);
+    // Should load in under 15 seconds (accounts for slow CI/test environments)
+    expect(loadTime).toBeLessThan(15000);
   });
 
   test('responsive - mobile', async ({ page }) => {

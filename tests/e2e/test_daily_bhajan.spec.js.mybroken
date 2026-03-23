@@ -1,0 +1,415 @@
+/**
+ * Test Suite: Daily Bhajan Banner
+ * Tests the day-of-week feature that shows a daily recommended bhajan
+ */
+const { test, expect } = require('@playwright/test');
+
+test.describe('Daily Bhajan Banner', () => {
+  test('banner exists on homepage', async ({ page }) => {
+    await page.goto('/');
+    await page.waitForSelector('#app');
+    
+    // Daily bhajan banner should be visible (uses .card class)
+    const banner = page.locator('.card.cursor-pointer').first();
+    await expect(banner).toBeVisible();
+  });
+
+  test('banner shows today\'s date', async ({ page }) => {
+    await page.goto('/');
+    await page.waitForSelector('.card.cursor-pointer');
+    
+    const banner = page.locator('.card.cursor-pointer').first();
+    const bannerText = await banner.textContent();
+    
+    // Should show "TODAY'S BHAJAN" header
+    expect(bannerText).toContain('TODAY\'S BHAJAN');
+    
+    // Should show current day of week (Monday, Tuesday, etc.)
+    const today = new Date();
+    const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const currentDay = dayNames[today.getDay()];
+    
+    expect(bannerText).toContain(currentDay);
+  });
+
+  test('banner shows a bhajan title', async ({ page }) => {
+    await page.goto('/');
+    await page.waitForSelector('.card.cursor-pointer');
+    
+    const banner = page.locator('.card.cursor-pointer').first();
+    const bannerText = await banner.textContent();
+    
+    // Should have bhajan title (more than just the header)
+    const lines = bannerText.split('\n').filter(line => line.trim());
+    expect(lines.length).toBeGreaterThan(1);
+  });
+
+  test('clicking banner navigates to bhajan detail page', async ({ page }) => {
+    await page.goto('/');
+    await page.waitForSelector('.card.cursor-pointer');
+    
+    // Click the banner
+    const banner = page.locator('.card.cursor-pointer').first();
+    await banner.click();
+    
+    // Should navigate to bhajan detail page
+    await page.waitForTimeout(500);
+    
+    // URL should change to bhajan detail (contains #bhajan/)
+    const url = page.url();
+    expect(url).toContain('#bhajan/');
+    
+    // Should show bhajan content
+    const content = page.locator('#bhajan-content');
+    await expect(content).toBeVisible();
+  });
+
+  test('daily bhajan has today\'s day tag', async ({ page }) => {
+    await page.goto('/');
+    await page.waitForSelector('.card.cursor-pointer');
+    
+    // Get current day
+    const today = new Date();
+    const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const currentDay = dayNames[today.getDay()];
+    
+    // Click banner to go to bhajan detail
+    const banner = page.locator('.card.cursor-pointer').first();
+    await banner.click();
+    await page.waitForTimeout(500);
+    
+    // Check if bhajan has the day tag
+    const tagsSection = page.locator('.tags');
+    await expect(tagsSection).toBeVisible();
+    
+    const tagsText = await tagsSection.textContent();
+    expect(tagsText).toContain(currentDay);
+  });
+
+  test('Monday shows Shiva bhajan', async ({ page, context }) => {
+    // Set system date to a Monday (2026-03-23 is a Monday)
+    await context.addInitScript(() => {
+      const OriginalDate = Date;
+      Date = class extends OriginalDate {
+        constructor(...args) {
+          if (args.length === 0) {
+            // Return Monday, March 23, 2026 at 10:00 AM
+            super(2026, 2, 23, 10, 0, 0);
+          } else {
+            super(...args);
+          }
+        }
+        static now() {
+          return new OriginalDate(2026, 2, 23, 10, 0, 0).getTime();
+        }
+      };
+      Date.prototype = OriginalDate.prototype;
+      Date.parse = OriginalDate.parse;
+      Date.UTC = OriginalDate.UTC;
+    });
+
+    await page.goto('/');
+    await page.waitForSelector('.card.cursor-pointer');
+    
+    const banner = page.locator('.card.cursor-pointer').first();
+    const bannerText = await banner.textContent();
+    
+    // Should show Monday
+    expect(bannerText).toContain('Monday');
+    
+    // Click to see full bhajan
+    await banner.click();
+    await page.waitForTimeout(500);
+    
+    // Should have Monday tag
+    const tagsSection = page.locator('.tags');
+    const tagsText = await tagsSection.textContent();
+    expect(tagsText).toContain('Monday');
+  });
+
+  test('Tuesday shows different bhajan than Monday', async ({ page, context }) => {
+    // Set system date to Tuesday
+    await context.addInitScript(() => {
+      const OriginalDate = Date;
+      Date = class extends OriginalDate {
+        constructor(...args) {
+          if (args.length === 0) {
+            // Return Tuesday, March 24, 2026 at 10:00 AM
+            super(2026, 2, 24, 10, 0, 0);
+          } else {
+            super(...args);
+          }
+        }
+        static now() {
+          return new OriginalDate(2026, 2, 24, 10, 0, 0).getTime();
+        }
+      };
+      Date.prototype = OriginalDate.prototype;
+      Date.parse = OriginalDate.parse;
+      Date.UTC = OriginalDate.UTC;
+    });
+
+    await page.goto('/');
+    await page.waitForSelector('.card.cursor-pointer');
+    
+    const banner = page.locator('.card.cursor-pointer').first();
+    const bannerText = await banner.textContent();
+    
+    // Should show Tuesday
+    expect(bannerText).toContain('Tuesday');
+    
+    // Click to see full bhajan
+    await banner.click();
+    await page.waitForTimeout(500);
+    
+    // Should have Tuesday tag
+    const tagsSection = page.locator('.tags');
+    const tagsText = await tagsSection.textContent();
+    expect(tagsText).toContain('Tuesday');
+  });
+
+  test('Wednesday shows Ganesh/Vighnaharta bhajan', async ({ page, context }) => {
+    await context.addInitScript(() => {
+      const OriginalDate = Date;
+      Date = class extends OriginalDate {
+        constructor(...args) {
+          if (args.length === 0) {
+            super(2026, 2, 25, 10, 0, 0); // Wednesday
+          } else {
+            super(...args);
+          }
+        }
+        static now() {
+          return new OriginalDate(2026, 2, 25, 10, 0, 0).getTime();
+        }
+      };
+      Date.prototype = OriginalDate.prototype;
+      Date.parse = OriginalDate.parse;
+      Date.UTC = OriginalDate.UTC;
+    });
+
+    await page.goto('/');
+    await page.waitForSelector('.card.cursor-pointer');
+    
+    const banner = page.locator('.card.cursor-pointer').first();
+    const bannerText = await banner.textContent();
+    
+    expect(bannerText).toContain('Wednesday');
+    
+    await banner.click();
+    await page.waitForTimeout(500);
+    
+    const tagsSection = page.locator('.tags');
+    const tagsText = await tagsSection.textContent();
+    expect(tagsText).toContain('Wednesday');
+  });
+
+  test('Thursday shows Guru/Dattareya bhajan', async ({ page, context }) => {
+    await context.addInitScript(() => {
+      const OriginalDate = Date;
+      Date = class extends OriginalDate {
+        constructor(...args) {
+          if (args.length === 0) {
+            super(2026, 2, 26, 10, 0, 0); // Thursday
+          } else {
+            super(...args);
+          }
+        }
+        static now() {
+          return new OriginalDate(2026, 2, 26, 10, 0, 0).getTime();
+        }
+      };
+      Date.prototype = OriginalDate.prototype;
+      Date.parse = OriginalDate.parse;
+      Date.UTC = OriginalDate.UTC;
+    });
+
+    await page.goto('/');
+    await page.waitForSelector('.card.cursor-pointer');
+    
+    const banner = page.locator('.card.cursor-pointer').first();
+    const bannerText = await banner.textContent();
+    
+    expect(bannerText).toContain('Thursday');
+    
+    await banner.click();
+    await page.waitForTimeout(500);
+    
+    const tagsSection = page.locator('.tags');
+    const tagsText = await tagsSection.textContent();
+    expect(tagsText).toContain('Thursday');
+  });
+
+  test('Friday shows Devi bhajan', async ({ page, context }) => {
+    await context.addInitScript(() => {
+      const OriginalDate = Date;
+      Date = class extends OriginalDate {
+        constructor(...args) {
+          if (args.length === 0) {
+            super(2026, 2, 27, 10, 0, 0); // Friday
+          } else {
+            super(...args);
+          }
+        }
+        static now() {
+          return new OriginalDate(2026, 2, 27, 10, 0, 0).getTime();
+        }
+      };
+      Date.prototype = OriginalDate.prototype;
+      Date.parse = OriginalDate.parse;
+      Date.UTC = OriginalDate.UTC;
+    });
+
+    await page.goto('/');
+    await page.waitForSelector('.card.cursor-pointer');
+    
+    const banner = page.locator('.card.cursor-pointer').first();
+    const bannerText = await banner.textContent();
+    
+    expect(bannerText).toContain('Friday');
+    
+    await banner.click();
+    await page.waitForTimeout(500);
+    
+    const tagsSection = page.locator('.tags');
+    const tagsText = await tagsSection.textContent();
+    expect(tagsText).toContain('Friday');
+  });
+
+  test('Saturday shows Hanuman/Anjaneya bhajan', async ({ page, context }) => {
+    await context.addInitScript(() => {
+      const OriginalDate = Date;
+      Date = class extends OriginalDate {
+        constructor(...args) {
+          if (args.length === 0) {
+            super(2026, 2, 28, 10, 0, 0); // Saturday
+          } else {
+            super(...args);
+          }
+        }
+        static now() {
+          return new OriginalDate(2026, 2, 28, 10, 0, 0).getTime();
+        }
+      };
+      Date.prototype = OriginalDate.prototype;
+      Date.parse = OriginalDate.parse;
+      Date.UTC = OriginalDate.UTC;
+    });
+
+    await page.goto('/');
+    await page.waitForSelector('.card.cursor-pointer');
+    
+    const banner = page.locator('.card.cursor-pointer').first();
+    const bannerText = await banner.textContent();
+    
+    expect(bannerText).toContain('Saturday');
+    
+    await banner.click();
+    await page.waitForTimeout(500);
+    
+    const tagsSection = page.locator('.tags');
+    const tagsText = await tagsSection.textContent();
+    expect(tagsText).toContain('Saturday');
+  });
+
+  test('Sunday shows Surya/Sun God bhajan', async ({ page, context }) => {
+    await context.addInitScript(() => {
+      const OriginalDate = Date;
+      Date = class extends OriginalDate {
+        constructor(...args) {
+          if (args.length === 0) {
+            super(2026, 2, 29, 10, 0, 0); // Sunday
+          } else {
+            super(...args);
+          }
+        }
+        static now() {
+          return new OriginalDate(2026, 2, 29, 10, 0, 0).getTime();
+        }
+      };
+      Date.prototype = OriginalDate.prototype;
+      Date.parse = OriginalDate.parse;
+      Date.UTC = OriginalDate.UTC;
+    });
+
+    await page.goto('/');
+    await page.waitForSelector('.card.cursor-pointer');
+    
+    const banner = page.locator('.card.cursor-pointer').first();
+    const bannerText = await banner.textContent();
+    
+    expect(bannerText).toContain('Sunday');
+    
+    await banner.click();
+    await page.waitForTimeout(500);
+    
+    const tagsSection = page.locator('.tags');
+    const tagsText = await tagsSection.textContent();
+    expect(tagsText).toContain('Sunday');
+  });
+
+  test('banner is clickable (has pointer cursor)', async ({ page }) => {
+    await page.goto('/');
+    await page.waitForSelector('.card.cursor-pointer');
+    
+    const banner = page.locator('.card.cursor-pointer').first();
+    
+    // Check if banner has onclick handler (clickable)
+    const onClick = await banner.getAttribute('onclick');
+    expect(onClick).toBeTruthy();
+    expect(onClick).toContain('setPage');
+  });
+
+  test('same day shows same bhajan (consistency check)', async ({ page }) => {
+    await page.goto('/');
+    await page.waitForSelector('.card.cursor-pointer');
+    
+    // Get first bhajan title
+    const banner = page.locator('.card.cursor-pointer').first();
+    const firstTitle = await banner.textContent();
+    
+    // Reload page
+    await page.reload();
+    await page.waitForSelector('.card.cursor-pointer');
+    
+    // Get second bhajan title
+    const secondTitle = await banner.textContent();
+    
+    // Should be the same
+    expect(secondTitle).toBe(firstTitle);
+  });
+
+  test('banner shows month and day number', async ({ page }) => {
+    await page.goto('/');
+    await page.waitForSelector('.card.cursor-pointer');
+    
+    const banner = page.locator('.card.cursor-pointer').first();
+    const bannerText = await banner.textContent();
+    
+    // Should contain month name (Jan, Feb, Mar, etc.)
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const hasMonth = months.some(month => bannerText.includes(month));
+    expect(hasMonth).toBe(true);
+    
+    // Should contain a day number (1-31)
+    const hasDayNumber = /\b([1-9]|[12][0-9]|3[01])\b/.test(bannerText);
+    expect(hasDayNumber).toBe(true);
+  });
+
+  test('fallback: shows random bhajan if no day-specific bhajans exist', async ({ page, context }) => {
+    // This test verifies the fallback mechanism works
+    // Even if no bhajans are tagged for a specific day, something should still show
+    
+    await page.goto('/');
+    await page.waitForSelector('.card.cursor-pointer');
+    
+    const banner = page.locator('.card.cursor-pointer').first();
+    
+    // Banner should exist
+    await expect(banner).toBeVisible();
+    
+    // Should show some bhajan title (fallback to random)
+    const bannerText = await banner.textContent();
+    expect(bannerText.length).toBeGreaterThan(20); // Has content
+  });
+});
