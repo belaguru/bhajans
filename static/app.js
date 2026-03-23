@@ -415,11 +415,12 @@ class BelaGuruApp {
             'language': '🌏 Languages',
             'occasion': '🎉 Occasions',
             'theme': '💡 Themes',
+            'day': '📅 Day of Week',
             'raga': '🎼 Ragas',
             'other': '📌 Other'
         };
         
-        const categoryOrder = ['deity', 'type', 'composer', 'language', 'occasion', 'theme', 'raga', 'other'];
+        const categoryOrder = ['deity', 'type', 'composer', 'language', 'occasion', 'theme', 'day', 'raga', 'other'];
         
         let html = '';
         
@@ -1762,7 +1763,35 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
 
     getDailyBhajan() {
         if (this.bhajans.length === 0) return null;
+        
+        // Get current day of week (0=Sunday, 1=Monday, etc.)
         const today = new Date();
+        const dayOfWeek = today.getDay();
+        
+        // Map day index to day name
+        const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const dayName = dayNames[dayOfWeek];
+        
+        // Get tag ID for current day
+        const dayTag = this.allTags && this.allTags.find(t => t.tag === dayName);
+        
+        if (dayTag) {
+            // Filter bhajans that have this day tag
+            const dayBhajans = this.bhajans.filter(b => 
+                b.tags && b.tags.includes(dayName)
+            );
+            
+            if (dayBhajans.length > 0) {
+                // Pick one based on day of year for consistency
+                const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
+                const index = dayOfYear % dayBhajans.length;
+                console.log(`📅 ${dayName} bhajan (${dayBhajans.length} available): ${dayBhajans[index].title}`);
+                return dayBhajans[index];
+            }
+        }
+        
+        // Fallback: random bhajan (day tag not found or no bhajans for this day)
+        console.log(`⚠️ No ${dayName} bhajans found, showing random bhajan`);
         const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
         const index = dayOfYear % this.bhajans.length;
         return this.bhajans[index];

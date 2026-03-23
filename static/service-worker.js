@@ -3,7 +3,7 @@
  * Enables offline support and app-like experience
  */
 
-const CACHE_NAME = 'belaguru-v1005';
+const CACHE_NAME = 'belaguru-v1006';
 const urlsToCache = [
   '/',
   '/index.html',
