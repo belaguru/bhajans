@@ -811,6 +811,28 @@ class BelaGuruApp {
         return findInTree(this.tagTree);
     }
 
+    /**
+     * Helper: Get tag IDs by tag names (for edit form pre-population)
+     */
+    getTagIdsByNames(tagNames) {
+        if (!tagNames || !Array.isArray(tagNames)) return [];
+        
+        const findIdByName = (tree, targetName) => {
+            for (const [name, node] of Object.entries(tree)) {
+                if (name === targetName) return node.id;
+                if (node.children) {
+                    const found = findIdByName(node.children, targetName);
+                    if (found) return found;
+                }
+            }
+            return null;
+        };
+        
+        return tagNames
+            .map(name => findIdByName(this.tagTree, name))
+            .filter(id => id !== null);
+    }
+
     // ===== TAG AUTOCOMPLETE COMPONENT =====
 
     renderTagInputHTML(inputId, existingTags) {
@@ -1586,7 +1608,8 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
         const bhajan = this.bhajans.find(b => b.id === bhajanId);
         if (!bhajan) return;
 
-        this._selectedTags = [...bhajan.tags];
+        // Convert tag names to tag IDs for the hierarchical selector
+        const existingTagIds = this.getTagIdsByNames(bhajan.tags || []);
 
         const html = `
             <div class="min-h-screen bg-orange-50">
@@ -1626,7 +1649,7 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
                             <label class="block font-semibold hanuman-text mb-2">
                                 Tags
                             </label>
-                            ${this.renderHierarchicalTagSelector('edit_tags', [])}
+                            ${this.renderHierarchicalTagSelector('edit_tags', existingTagIds)}
                         </div>
 
                         <div class="card">
@@ -1690,8 +1713,11 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
 
         const title = document.getElementById("edit_title").value.trim();
         const lyrics = document.getElementById("edit_lyrics").value.trim();
-        const tagsValue = document.getElementById("edit_tags_value").value;
-        const tags = tagsValue ? tagsValue.split(",").map(t => t.trim()).filter(t => t) : [];
+        
+        // Read from hierarchical tag selector (uses 'selected_tag_ids' hidden input)
+        const tagIdsValue = document.getElementById("selected_tag_ids").value;
+        const tagIds = tagIdsValue ? tagIdsValue.split(",").map(id => parseInt(id.trim())).filter(id => !isNaN(id)) : [];
+        
         const uploader_name = document.getElementById("edit_uploader_name").value.trim();
         const youtube_url = document.getElementById("edit_youtube_url").value.trim();
         const mp3Input = document.getElementById("edit_mp3_file");
@@ -1705,7 +1731,10 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
         const formData = new FormData();
         if (title) formData.append("title", title);
         if (lyrics) formData.append("lyrics", lyrics);
-        formData.append("tags", tags.join(","));
+        
+        // Send tag IDs instead of tag names
+        formData.append("tag_ids", tagIds.join(","));
+        
         if (uploader_name) formData.append("uploader_name", uploader_name);
         if (youtube_url) formData.append("youtube_url", youtube_url);
         if (mp3_file) formData.append("mp3_file", mp3_file);
