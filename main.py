@@ -455,8 +455,17 @@ def update_bhajan(
         bhajan.lyrics = cleaned_lyrics
 
     # Update tags using dual-write strategy
-    tag_list = [t.strip() for t in tags.split(",") if t.strip()]
+    # Convert numeric strings to integers (tag IDs), keep strings as tag names
+    tag_list = []
+    for t in tags.split(","):
+        t = t.strip()
+        if t:
+            if t.isdigit():
+                tag_list.append(int(t))
+            else:
+                tag_list.append(t)
     if tag_list:
+        logger.info(f"Updating tags for bhajan {bhajan_id}: {tag_list}")
         dual_write_tags(db, bhajan.id, tag_list, source="manual")
 
     # Update uploader name if provided

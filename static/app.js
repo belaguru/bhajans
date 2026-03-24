@@ -1765,7 +1765,10 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
         
         // Read from hierarchical tag selector (uses 'selected_tag_ids' hidden input)
         const tagIdsValue = document.getElementById("selected_tag_ids").value;
+        console.log("Edit form - selected_tag_ids value:", tagIdsValue);
+        console.log("Edit form - _selectedTagIds:", this._selectedTagIds);
         const tagIds = tagIdsValue ? tagIdsValue.split(",").map(id => parseInt(id.trim())).filter(id => !isNaN(id)) : [];
+        console.log("Edit form - parsed tagIds:", tagIds);
         
         const uploader_name = document.getElementById("edit_uploader_name").value.trim();
         const youtube_url = document.getElementById("edit_youtube_url").value.trim();
@@ -1781,8 +1784,8 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
         if (title) formData.append("title", title);
         if (lyrics) formData.append("lyrics", lyrics);
         
-        // Send tag IDs instead of tag names
-        formData.append("tag_ids", tagIds.join(","));
+        // Send tag IDs as comma-separated string (backend expects 'tags')
+        formData.append("tags", tagIds.join(","));
         
         if (uploader_name) formData.append("uploader_name", uploader_name);
         if (youtube_url) formData.append("youtube_url", youtube_url);

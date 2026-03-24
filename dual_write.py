@@ -98,10 +98,15 @@ def dual_write_tags(
     tag_names = []
     tag_ids = []
     
+    import logging
+    logger = logging.getLogger(__name__)
+    logger.info(f"dual_write_tags called with tags: {tags} (types: {[type(t).__name__ for t in tags]})")
+    
     for tag in tags:
         if isinstance(tag, str):
             tag_name = tag.lower().strip()
             tag_names.append(tag_name)
+            logger.info(f"  String tag: '{tag_name}'")
             
             # Look up tag_id if taxonomy enabled
             if _use_tag_taxonomy():
@@ -111,11 +116,16 @@ def dual_write_tags(
         
         elif isinstance(tag, int):
             tag_ids.append(tag)
+            logger.info(f"  Int tag ID: {tag}")
             
             # Convert to name for JSON
             tag_name = get_tag_name_by_id(session, tag)
+            logger.info(f"    -> Resolved to name: {tag_name}")
             if tag_name:
                 tag_names.append(tag_name)
+    
+    logger.info(f"  Final tag_names: {tag_names}")
+    logger.info(f"  Final tag_ids: {tag_ids}")
     
     # Write to old JSON field (always, for backward compat)
     bhajan.set_tags(tag_names)
