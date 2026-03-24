@@ -14,6 +14,9 @@ test('page loads and app renders', async ({ page }) => {
     const appDiv = page.locator('#app');
     await expect(appDiv).toBeAttached({ timeout: 10000 });
     
+    // Wait for app to finish loading (data-loaded attribute set when done)
+    await page.waitForSelector('#app[data-loaded="true"]', { timeout: 15000 });
+    
     // Verify app has content (any child element)
     await expect(appDiv).not.toBeEmpty({ timeout: 10000 });
     

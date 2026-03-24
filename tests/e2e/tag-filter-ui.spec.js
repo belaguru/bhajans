@@ -4,9 +4,14 @@
  */
 const { test, expect } = require('@playwright/test');
 
+// Helper to wait for app to finish loading
+async function waitForAppLoaded(page) {
+    await page.waitForSelector('#app[data-loaded="true"]', { timeout: 15000 });
+}
+
 test('tag filter sidebar visible on desktop', async ({ page }) => {
     await page.goto('http://localhost:8001');
-    await page.waitForSelector('#app');
+    await waitForAppLoaded(page);
     
     // Desktop sidebar should be visible (check for tag section)
     // The desktop tags are NOT in #mobile-tags-section
@@ -21,7 +26,7 @@ test('tag filter sidebar visible on desktop', async ({ page }) => {
 test('mobile tag filter toggle', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
     await page.goto('http://localhost:8001');
-    await page.waitForSelector('#app');
+    await waitForAppLoaded(page);
     
     // Mobile toggle button should be visible
     const toggleBtn = page.getByText('▼ Filter by Tags');
@@ -42,7 +47,7 @@ test('mobile tag filter toggle', async ({ page }) => {
 
 test('tag search filters tags', async ({ page }) => {
     await page.goto('http://localhost:8001');
-    await page.waitForSelector('#app');
+    await waitForAppLoaded(page);
     
     // Wait for tag categories to load (use .last() for desktop version)
     const categoryBtn = page.locator('button:has-text("🕉️ Deities")').last();
@@ -65,7 +70,7 @@ test('tag search filters tags', async ({ page }) => {
 
 test('clicking tag filters bhajans', async ({ page }) => {
     await page.goto('http://localhost:8001');
-    await page.waitForSelector('#app');
+    await waitForAppLoaded(page);
     
     // Wait for bhajan cards to load (not .card in general, but bhajan cards specifically)
     await page.waitForTimeout(2000);
@@ -93,7 +98,7 @@ test('clicking tag filters bhajans', async ({ page }) => {
 
 test('active filters display shows selected tags', async ({ page }) => {
     await page.goto('http://localhost:8001');
-    await page.waitForSelector('#app');
+    await waitForAppLoaded(page);
     
     // Wait for tags to load
     await page.waitForTimeout(2000);
@@ -123,7 +128,7 @@ test('active filters display shows selected tags', async ({ page }) => {
 
 test('search with tag filter combined', async ({ page }) => {
     await page.goto('http://localhost:8001');
-    await page.waitForSelector('#app');
+    await waitForAppLoaded(page);
     
     // Search for something
     const searchInput = page.locator('input[placeholder*="Search bhajans"]');
@@ -152,7 +157,7 @@ test('search with tag filter combined', async ({ page }) => {
 
 test('clear all filters button works', async ({ page }) => {
     await page.goto('http://localhost:8001');
-    await page.waitForSelector('#app');
+    await waitForAppLoaded(page);
     
     // Apply search
     const searchInput = page.locator('input[placeholder*="Search bhajans"]');
@@ -184,7 +189,7 @@ test('clear all filters button works', async ({ page }) => {
 
 test('tag counts display correctly', async ({ page }) => {
     await page.goto('http://localhost:8001');
-    await page.waitForSelector('#app');
+    await waitForAppLoaded(page);
     
     // Wait for tags to load
     await page.waitForTimeout(2000);
@@ -209,7 +214,7 @@ test('tag counts display correctly', async ({ page }) => {
 
 test('category expansion works', async ({ page }) => {
     await page.goto('http://localhost:8001');
-    await page.waitForSelector('#app');
+    await waitForAppLoaded(page);
     
     // Wait for categories to load
     await page.waitForTimeout(2000);
@@ -230,7 +235,7 @@ test('category expansion works', async ({ page }) => {
 
 test('no results message appears', async ({ page }) => {
     await page.goto('http://localhost:8001');
-    await page.waitForSelector('#app');
+    await waitForAppLoaded(page);
     
     // Search for something unlikely to exist
     const searchInput = page.locator('input[placeholder*="Search bhajans"]');
@@ -247,7 +252,7 @@ test('no results message appears', async ({ page }) => {
 test('mobile tag section closes after tag select', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
     await page.goto('http://localhost:8001');
-    await page.waitForSelector('#app');
+    await waitForAppLoaded(page);
     
     // Open mobile tags
     const toggleBtn = page.getByText('▼ Filter by Tags');

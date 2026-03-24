@@ -1,6 +1,11 @@
 // Test: Homepage loads correctly
 const { test, expect } = require('@playwright/test');
 
+// Helper to wait for app to finish loading
+async function waitForAppLoaded(page) {
+    await page.waitForSelector('#app[data-loaded="true"]', { timeout: 15000 });
+}
+
 test.describe('Homepage', () => {
   test('loads successfully', async ({ page }) => {
     await page.goto('/');
@@ -8,8 +13,8 @@ test.describe('Homepage', () => {
     // Check title exists (may vary)
     await expect(page).toHaveTitle(/.+/);
     
-    // Wait for app container instead of body (body might have CSS hiding it)
-    await page.waitForSelector('#app');
+    // Wait for app to finish loading
+    await waitForAppLoaded(page);
     const app = page.locator('#app');
     await expect(app).toBeAttached();
   });
@@ -17,8 +22,8 @@ test.describe('Homepage', () => {
   test('shows content', async ({ page }) => {
     await page.goto('/');
     
-    // Wait for content to load
-    await page.waitForLoadState('networkidle');
+    // Wait for app to finish loading
+    await waitForAppLoaded(page);
     
     // Check if app has any text
     const appText = await page.locator('#app').textContent();
@@ -28,8 +33,8 @@ test.describe('Homepage', () => {
   test('has basic structure', async ({ page }) => {
     await page.goto('/');
     
-    // Check app container exists and is attached
-    await page.waitForSelector('#app');
+    // Wait for app to finish loading
+    await waitForAppLoaded(page);
     const app = page.locator('#app');
     await expect(app).toBeAttached();
   });

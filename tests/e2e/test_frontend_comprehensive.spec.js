@@ -1,16 +1,21 @@
 // Comprehensive frontend tests (lenient)
 const { test, expect } = require('@playwright/test');
 
+// Helper to wait for app to finish loading
+async function waitForAppLoaded(page) {
+    await page.waitForSelector('#app[data-loaded="true"]', { timeout: 15000 });
+}
+
 test.describe('Frontend Basics', () => {
   test('homepage loads', async ({ page }) => {
     await page.goto('/');
-    await page.waitForSelector('#app');
+    await waitForAppLoaded(page);
     await expect(page.locator('#app')).toBeAttached();
   });
 
   test('has valid HTML', async ({ page }) => {
     await page.goto('/');
-    await page.waitForSelector('#app');
+    await waitForAppLoaded(page);
     await expect(page.locator('#app')).toBeAttached();
   });
 
@@ -23,7 +28,7 @@ test.describe('Frontend Basics', () => {
   test('loads in reasonable time', async ({ page }) => {
     const startTime = Date.now();
     await page.goto('/');
-    await page.waitForSelector('#app');
+    await waitForAppLoaded(page);
     const loadTime = Date.now() - startTime;
     
     // Should load in under 15 seconds (accounts for slow CI/test environments)
@@ -33,21 +38,21 @@ test.describe('Frontend Basics', () => {
   test('responsive - mobile', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
     await page.goto('/');
-    await page.waitForSelector('#app');
+    await waitForAppLoaded(page);
     await expect(page.locator('#app')).toBeAttached();
   });
 
   test('responsive - tablet', async ({ page }) => {
     await page.setViewportSize({ width: 768, height: 1024 });
     await page.goto('/');
-    await page.waitForSelector('#app');
+    await waitForAppLoaded(page);
     await expect(page.locator('#app')).toBeAttached();
   });
 
   test('responsive - desktop', async ({ page }) => {
     await page.setViewportSize({ width: 1920, height: 1080 });
     await page.goto('/');
-    await page.waitForSelector('#app');
+    await waitForAppLoaded(page);
     await expect(page.locator('#app')).toBeAttached();
   });
 
@@ -64,7 +69,7 @@ test.describe('Frontend Basics', () => {
 
   test('page has content', async ({ page }) => {
     await page.goto('/');
-    await page.waitForSelector('#app');
+    await waitForAppLoaded(page);
     
     const appText = await page.locator('#app').textContent();
     expect(appText.length).toBeGreaterThan(10);
@@ -72,7 +77,7 @@ test.describe('Frontend Basics', () => {
 
   test('navigation works', async ({ page }) => {
     await page.goto('/');
-    await page.waitForSelector('#app');
+    await waitForAppLoaded(page);
     
     // Navigate back and forward
     await page.goto('/');
@@ -80,7 +85,7 @@ test.describe('Frontend Basics', () => {
     await page.goForward();
     
     // Should still work
-    await page.waitForSelector('#app');
+    await waitForAppLoaded(page);
     await expect(page.locator('#app')).toBeAttached();
   });
 });
@@ -89,7 +94,7 @@ test.describe('Performance', () => {
   test('page loads within timeout', async ({ page }) => {
     // Set strict timeout
     await page.goto('/', { timeout: 15000 });
-    await page.waitForSelector('#app');
+    await waitForAppLoaded(page);
     
     await expect(page.locator('#app')).toBeAttached();
   });
@@ -115,7 +120,7 @@ test.describe('Accessibility', () => {
 
   test('keyboard navigation possible', async ({ page }) => {
     await page.goto('/');
-    await page.waitForSelector('#app');
+    await waitForAppLoaded(page);
     
     // Tab should work
     await page.keyboard.press('Tab');

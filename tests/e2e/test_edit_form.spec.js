@@ -1,14 +1,16 @@
 // E2E Test: Edit Form Functionality
 const { test, expect } = require('@playwright/test');
 
+// Helper to wait for app to finish loading
+async function waitForAppLoaded(page) {
+    await page.waitForSelector('#app[data-loaded="true"]', { timeout: 15000 });
+}
+
 test.describe('Bhajan Edit Form', () => {
   test('navigates to edit form from bhajan page', async ({ page }) => {
     // Navigate to bhajan detail page
     await page.goto('/');
-    await page.waitForSelector('#app');
-    
-    // Wait for bhajans to load
-    await page.waitForTimeout(1000);
+    await waitForAppLoaded(page);
     
     // Navigate directly to bhajan 1
     await page.evaluate(() => {
@@ -35,7 +37,7 @@ test.describe('Bhajan Edit Form', () => {
   test('edit form loads with current bhajan values', async ({ page }) => {
     // Navigate to bhajan 1 detail page
     await page.goto('/');
-    await page.waitForSelector('#app');
+    await waitForAppLoaded(page);
     await page.waitForTimeout(1000);
     
     // Get bhajan data before editing
@@ -72,7 +74,7 @@ test.describe('Bhajan Edit Form', () => {
   test('can modify title and lyrics in edit form', async ({ page }) => {
     // Navigate to bhajan 1 edit form
     await page.goto('/');
-    await page.waitForSelector('#app');
+    await waitForAppLoaded(page);
     await page.waitForTimeout(1000);
     
     await page.evaluate(() => {
@@ -101,7 +103,7 @@ test.describe('Bhajan Edit Form', () => {
   test('can select and modify tags in edit form', async ({ page }) => {
     // Navigate to bhajan 1 edit form
     await page.goto('/');
-    await page.waitForSelector('#app');
+    await waitForAppLoaded(page);
     await page.waitForTimeout(1000);
     
     await page.evaluate(() => {
@@ -147,7 +149,7 @@ test.describe('Bhajan Edit Form', () => {
     
     // Navigate to bhajan 1 edit form
     await page.goto('/');
-    await page.waitForSelector('#app');
+    await waitForAppLoaded(page);
     await page.waitForTimeout(1000);
     
     await page.evaluate(() => {
@@ -195,7 +197,7 @@ test.describe('Bhajan Edit Form', () => {
     
     // Navigate to bhajan 1 edit form
     await page.goto('/');
-    await page.waitForSelector('#app');
+    await waitForAppLoaded(page);
     await page.waitForTimeout(1000);
     
     await page.evaluate(() => {
@@ -211,7 +213,7 @@ test.describe('Bhajan Edit Form', () => {
   test('form persistence - changes remain after navigation', async ({ page }) => {
     // Navigate to bhajan 1 edit form
     await page.goto('/');
-    await page.waitForSelector('#app');
+    await waitForAppLoaded(page);
     await page.waitForTimeout(1000);
     
     await page.evaluate(() => {
@@ -232,7 +234,7 @@ test.describe('Bhajan Edit Form', () => {
   test('cancel/back navigation from edit form', async ({ page }) => {
     // Navigate to bhajan 1 edit form
     await page.goto('/');
-    await page.waitForSelector('#app');
+    await waitForAppLoaded(page);
     await page.waitForTimeout(1000);
     
     await page.evaluate(() => {

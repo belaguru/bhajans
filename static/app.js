@@ -24,17 +24,66 @@ class BelaGuruApp {
         // Tag input state for upload/edit forms
         this._selectedTags = [];
         this._tagDropdownVisible = false;
+        this.isLoading = true; // Track loading state
 
         this.init();
     }
 
     async init() {
-        await this.loadBhajans();
-        await this.loadTags();
-        await this.loadTagTree();
-        this.loadFontSizePreference();
-        this.initURLListener();
-        this.loadFromURL();
+        this.showLoadingSpinner();
+        try {
+            await this.loadBhajans();
+            await this.loadTags();
+            await this.loadTagTree();
+            this.loadFontSizePreference();
+            this.initURLListener();
+            this.loadFromURL();
+        } finally {
+            this.isLoading = false;
+            this.hideLoadingSpinner();
+        }
+    }
+
+    showLoadingSpinner() {
+        // Render spinner INSIDE #app so tests can find #app with content
+        // Mark app as loading for tests
+        if (this.appContainer) {
+            this.appContainer.setAttribute('data-loading', 'true');
+            this.appContainer.innerHTML = `
+                <div id="loading-spinner" style="
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    min-height: 50vh;
+                    padding: 2rem;
+                ">
+                    <div style="
+                        border: 4px solid #f3f4f6;
+                        border-top: 4px solid #ff6b35;
+                        border-radius: 50%;
+                        width: 50px;
+                        height: 50px;
+                        animation: spin 1s linear infinite;
+                    "></div>
+                    <p style="margin-top: 16px; color: #6b7280; font-weight: 500;">Loading Bhajans...</p>
+                    <style>
+                        @keyframes spin {
+                            0% { transform: rotate(0deg); }
+                            100% { transform: rotate(360deg); }
+                        }
+                    </style>
+                </div>
+            `;
+        }
+    }
+
+    hideLoadingSpinner() {
+        // Mark app as loaded for tests
+        if (this.appContainer) {
+            this.appContainer.removeAttribute('data-loading');
+            this.appContainer.setAttribute('data-loaded', 'true');
+        }
     }
 
     async loadBhajans() {

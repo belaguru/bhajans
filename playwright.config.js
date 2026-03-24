@@ -26,7 +26,7 @@ module.exports = defineConfig({
   ],
 
   webServer: {
-    command: 'cd ~/Projects/belaguru-portal-staging && ./run-staging.sh',
+    command: 'cd ~/Projects/belaguru-bhajans && ./start-staging.sh',
     url: 'http://localhost:8001',
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
