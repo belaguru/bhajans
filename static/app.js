@@ -42,27 +42,39 @@ class BelaGuruApp {
     }
 
     showLoadingSpinner() {
+        // Skip spinner if #app already has content (prevents blocking on page reload)
+        const appDiv = document.getElementById('app');
+        if (appDiv && appDiv.children.length > 0) {
+            return;
+        }
+
         const spinner = document.createElement('div');
         spinner.id = 'loading-spinner';
         spinner.style.cssText = `
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             z-index: 9999;
-            text-align: center;
         `;
         spinner.innerHTML = `
-            <div style="
-                border: 4px solid #f3f4f6;
-                border-top: 4px solid #ff6b35;
-                border-radius: 50%;
-                width: 50px;
-                height: 50px;
-                animation: spin 1s linear infinite;
-                margin: 0 auto;
-            "></div>
-            <p style="margin-top: 16px; color: #6b7280; font-weight: 500;">Loading Bhajans...</p>
+            <div style="text-align: center;">
+                <div style="
+                    border: 4px solid #f3f4f6;
+                    border-top: 4px solid #ff6b35;
+                    border-radius: 50%;
+                    width: 50px;
+                    height: 50px;
+                    animation: spin 1s linear infinite;
+                    margin: 0 auto;
+                "></div>
+                <p style="margin-top: 16px; color: #6b7280; font-weight: 500;">Loading Bhajans...</p>
+            </div>
             <style>
                 @keyframes spin {
                     0% { transform: rotate(0deg); }
