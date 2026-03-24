@@ -24,17 +24,60 @@ class BelaGuruApp {
         // Tag input state for upload/edit forms
         this._selectedTags = [];
         this._tagDropdownVisible = false;
+        this.isLoading = true; // Track loading state
 
         this.init();
     }
 
     async init() {
+        this.showLoadingSpinner();
         await this.loadBhajans();
         await this.loadTags();
         await this.loadTagTree();
         this.loadFontSizePreference();
         this.initURLListener();
         this.loadFromURL();
+        this.isLoading = false;
+        this.hideLoadingSpinner();
+    }
+
+    showLoadingSpinner() {
+        const spinner = document.createElement('div');
+        spinner.id = 'loading-spinner';
+        spinner.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            text-align: center;
+        `;
+        spinner.innerHTML = `
+            <div style="
+                border: 4px solid #f3f4f6;
+                border-top: 4px solid #ff6b35;
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                animation: spin 1s linear infinite;
+                margin: 0 auto;
+            "></div>
+            <p style="margin-top: 16px; color: #6b7280; font-weight: 500;">Loading Bhajans...</p>
+            <style>
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            </style>
+        `;
+        document.body.appendChild(spinner);
+    }
+
+    hideLoadingSpinner() {
+        const spinner = document.getElementById('loading-spinner');
+        if (spinner) {
+            spinner.remove();
+        }
     }
 
     async loadBhajans() {
@@ -44,6 +87,8 @@ class BelaGuruApp {
             this.applyFilters(); // Refresh filtered list after reload
         } catch (error) {
             console.error("Error loading bhajans:", error);
+            this.hideLoadingSpinner();
+            alert("Failed to load bhajans. Please refresh the page.");
         }
     }
 
@@ -179,9 +224,8 @@ class BelaGuruApp {
                 throw new Error(error.detail || "Failed to create bhajan");
             }
 
-            await this.loadBhajans();
-            await this.loadTags();
-
+            // Reload page to show new bhajan (ensures fresh data)
+            window.location.reload();
             return true;
         } catch (error) {
             alert(`Error: ${error.message}`);
@@ -1750,10 +1794,8 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
         })
         .then(data => {
             alert("Bhajan updated! ✅");
-            this.loadBhajans().then(() => {
-                this.loadTags();
-                this.setPage("bhajan", bhajanId);
-            });
+            // Reload page to show updated bhajan
+            window.location.reload();
         })
         .catch(error => alert(`Error: ${error.message}`));
     }
@@ -1769,8 +1811,8 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
         .then(response => response.json())
         .then(data => {
             alert("Bhajan deleted! 🗑️");
-            this.loadBhajans();
-            this.setPage("home");
+            // Reload page and go to home
+            window.location.href = "/";
         })
         .catch(error => alert(`Error: ${error.message}`));
     }
