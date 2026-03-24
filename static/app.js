@@ -179,9 +179,8 @@ class BelaGuruApp {
                 throw new Error(error.detail || "Failed to create bhajan");
             }
 
-            await this.loadBhajans();
-            await this.loadTags();
-
+            // Reload page to show new bhajan (ensures fresh data)
+            window.location.reload();
             return true;
         } catch (error) {
             alert(`Error: ${error.message}`);
@@ -1750,10 +1749,8 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
         })
         .then(data => {
             alert("Bhajan updated! ✅");
-            this.loadBhajans().then(() => {
-                this.loadTags();
-                this.setPage("bhajan", bhajanId);
-            });
+            // Reload page to show updated bhajan
+            window.location.reload();
         })
         .catch(error => alert(`Error: ${error.message}`));
     }
@@ -1769,8 +1766,8 @@ ${bhajan.lyrics.split('\n').map(line => line.trimStart()).join('\n')}
         .then(response => response.json())
         .then(data => {
             alert("Bhajan deleted! 🗑️");
-            this.loadBhajans();
-            this.setPage("home");
+            // Reload page and go to home
+            window.location.href = "/";
         })
         .catch(error => alert(`Error: ${error.message}`));
     }
